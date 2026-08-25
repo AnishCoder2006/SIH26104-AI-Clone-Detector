@@ -1,0 +1,33 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Frontend
+node_modules/
+dist/
+build/
+
+# ML Data
+ml_pipeline/data/*
+!ml_pipeline/data/.gitkeep
+ml_pipeline/models/*.pt
+ml_pipeline/models/*.pth
+ml_pipeline/models/*.onnx
+!ml_pipeline/models/.gitkeep
+
+# Logs
+*.log
