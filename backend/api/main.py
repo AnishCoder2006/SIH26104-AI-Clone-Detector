@@ -51,6 +51,11 @@ async def analyze_audio_endpoint(
             status_code=400,
             detail="Unsupported file type. Please upload an audio file."
         )
+    if file.size == 0:
+        raise HTTPException(
+            status_code=400,
+            detail="Uploaded audio file is empty."
+    )
 
     try:
         suffix = os.path.splitext(file.filename)[1]
