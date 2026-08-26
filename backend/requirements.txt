@@ -1,5 +1,7 @@
 fastapi
 uvicorn
 pydantic
-librosa
+librosa>=0.10.0,<1.1.0
+soundfile
+numpy
 python-multipart
