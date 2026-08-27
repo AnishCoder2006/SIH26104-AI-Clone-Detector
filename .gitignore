@@ -31,3 +31,8 @@ ml_pipeline/models/*.onnx
 
 # Logs
 *.log
+
+# Test Fixtures & Temporary Files
+.pytest_cache/
+.coverage
+test_human.wav
