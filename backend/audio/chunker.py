@@ -53,7 +53,10 @@ def chunk_array(
     sr: int,
     window_sec: float = 3.0,
     overlap: float = 0.5,
-    pad_last: bool = False,
+    # Confirmed with Model Owner (Member 1): downstream Wav2Vec2/ASVspoof models require
+    # fixed-length tensor inputs (e.g. 48,000 samples). Defaulting pad_last=True zero-pads
+    # trailing audio shorter than window_sec so no final speech is dropped at call end.
+    pad_last: bool = True,
 ) -> Iterator[np.ndarray]:
     """Generate fixed-size sliding-window chunks from a 1-D audio array.
 
@@ -72,9 +75,9 @@ def chunk_array(
     overlap : float, optional
         Overlap ratio between consecutive windows in [0.0, 1.0), by default 0.5.
     pad_last : bool, optional
-        If True, zero-pads any trailing audio shorter than `window_sec` to
-        produce a full-length chunk. If False (default), trailing samples
-        shorter than one window are dropped.
+        If True (default, confirmed with model owner), zero-pads trailing audio
+        shorter than `window_sec` to produce a full-length chunk. If False,
+        trailing samples shorter than one window are dropped.
 
     Yields
     ------

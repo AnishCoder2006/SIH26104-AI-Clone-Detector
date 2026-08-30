@@ -67,6 +67,20 @@ class TestChunkArray:
         gen = chunk_array(audio, sr=16000, window_sec=1.0, overlap=0.0)
         assert inspect.isgenerator(gen)
 
+    def test_default_pad_last_is_true(self):
+        """Verify default pad_last=True zero-pads short audio rather than dropping it."""
+        sr = 16000
+        n_samples = 20000  # < 48000 (3.0s)
+        audio = np.ones(n_samples, dtype=np.float32)
+        # Calling chunk_array with default parameters (no explicit pad_last passed)
+        chunks = list(chunk_array(audio, sr=sr, window_sec=3.0, overlap=0.5))
+
+        assert len(chunks) == 1
+        chunk = chunks[0]
+        assert chunk.shape == (48000,)
+        assert np.array_equal(chunk[:n_samples], audio)
+        assert np.all(chunk[n_samples:] == 0.0)
+
     def test_sliding_window_no_overlap_reconstruction(self):
         """Verify no dropped or duplicated samples in exact-multiple audio with 0 overlap."""
         sr = 16000
@@ -93,7 +107,7 @@ class TestChunkArray:
         # 5 seconds = 80000 samples -> (80000 - 32000) // 16000 + 1 = 4 chunks
         audio = np.arange(80000, dtype=np.float32)
 
-        chunks = list(chunk_array(audio, sr=sr, window_sec=window_sec, overlap=overlap))
+        chunks = list(chunk_array(audio, sr=sr, window_sec=window_sec, overlap=overlap, pad_last=False))
         assert len(chunks) == 4
 
         win_size, hop_size = 32000, 16000
@@ -104,7 +118,7 @@ class TestChunkArray:
             assert chunk.dtype == np.float32
 
     def test_audio_shorter_than_one_window_pad_false(self):
-        """Short audio with pad_last=False should yield nothing."""
+        """Short audio with explicit pad_last=False should yield nothing."""
         sr = 16000
         audio = np.ones(20000, dtype=np.float32)  # shorter than 3.0s (48000 samples)
         chunks = list(chunk_array(audio, sr=sr, window_sec=3.0, overlap=0.5, pad_last=False))
