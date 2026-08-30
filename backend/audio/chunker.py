@@ -89,8 +89,8 @@ def chunk_array(
     ValueError
         If `audio` is not a 1-D array, or if window parameters are invalid.
     """
-    if not isinstance(audio, np.ndarray):
-        audio = np.asarray(audio)
+    # Cast entirely upfront to ensure slices inside loop are zero-copy memory views
+    audio = np.asarray(audio, dtype=np.float32)
 
     if audio.ndim != 1:
         raise ValueError(
@@ -104,24 +104,21 @@ def chunk_array(
 
     window_size, hop_size = compute_window_params(sr, window_sec, overlap)
 
+    # Edge case: entire audio is shorter than a single window
     if n_samples < window_size:
         if pad_last:
-            padded = np.zeros(window_size, dtype=np.float32)
-            padded[:n_samples] = audio
-            yield padded
+            yield np.pad(audio, (0, window_size - n_samples), mode="constant")
         return
 
     start = 0
     while start < n_samples:
         end = start + window_size
         if end <= n_samples:
-            chunk = audio[start:end].astype(np.float32, copy=False)
-            yield chunk
+            # Zero-copy memory view
+            yield audio[start:end]
             start += hop_size
         else:
             if pad_last:
                 tail = audio[start:]
-                padded = np.zeros(window_size, dtype=np.float32)
-                padded[: len(tail)] = tail
-                yield padded
+                yield np.pad(tail, (0, window_size - len(tail)), mode="constant")
             break

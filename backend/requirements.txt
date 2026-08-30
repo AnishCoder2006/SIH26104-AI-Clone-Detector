@@ -1,9 +1,17 @@
+# Web Framework & API
 fastapi
 uvicorn
 pydantic
+python-multipart
+
+# Audio Processing & Signal Analysis
 librosa>=0.10.0,<1.1.0
 soundfile
 numpy
-python-multipart
+scipy
 webrtcvad-wheels
 sounddevice
+
+# Machine Learning & Inference
+torch
+transformers
