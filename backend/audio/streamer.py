@@ -13,7 +13,7 @@ from typing import Iterator, Tuple, Union
 import librosa
 import numpy as np
 
-from backend.audio.chunker import chunk_array, compute_window_params
+from audio.chunker import chunk_array, compute_window_params
 
 
 def load_audio(file_path: Union[str, Path]) -> Tuple[np.ndarray, int]:

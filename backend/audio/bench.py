@@ -9,7 +9,7 @@ import time
 from typing import Any, Dict, Iterator, Tuple, Union
 import numpy as np
 
-from backend.audio.streamer import stream_audio
+from audio.streamer import stream_audio
 
 
 def benchmark_chunk_latency(

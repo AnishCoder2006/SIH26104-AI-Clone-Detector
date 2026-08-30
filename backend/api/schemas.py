@@ -1,9 +1,26 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from typing import Optional
+
+
+class UserSignup(BaseModel):
+    full_name: str
+    email: str
+    password: str
+
+
+class UserSignin(BaseModel):
+    email: str
+    password: str
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
 
 class TelemetryMetrics(BaseModel):
     """Schema for forensic audio telemetry data."""
+    synthetic_voice_probability: Optional[float] = Field(default=0.0, description="Probability of synthetic voice in percent")
     snr_db: float = Field(default=20.0, description="Signal-to-Noise Ratio in dB")
     clipping_percent: float = Field(default=0.0, description="Percentage of audio clipped")
     rms_energy: Optional[float] = None
@@ -12,13 +29,11 @@ class TelemetryMetrics(BaseModel):
 
 
 class RiskRequest(BaseModel):
-    # Added validation boundaries (ge=0.0, le=1.0) for ML probabilities
     synthetic_probability: float = Field(..., ge=0.0, le=1.0)
     speaker_similarity: float = Field(..., ge=0.0, le=1.0)
     transaction_value: float = Field(default=0.0, ge=0.0)
     known_contact: bool = False
     
-    # Added optional telemetry dictionary to support the new risk_engine logic
     telemetry_metrics: Optional[TelemetryMetrics] = None
 
 
@@ -28,5 +43,4 @@ class RiskResponse(BaseModel):
     alert: bool
     recommendation: str
     
-    # Echoes the computed telemetry back to the client for debugging/logging
-    telemetry: Optional[TelemetryMetrics] = None
+    metrics: Optional[TelemetryMetrics] = None

@@ -11,6 +11,9 @@ venv.bak/
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+.coverage
+htmlcov/
 
 # OS
 .DS_Store
@@ -32,7 +35,17 @@ ml_pipeline/models/*.onnx
 # Logs
 *.log
 
-# Test Fixtures & Temporary Files
-.pytest_cache/
-.coverage
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Databases
+*.db
+*.sqlite3
+
+# Temporary Testing Scripts & Files
 test_human.wav
+test_backend_api.py
+integration_test.py

@@ -43,13 +43,11 @@ def analyze_audio(audio_path: str) -> dict:
     """
     model, extractor = load_model()
 
-    # 1. Load directly as 16kHz mono float32 (resampling & downmixing handled natively by librosa)
     try:
         audio_array, _ = librosa.load(audio_path, sr=TARGET_SR, mono=True)
     except Exception as e:
         raise RuntimeError(f"Failed to load audio file {audio_path}: {e}")
 
-    # 2. Slice audio into 4-second sliding window chunks with 50% overlap
     chunks = list(
         chunk_array(
             audio=audio_array,
@@ -60,7 +58,6 @@ def analyze_audio(audio_path: str) -> dict:
         )
     )
 
-    # Handle empty/silent audio files
     if not chunks:
         return {
             "synthetic_probability": 0.0,
@@ -69,16 +66,13 @@ def analyze_audio(audio_path: str) -> dict:
             "alert": False,
         }
 
-    # 3. Stack chunks into a single batched tensor
     inputs = extractor(chunks, sampling_rate=TARGET_SR, return_tensors="pt", padding=True)
     inputs = {k: v.to(_device) for k, v in inputs.items()}
 
-    # 4. Run batched model inference (runs on GPU if available, falls back to CPU seamlessly)
     with torch.no_grad():
         logits = model(**inputs).logits
         probs = torch.softmax(logits, dim=-1)
 
-    # 5. Extract spoof probabilities (class index 1) across all chunks and aggregate via max pooling
     spoof_probs = probs[:, 1]
     synthetic_probability = round(torch.max(spoof_probs).item(), 4)
 
