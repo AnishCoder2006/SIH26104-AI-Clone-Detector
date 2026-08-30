@@ -5,7 +5,7 @@ import torch
 import librosa
 from transformers import Wav2Vec2ForSequenceClassification, Wav2Vec2FeatureExtractor
 
-from ml.chunking_util import chunk_array
+from audio.chunker import chunk_array
 
 HF_MODEL_REPO = "Anish5764/asvspoof-wav2vec2-stage7"
 TARGET_SR = 16000
