@@ -1,8 +1,7 @@
 """Audio streaming and file ingestion module.
 
 Handles standardizing audio files to 16 kHz mono float32 arrays and streaming
-overlapping chunks in real-time or batch mode, with optional Voice Activity
-Detection (VAD) silence filtering.
+overlapping chunks in real-time or batch mode.
 
 Complies with DPDP Act privacy requirements by never caching, logging, or
 persisting raw audio to disk.
@@ -15,7 +14,6 @@ import librosa
 import numpy as np
 
 from backend.audio.chunker import chunk_array, compute_window_params
-from backend.audio.vad import has_voice
 
 
 def load_audio(file_path: Union[str, Path]) -> Tuple[np.ndarray, int]:
@@ -56,7 +54,6 @@ def stream_audio(
     # fixed-length tensor inputs (e.g. 48,000 samples). Defaulting pad_last=True zero-pads
     # trailing audio shorter than window_sec so no final speech is dropped at call end.
     pad_last: bool = True,
-    skip_silence: bool = False,
     simulate_realtime: bool = False,
 ) -> Iterator[Tuple[np.ndarray, int]]:
     """Stream overlapping audio chunks from an audio file.
@@ -75,9 +72,6 @@ def stream_audio(
     pad_last : bool, optional
         Whether to zero-pad the last short chunk if shorter than `window_sec`,
         by default True (confirmed with model owner for fixed tensor dimensions).
-    skip_silence : bool, optional
-        If True, runs Voice Activity Detection (VAD) and filters out silent chunks,
-        yielding only chunks with speech activity. By default False.
     simulate_realtime : bool, optional
         If True, sleeps `hop_size / sr` seconds between chunk yields to simulate
         real-time call pacing for demo purposes. By default False.
@@ -99,9 +93,6 @@ def stream_audio(
     sleep_interval = (hop_size / sr) if simulate_realtime else 0.0
 
     for chunk in chunk_array(audio, sr, window_sec=window_sec, overlap=overlap, pad_last=pad_last):
-        if skip_silence and not has_voice(chunk, sr=sr):
-            continue
-
         yield chunk, sr
         if simulate_realtime and sleep_interval > 0.0:
             time.sleep(sleep_interval)

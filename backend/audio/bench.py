@@ -73,7 +73,6 @@ def iter_chunks_for_backend(file_path: Union[str, Path]) -> Iterator[Tuple[np.nd
     Wraps `stream_audio` with standard production parameters:
     - 3.0-second sliding windows with 50% overlap.
     - `pad_last=True` for fixed-tensor model compatibility.
-    - `skip_silence=True` for VAD voice filtering.
     - `simulate_realtime=False` for maximum throughput.
 
     Parameters
@@ -93,6 +92,5 @@ def iter_chunks_for_backend(file_path: Union[str, Path]) -> Iterator[Tuple[np.nd
         window_sec=3.0,
         overlap=0.5,
         pad_last=True,
-        skip_silence=True,
         simulate_realtime=False,
     )
