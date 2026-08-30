@@ -1,35 +1,11 @@
-"""Sliding-window audio chunking utilities.
-
-Provides pure array-math sliding-window chunking functionality for raw audio
-signals without performing any file I/O or persisting raw audio data to disk.
-"""
+"""Sliding-window audio chunking utilities."""
 
 from typing import Iterator, Tuple
 import numpy as np
 
 
 def compute_window_params(sr: int, window_sec: float, overlap: float) -> Tuple[int, int]:
-    """Compute window size and hop size in samples from duration and overlap ratio.
-
-    Parameters
-    ----------
-    sr : int
-        Sample rate in Hz (must be a positive integer, typically 16000).
-    window_sec : float
-        Length of the sliding window in seconds (must be strictly positive).
-    overlap : float
-        Fractional overlap between consecutive windows in the range [0.0, 1.0).
-
-    Returns
-    -------
-    Tuple[int, int]
-        A tuple of (window_size_samples, hop_size_samples).
-
-    Raises
-    ------
-    ValueError
-        If `sr` <= 0, `window_sec` <= 0, or `overlap` is not in [0.0, 1.0).
-    """
+    """Compute window size and hop size in samples from duration and overlap ratio."""
     if sr <= 0:
         raise ValueError(f"Sample rate 'sr' must be a positive integer, got {sr}.")
     if window_sec <= 0:
@@ -55,43 +31,15 @@ def chunk_array(
     overlap: float = 0.5,
     pad_last: bool = False,
 ) -> Iterator[np.ndarray]:
-    """Generate fixed-size sliding-window chunks from a 1-D audio array.
-
-    Slides a window of length `window_sec` over the input audio with a step
-    size dictated by `overlap`. Returns a generator yielding 1-D float32 numpy
-    arrays.
-
-    Parameters
-    ----------
-    audio : np.ndarray
-        1-D array containing raw audio samples, shape (N,).
-    sr : int
-        Sample rate of the audio in Hz (e.g. 16000).
-    window_sec : float, optional
-        Window duration in seconds, by default 3.0.
-    overlap : float, optional
-        Overlap ratio between consecutive windows in [0.0, 1.0), by default 0.5.
-    pad_last : bool, optional
-        If True, zero-pads any trailing audio shorter than `window_sec` to
-        produce a full-length chunk. If False (default), trailing samples
-        shorter than one window are dropped.
-
-    Yields
-    ------
-    Iterator[np.ndarray]
-        1-D numpy arrays of shape (window_size,) with dtype np.float32.
-
-    Raises
-    ------
-    ValueError
-        If `audio` is not a 1-D array, or if window parameters are invalid.
-    """
-    if not isinstance(audio, np.ndarray):
-        audio = np.asarray(audio)
+    """Generate fixed-size sliding-window chunks from a 1-D audio array."""
+    
+    # OPTIMIZATION 1: Cast entirely upfront. 
+    # Ensures all slices inside the loop are zero-copy memory views.
+    audio = np.asarray(audio, dtype=np.float32)
 
     if audio.ndim != 1:
         raise ValueError(
-            f"Input audio must be 1-D (shape: (N,)), but got shape {audio.shape} with ndim={audio.ndim}. "
+            f"Input audio must be 1-D (shape: (N,)), but got shape {audio.shape}. "
             "Stereo/multi-channel audio must be downmixed to mono before chunking."
         )
 
@@ -101,24 +49,23 @@ def chunk_array(
 
     window_size, hop_size = compute_window_params(sr, window_sec, overlap)
 
+    # Edge case: entire audio is shorter than a single window
     if n_samples < window_size:
         if pad_last:
-            padded = np.zeros(window_size, dtype=np.float32)
-            padded[:n_samples] = audio
-            yield padded
+            yield np.pad(audio, (0, window_size - n_samples), mode='constant')
         return
 
     start = 0
     while start < n_samples:
         end = start + window_size
+        
         if end <= n_samples:
-            chunk = audio[start:end].astype(np.float32, copy=False)
-            yield chunk
+            # OPTIMIZATION 2: Zero-copy memory view
+            yield audio[start:end]
             start += hop_size
         else:
             if pad_last:
                 tail = audio[start:]
-                padded = np.zeros(window_size, dtype=np.float32)
-                padded[: len(tail)] = tail
-                yield padded
+                # OPTIMIZATION 3: Fast C-optimized padding
+                yield np.pad(tail, (0, window_size - len(tail)), mode='constant')
             break
