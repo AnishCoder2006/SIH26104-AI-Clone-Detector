@@ -9,7 +9,14 @@ librosa>=0.10.0,<1.1.0
 soundfile
 numpy
 scipy
+spafe
 
 # Machine Learning & Inference
 torch
 transformers
+
+# Authentication & Security
+passlib[bcrypt]
+python-jose[cryptography]
+bcrypt
+email-validator
