@@ -23,6 +23,18 @@ def standard_wav(tmp_path: Path) -> Path:
 
 
 @pytest.fixture
+def short_wav(tmp_path: Path) -> Path:
+    """Fixture creating a 1.2-second 16kHz mono audio file (shorter than 3.0s window)."""
+    file_path = tmp_path / "short_16k_mono.wav"
+    sr = 16000
+    duration = 1.2
+    t = np.linspace(0, duration, int(sr * duration), endpoint=False)
+    audio = (0.5 * np.sin(2 * np.pi * 440 * t)).astype(np.float32)
+    sf.write(str(file_path), audio, sr)
+    return file_path
+
+
+@pytest.fixture
 def nonstandard_sr_wav(tmp_path: Path) -> Path:
     """Fixture creating a 2-second 44.1kHz mono audio file."""
     file_path = tmp_path / "audio_44k_mono.wav"
@@ -89,8 +101,23 @@ class TestStreamAudio:
         gen = stream_audio(standard_wav, window_sec=2.0, overlap=0.5)
         assert inspect.isgenerator(gen)
 
+    def test_default_pad_last_yields_zero_padded_chunk_for_short_audio(self, short_wav: Path):
+        """Default stream_audio should pad short audio to fixed 3.0s (48000 samples)."""
+        chunks = list(stream_audio(short_wav, window_sec=3.0, overlap=0.5))
+        assert len(chunks) == 1
+        chunk, sr = chunks[0]
+        assert sr == 16000
+        assert chunk.shape == (48000,)
+        # Tail must be zero-padded
+        assert np.all(chunk[int(1.2 * 16000) :] == 0.0)
+
+    def test_explicit_pad_last_false_yields_nothing_for_short_audio(self, short_wav: Path):
+        """Explicit pad_last=False drops audio shorter than one window."""
+        chunks = list(stream_audio(short_wav, window_sec=3.0, overlap=0.5, pad_last=False))
+        assert len(chunks) == 0
+
     def test_stream_chunk_shapes_and_types(self, standard_wav: Path):
-        """4-second audio with window_sec=2.0, overlap=0.5 should yield 3 chunks."""
+        """4-second audio with window_sec=2.0, overlap=0.5 and pad_last=False should yield 3 chunks."""
         # Window = 2.0s (32000), hop = 1.0s (16000)
         # Windows: [0:32000], [16000:48000], [32000:64000] -> exactly 3 chunks
         chunks = list(stream_audio(standard_wav, window_sec=2.0, overlap=0.5, pad_last=False))
@@ -104,7 +131,6 @@ class TestStreamAudio:
 
     def test_stream_with_simulate_realtime(self, tmp_path: Path):
         """Verify simulate_realtime introduces pacing between yields."""
-        # Create a fast 0.3s fixture
         file_path = tmp_path / "short_realtime.wav"
         sr = 16000
         duration = 0.3
@@ -118,6 +144,7 @@ class TestStreamAudio:
                 file_path,
                 window_sec=0.1,
                 overlap=0.0,
+                pad_last=False,
                 simulate_realtime=True,
             )
         )

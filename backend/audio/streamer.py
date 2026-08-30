@@ -50,7 +50,10 @@ def stream_audio(
     file_path: Union[str, Path],
     window_sec: float = 3.0,
     overlap: float = 0.5,
-    pad_last: bool = False,
+    # Confirmed with Model Owner (Member 1): downstream Wav2Vec2/ASVspoof models require
+    # fixed-length tensor inputs (e.g. 48,000 samples). Defaulting pad_last=True zero-pads
+    # trailing audio shorter than window_sec so no final speech is dropped at call end.
+    pad_last: bool = True,
     simulate_realtime: bool = False,
 ) -> Iterator[Tuple[np.ndarray, int]]:
     """Stream overlapping audio chunks from an audio file.
@@ -67,7 +70,8 @@ def stream_audio(
     overlap : float, optional
         Fractional overlap between consecutive windows in [0.0, 1.0), by default 0.5.
     pad_last : bool, optional
-        Whether to zero-pad the last short chunk if shorter than `window_sec`, by default False.
+        Whether to zero-pad the last short chunk if shorter than `window_sec`,
+        by default True (confirmed with model owner for fixed tensor dimensions).
     simulate_realtime : bool, optional
         If True, sleeps `hop_size / sr` seconds between chunk yields to simulate
         real-time call pacing for demo purposes. By default False.
