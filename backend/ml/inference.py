@@ -5,7 +5,6 @@ import torch
 import librosa
 from transformers import Wav2Vec2ForSequenceClassification, Wav2Vec2FeatureExtractor
 
-# IMPORTANT: Adjust this import to match where you saved the chunking script!
 from audio.chunker import chunk_array
 
 HF_MODEL_REPO = "Anish5764/asvspoof-wav2vec2-stage7"
@@ -17,7 +16,9 @@ _model = None
 _extractor = None
 _device = "cuda" if torch.cuda.is_available() else "cpu"
 
+
 def load_model():
+    """Loads model and feature extractor lazily to device."""
     global _model, _extractor
     if _model is None:
         _model = Wav2Vec2ForSequenceClassification.from_pretrained(HF_MODEL_REPO)
@@ -30,27 +31,36 @@ def load_model():
 def analyze_audio(audio_path: str) -> dict:
     """
     Runs voice-clone detection on an audio file using batched sliding windows.
+
+    Loads audio as 16kHz mono, chunks it into overlapping windows, and processes
+    all chunks simultaneously on GPU or CPU.
+
+    Args:
+        audio_path: Path to the target audio file.
+
+    Returns:
+        dict containing synthetic_probability, speaker_similarity, label, and alert.
     """
     model, extractor = load_model()
 
-    # 1. Load and normalize audio
-    audio_array, sr = librosa.load(audio_path, sr=None)
+    # 1. Load directly as 16kHz mono float32 (resampling & downmixing handled natively by librosa)
+    try:
+        audio_array, _ = librosa.load(audio_path, sr=TARGET_SR, mono=True)
+    except Exception as e:
+        raise RuntimeError(f"Failed to load audio file {audio_path}: {e}")
 
-    if audio_array.ndim > 1:
-        audio_array = audio_array.mean(axis=1)
-    if sr != TARGET_SR:
-        audio_array = librosa.resample(audio_array, orig_sr=sr, target_sr=TARGET_SR)
+    # 2. Slice audio into 4-second sliding window chunks with 50% overlap
+    chunks = list(
+        chunk_array(
+            audio=audio_array,
+            sr=TARGET_SR,
+            window_sec=MAX_AUDIO_SECONDS,
+            overlap=0.5,
+            pad_last=True,
+        )
+    )
 
-    # 2. Generate sliding window chunks and cast generator to a list
-    chunks = list(chunk_array(
-        audio=audio_array,
-        sr=TARGET_SR,
-        window_sec=MAX_AUDIO_SECONDS,
-        overlap=0.5,
-        pad_last=True
-    ))
-
-    # Guard against completely empty files
+    # Handle empty/silent audio files
     if not chunks:
         return {
             "synthetic_probability": 0.0,
@@ -59,30 +69,24 @@ def analyze_audio(audio_path: str) -> dict:
             "alert": False,
         }
 
-    # 3. GPU BATCHING: Pass the entire list of chunks to the extractor
-    # The extractor automatically pads and stacks them into a single batched tensor
+    # 3. Stack chunks into a single batched tensor
     inputs = extractor(chunks, sampling_rate=TARGET_SR, return_tensors="pt", padding=True)
     inputs = {k: v.to(_device) for k, v in inputs.items()}
 
-    # 4. Batched Inference
+    # 4. Run batched model inference (runs on GPU if available, falls back to CPU seamlessly)
     with torch.no_grad():
-        # logits shape: (batch_size, num_classes)
-        logits = model(**inputs).logits 
-        # Apply softmax across the class dimension
+        logits = model(**inputs).logits
         probs = torch.softmax(logits, dim=-1)
 
-    # 5. Extract spoof probabilities (class index 1) for all chunks in the batch
-    # probs[:, 1] grabs the synthetic probability column for the entire batch
+    # 5. Extract spoof probabilities (class index 1) across all chunks and aggregate via max pooling
     spoof_probs = probs[:, 1]
-    
-    # Aggregate using GPU-native max pooling, then move the single scalar back to CPU
     synthetic_probability = round(torch.max(spoof_probs).item(), 4)
 
     is_spoof = synthetic_probability > SPOOF_THRESHOLD
 
     return {
         "synthetic_probability": synthetic_probability,
-        "speaker_similarity": None,
+        "speaker_similarity": None,  # Roadmap item for cross-session voiceprint matching
         "label": "CLONED" if is_spoof else "REAL",
         "alert": is_spoof,
     }
