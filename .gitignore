@@ -49,3 +49,7 @@ ml_pipeline/models/*.onnx
 test_human.wav
 test_backend_api.py
 integration_test.py
+
+# Next.js
+.next/
+.env.local
