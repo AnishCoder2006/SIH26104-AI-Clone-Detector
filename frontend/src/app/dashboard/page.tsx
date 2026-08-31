@@ -69,9 +69,14 @@ export default function Dashboard() {
 
   return (
     <div className="flex-1 max-w-7xl w-full mx-auto p-6 flex flex-col">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold font-serif tracking-tight">Command Center</h1>
-        <p className="text-slate-400 mt-1">Real-time voice cloning detection and risk analysis.</p>
+      <div className="mb-10 flex flex-col items-start relative">
+        <div className="absolute -top-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-[80px] pointer-events-none" />
+        <h1 className="text-4xl lg:text-5xl font-extrabold font-serif tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400 mb-2">
+          Command Center
+        </h1>
+        <p className="text-slate-400 text-sm lg:text-base max-w-xl border-l-2 border-primary/50 pl-4 py-1 relative">
+          Real-time voice cloning detection and enterprise-grade forensic risk analysis.
+        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1">
