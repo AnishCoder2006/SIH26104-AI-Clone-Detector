@@ -78,12 +78,12 @@ export default function Dashboard() {
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="h-[600px]"
+          className="min-h-[600px] h-full"
         >
           <MediaInput onAnalyze={handleAnalyze} isAnalyzing={isAnalyzing} />
         </motion.div>
 
-        <div className="h-[600px]">
+        <div className="min-h-[600px] h-full">
           <RiskAnalysisPanel loading={isAnalyzing} data={analysisData} />
         </div>
       </div>
