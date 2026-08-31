@@ -72,11 +72,19 @@ export function RiskAnalysisPanel({ loading, data }: RiskAnalysisPanelProps) {
         <RadialGauge score={data.risk_score} size={200} />
       </div>
 
-      <div className={`p-4 rounded-xl mb-8 flex items-start gap-3 border ${isHighRisk ? 'bg-red-500/10 border-red-500/30 text-red-300' : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'}`}>
-        {isHighRisk ? <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" /> : <ShieldCheck className="w-5 h-5 shrink-0 mt-0.5" />}
+      <div 
+        className={`p-5 rounded-xl mb-8 flex items-start gap-4 border backdrop-blur-md transition-all duration-500 ${
+          isHighRisk 
+            ? 'bg-gradient-to-r from-red-500/20 to-transparent border-red-500/50 shadow-[0_0_30px_rgba(239,68,68,0.15)] text-red-100' 
+            : 'bg-gradient-to-r from-emerald-500/20 to-transparent border-emerald-500/50 shadow-[0_0_30px_rgba(16,185,129,0.15)] text-emerald-100'
+        }`}
+      >
+        {isHighRisk ? <AlertTriangle className="w-6 h-6 shrink-0 mt-0.5 text-red-400 animate-pulse" /> : <ShieldCheck className="w-6 h-6 shrink-0 mt-0.5 text-emerald-400" />}
         <div>
-          <h4 className="font-semibold mb-1">{isHighRisk ? 'Security Alert' : 'Verification Passed'}</h4>
-          <p className="text-sm opacity-90">{data.recommendation}</p>
+          <h4 className={`font-bold text-sm tracking-widest uppercase mb-1.5 ${isHighRisk ? 'text-red-400' : 'text-emerald-400'}`}>
+            {isHighRisk ? 'Critical Security Alert' : 'Verification Passed'}
+          </h4>
+          <p className="text-sm opacity-90 leading-relaxed font-mono">{data.recommendation}</p>
         </div>
       </div>
 
