@@ -123,7 +123,8 @@ async def analyze_audio_endpoint(
         ml_result = analyze_audio(temp_path)
 
         try:
-            audio_data, sr = librosa.load(temp_path, sr=16000)
+            # FIX APPLIED HERE: Added mono=True to ensure 1D array for telemetry
+            audio_data, sr = librosa.load(temp_path, sr=16000, mono=True)
         except Exception:
             raise HTTPException(status_code=400, detail="Could not decode audio file. File may be corrupted.")
             

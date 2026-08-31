@@ -1,11 +1,10 @@
 # model_inference.py
 
-import numpy as np
 import torch
-import librosa
 from transformers import Wav2Vec2ForSequenceClassification, Wav2Vec2FeatureExtractor
 
-from audio.chunker import chunk_array
+# IMPORT YOUR TEAMMATE'S NEW STREAMER
+from audio.streamer import stream_audio
 
 HF_MODEL_REPO = "Anish5764/asvspoof-wav2vec2-stage7"
 TARGET_SR = 16000
@@ -15,7 +14,6 @@ SPOOF_THRESHOLD = 0.1
 _model = None
 _extractor = None
 _device = "cuda" if torch.cuda.is_available() else "cpu"
-
 
 def load_model():
     """Loads model and feature extractor lazily to device."""
@@ -27,36 +25,24 @@ def load_model():
         _model.to(_device)
     return _model, _extractor
 
-
 def analyze_audio(audio_path: str) -> dict:
-    """
-    Runs voice-clone detection on an audio file using batched sliding windows.
-
-    Loads audio as 16kHz mono, chunks it into overlapping windows, and processes
-    all chunks simultaneously on GPU or CPU.
-
-    Args:
-        audio_path: Path to the target audio file.
-
-    Returns:
-        dict containing synthetic_probability, speaker_similarity, label, and alert.
-    """
+    """Runs voice-clone detection on an audio file using batched sliding windows."""
     model, extractor = load_model()
 
     try:
-        audio_array, _ = librosa.load(audio_path, sr=TARGET_SR, mono=True)
-    except Exception as e:
-        raise RuntimeError(f"Failed to load audio file {audio_path}: {e}")
-
-    chunks = list(
-        chunk_array(
-            audio=audio_array,
-            sr=TARGET_SR,
+        # Use the new streamer! It handles librosa loading, mono conversion, and chunking all at once
+        chunk_generator = stream_audio(
+            file_path=audio_path,
             window_sec=MAX_AUDIO_SECONDS,
             overlap=0.5,
             pad_last=True,
+            simulate_realtime=False
         )
-    )
+        # Extract just the audio arrays (ignoring the sr variable it returns)
+        chunks = [chunk for chunk, sr in chunk_generator]
+        
+    except Exception as e:
+        raise RuntimeError(f"Failed to load or stream audio file {audio_path}: {e}")
 
     if not chunks:
         return {
@@ -80,7 +66,7 @@ def analyze_audio(audio_path: str) -> dict:
 
     return {
         "synthetic_probability": synthetic_probability,
-        "speaker_similarity": None,  # Roadmap item for cross-session voiceprint matching
+        "speaker_similarity": None,
         "label": "CLONED" if is_spoof else "REAL",
         "alert": is_spoof,
     }
