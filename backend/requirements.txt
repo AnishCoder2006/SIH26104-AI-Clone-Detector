@@ -18,6 +18,7 @@ spafe
 # Machine Learning & Inference
 torch
 transformers
+onnxruntime
 
 # Authentication & Security
 passlib[bcrypt]
