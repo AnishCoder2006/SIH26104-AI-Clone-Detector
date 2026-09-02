@@ -25,6 +25,19 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const SOUNDWAVE_ANIM_BARS = [
+  { min: 25, max: 80, dur: 1.2 },
+  { min: 35, max: 95, dur: 0.9 },
+  { min: 20, max: 100, dur: 1.4 },
+  { min: 40, max: 70, dur: 0.8 },
+  { min: 30, max: 85, dur: 1.1 },
+  { min: 50, max: 100, dur: 0.95 },
+  { min: 25, max: 75, dur: 1.3 },
+  { min: 35, max: 90, dur: 0.85 },
+  { min: 20, max: 65, dur: 1.15 },
+  { min: 15, max: 50, dur: 1.0 },
+];
+
 function SigninContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -127,22 +140,69 @@ function SigninContent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Sub-Engine 1: Indic Regional Dialect */}
               <div className="rounded-xl p-4 bg-[#070B14]/90 border border-white/10 flex flex-col justify-between hover:border-primary/50 transition-all">
-                {/* Visual Graphic: India Map Contour & Soundwave */}
-                <div className="h-28 rounded-lg bg-gradient-to-b from-[#161D2F]/60 to-[#070B14] border border-white/5 p-3 flex items-center justify-center gap-3 relative overflow-hidden mb-3">
-                  {/* Stylized India Contour Silhouette SVG */}
-                  <svg className="w-16 h-20 text-primary/80 drop-shadow-[0_0_10px_rgba(0,245,160,0.4)] shrink-0" viewBox="0 0 100 120" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M45,10 Q55,8 60,18 Q68,25 65,35 Q75,45 80,55 Q75,65 65,75 Q55,95 50,115 Q45,95 35,75 Q25,65 20,55 Q25,45 35,35 Q32,25 40,18 Z" fill="rgba(0,245,160,0.08)" strokeDasharray="3 2" />
-                    <circle cx="50" cy="50" r="8" fill="rgba(0,245,160,0.2)" stroke="currentColor" strokeWidth="1.5" />
-                    <circle cx="50" cy="50" r="3" fill="#00F5A0" />
-                  </svg>
+                {/* Visual Graphic: High-Tech India Contour & Sonar Neural Waveform */}
+                <div className="h-28 rounded-xl bg-gradient-to-b from-[#161D2F]/80 via-[#0B0F19] to-[#070B14] border border-white/10 p-3 flex items-center justify-between gap-3 relative overflow-hidden mb-3 group/engine">
+                  {/* Subtle Background Radial Glow */}
+                  <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-24 h-24 bg-primary/10 rounded-full blur-xl pointer-events-none" />
 
-                  {/* Micro Soundwave Equalizer */}
-                  <div className="flex items-end gap-1 h-14">
-                    {[35, 60, 90, 45, 80, 100, 70, 50, 85, 40].map((h, i) => (
-                      <div
+                  {/* High-Precision Cyber India Map Contour with Animated Sonar Nodes */}
+                  <div className="relative w-20 h-24 shrink-0 flex items-center justify-center">
+                    <svg className="w-full h-full drop-shadow-[0_0_12px_rgba(0,245,160,0.5)] overflow-visible" viewBox="0 0 100 120" fill="none">
+                      <defs>
+                        <linearGradient id="indiaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#00F5A0" stopOpacity="0.22" />
+                          <stop offset="100%" stopColor="#00D2FF" stopOpacity="0.06" />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Sonar Beacon Rings radiating from Central India */}
+                      <circle cx="50" cy="58" r="30" stroke="#00F5A0" strokeWidth="0.75" className="animate-ping opacity-25" />
+                      <circle cx="50" cy="58" r="16" stroke="#00D2FF" strokeWidth="0.75" strokeDasharray="3 2" className="animate-pulse opacity-40" />
+
+                      {/* Detailed Authentic India Geopolitical Contour Path */}
+                      <path
+                        d="M48,6 C54,8 57,14 53,19 C56,22 64,21 66,25 C69,29 78,28 84,32 C88,35 85,41 78,43 C74,44 68,43 64,48 C62,54 61,62 58,72 C55,83 51,96 48,110 C45,96 40,83 37,72 C33,62 29,59 23,55 C17,50 18,42 26,40 C32,38 33,32 35,26 C37,20 42,9 48,6 Z"
+                        fill="url(#indiaGrad)"
+                        stroke="#00F5A0"
+                        strokeWidth="1.75"
+                        strokeLinejoin="round"
+                        strokeLinecap="round"
+                      />
+
+                      {/* Linguistic Cyber Mesh & Telemetry Nodes */}
+                      <path d="M46,28 L66,45 L48,82 L34,55 Z" stroke="rgba(0,245,160,0.35)" strokeWidth="0.75" strokeDasharray="2 2" />
+
+                      {/* Delhi Node */}
+                      <circle cx="46" cy="28" r="2.5" fill="#00D2FF" />
+                      <circle cx="46" cy="28" r="5" stroke="#00D2FF" strokeWidth="0.8" className="animate-ping opacity-60" />
+
+                      {/* Mumbai Node */}
+                      <circle cx="34" cy="55" r="2" fill="#00F5A0" />
+
+                      {/* Bengaluru Node */}
+                      <circle cx="48" cy="82" r="2.5" fill="#00F5A0" />
+
+                      {/* Kolkata Node */}
+                      <circle cx="66" cy="45" r="2" fill="#00D2FF" />
+                    </svg>
+                  </div>
+
+                  {/* Dynamic Dancing Soundwave Visualizer (Fluid Framer-Motion) */}
+                  <div className="flex-1 flex items-end justify-between gap-1.5 h-16 px-1">
+                    {SOUNDWAVE_ANIM_BARS.map((bar, i) => (
+                      <motion.div
                         key={i}
-                        className="w-1 bg-gradient-to-t from-primary to-accent rounded-full animate-pulse"
-                        style={{ height: `${h}%`, animationDuration: `${0.4 + (i % 4) * 0.15}s` }}
+                        className="flex-1 rounded-full bg-gradient-to-t from-[#00F5A0] via-[#00F5A0] to-[#00D2FF] shadow-[0_0_8px_rgba(0,245,160,0.4)]"
+                        animate={{
+                          height: [`${bar.min}%`, `${bar.max}%`, `${bar.min * 1.2}%`, `${bar.max * 0.8}%`, `${bar.min}%`],
+                        }}
+                        transition={{
+                          duration: bar.dur,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: i * 0.08,
+                        }}
+                        style={{ minHeight: '6px' }}
                       />
                     ))}
                   </div>
@@ -159,22 +219,39 @@ function SigninContent() {
               {/* Sub-Engine 2: Global Temporal Engine */}
               <div className="rounded-xl p-4 bg-[#070B14]/90 border border-white/10 flex flex-col justify-between hover:border-accent/50 transition-all">
                 {/* Visual Graphic: Wireframe Globe & Spectrogram */}
-                <div className="h-28 rounded-lg bg-gradient-to-b from-[#161D2F]/60 to-[#070B14] border border-white/5 p-3 flex items-center justify-center gap-3 relative overflow-hidden mb-3">
+                <div className="h-28 rounded-xl bg-gradient-to-b from-[#161D2F]/80 via-[#0B0F19] to-[#070B14] border border-white/10 p-3 flex items-center justify-between gap-3 relative overflow-hidden mb-3">
                   {/* Wireframe Globe SVG */}
-                  <svg className="w-16 h-16 text-accent/80 drop-shadow-[0_0_10px_rgba(0,210,255,0.4)] shrink-0" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="50" cy="50" r="42" strokeDasharray="4 2" />
-                    <ellipse cx="50" cy="50" rx="42" ry="18" />
-                    <ellipse cx="50" cy="50" rx="18" ry="42" />
-                    <line x1="50" y1="8" x2="50" y2="92" />
-                    <line x1="8" y1="50" x2="92" y2="50" />
-                  </svg>
+                  <div className="relative w-20 h-24 shrink-0 flex items-center justify-center">
+                    <svg className="w-18 h-18 text-accent/80 drop-shadow-[0_0_12px_rgba(0,210,255,0.5)]" viewBox="0 0 100 100" fill="none">
+                      <circle cx="50" cy="50" r="42" stroke="#00D2FF" strokeWidth="1.5" strokeDasharray="4 2" />
+                      <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#00F5A0" strokeWidth="1" strokeDasharray="3 2" />
+                      <ellipse cx="50" cy="50" rx="16" ry="42" stroke="#00D2FF" strokeWidth="1" strokeDasharray="3 2" />
+                      <circle cx="50" cy="50" r="4" fill="#00F5A0" className="animate-pulse" />
+                    </svg>
+                  </div>
 
-                  {/* Simulated Mel-Spectrogram Heatmap */}
-                  <div className="flex-1 h-16 rounded bg-gradient-to-r from-blue-900/60 via-purple-800/40 to-emerald-800/60 border border-white/10 p-1 flex flex-col justify-between">
-                    <div className="h-2 rounded-sm bg-gradient-to-r from-accent via-primary to-transparent opacity-80" />
-                    <div className="h-2 rounded-sm bg-gradient-to-r from-transparent via-accent to-primary opacity-60" />
-                    <div className="h-2 rounded-sm bg-gradient-to-r from-primary/80 via-transparent to-accent opacity-75" />
-                    <div className="h-2 rounded-sm bg-gradient-to-r from-accent/90 to-primary/60 opacity-90" />
+                  {/* Simulated Mel-Spectrogram Heatmap with Animation */}
+                  <div className="flex-1 h-16 rounded bg-[#070B14] border border-white/10 p-1.5 flex flex-col justify-between overflow-hidden">
+                    <motion.div 
+                      className="h-2 rounded-full bg-gradient-to-r from-accent via-primary to-transparent" 
+                      animate={{ opacity: [0.6, 1, 0.7], x: [-3, 3, -3] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <motion.div 
+                      className="h-2 rounded-full bg-gradient-to-r from-transparent via-accent to-primary" 
+                      animate={{ opacity: [0.8, 0.4, 0.9], x: [3, -3, 3] }}
+                      transition={{ duration: 1.6, repeat: Infinity }}
+                    />
+                    <motion.div 
+                      className="h-2 rounded-full bg-gradient-to-r from-primary via-transparent to-accent" 
+                      animate={{ opacity: [0.5, 0.95, 0.5] }}
+                      transition={{ duration: 1.8, repeat: Infinity }}
+                    />
+                    <motion.div 
+                      className="h-2 rounded-full bg-gradient-to-r from-accent via-primary to-accent" 
+                      animate={{ opacity: [0.9, 0.6, 1] }}
+                      transition={{ duration: 1.4, repeat: Infinity }}
+                    />
                   </div>
                 </div>
 
