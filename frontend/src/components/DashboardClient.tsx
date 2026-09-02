@@ -119,10 +119,10 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
         {/* Main Title & Subtitle */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-fraunces font-normal tracking-normal text-white mb-3 drop-shadow-sm leading-[1.18]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-cormorant font-normal tracking-normal text-white mb-3 drop-shadow-sm leading-[1.12]">
               {title}
             </h1>
-            <p className="font-inter text-silver text-sm lg:text-[15px] leading-relaxed border-l-2 border-primary/70 pl-4 py-1 font-normal tracking-wide">
+            <p className="font-karla text-silver text-sm lg:text-base leading-relaxed border-l-2 border-primary/70 pl-4 py-1 font-normal tracking-wide">
               {language === 'indian'
                 ? 'High-precision forensic synthesis intercept specialized for Indian regional dialects, multi-lingual vocoder artifacts, and acoustic anomalies.'
                 : 'Enterprise-grade deepfake voice clone interception with continuous micro-pitch analysis, spectral phase coherence, and telemetry diagnostics.'}
@@ -139,13 +139,13 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
                 <div className="w-8 h-8 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary shadow-sm group-hover:scale-105 transition-transform">
                   <Activity className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-silver">
+                <span className="text-[11px] font-karla font-medium px-2.5 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-silver tracking-wide">
                   Mono Stream
                 </span>
               </div>
               <div>
-                <p className="text-[10px] font-inter tracking-widest text-silver uppercase font-semibold">Sample Rate</p>
-                <p className="text-base font-bold font-inter text-white tracking-tight mt-0.5">16.0 <span className="text-xs font-normal text-silver font-mono">kHz</span></p>
+                <p className="text-[10px] font-karla tracking-widest text-silver uppercase font-bold">Sample Rate</p>
+                <p className="text-2xl font-cormorant font-semibold text-white tracking-tight mt-0.5">16.0 <span className="text-xs font-normal text-silver font-karla">kHz</span></p>
               </div>
             </div>
 
@@ -156,13 +156,13 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
                 <div className="w-8 h-8 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center text-accent shadow-sm group-hover:scale-105 transition-transform">
                   <Cpu className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-accent">
+                <span className="text-[11px] font-karla font-medium px-2.5 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-accent tracking-wide">
                   FP32 Core
                 </span>
               </div>
               <div>
-                <p className="text-[10px] font-inter tracking-widest text-silver uppercase font-semibold">Inference</p>
-                <p className="text-base font-bold font-inter text-white tracking-tight mt-0.5">ONNX <span className="text-xs font-normal text-accent font-mono">Neural</span></p>
+                <p className="text-[10px] font-karla tracking-widest text-silver uppercase font-bold">Inference</p>
+                <p className="text-2xl font-cormorant font-semibold text-white tracking-tight mt-0.5">ONNX <span className="text-xs font-semibold text-accent font-karla">Neural</span></p>
               </div>
             </div>
 
@@ -173,13 +173,13 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
                 <div className="w-8 h-8 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary shadow-sm group-hover:scale-105 transition-transform">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-primary">
+                <span className="text-[11px] font-karla font-medium px-2.5 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-primary tracking-wide">
                   Benchmark
                 </span>
               </div>
               <div>
-                <p className="text-[10px] font-inter tracking-widest text-silver uppercase font-semibold">Accuracy</p>
-                <p className="text-base font-bold font-inter text-primary tracking-tight mt-0.5">99.4% <span className="text-xs font-normal text-silver font-mono">F1</span></p>
+                <p className="text-[10px] font-karla tracking-widest text-silver uppercase font-bold">Accuracy</p>
+                <p className="text-2xl font-cormorant font-semibold text-primary tracking-tight mt-0.5">99.4% <span className="text-xs font-normal text-silver font-karla">F1</span></p>
               </div>
             </div>
 

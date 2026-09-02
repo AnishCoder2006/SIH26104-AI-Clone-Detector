@@ -18,14 +18,14 @@ const inter = Inter({
 
 const karla = Karla({ 
   subsets: ['latin'], 
-  variable: '--font-sans',
+  variable: '--font-karla',
   display: 'swap',
   weight: ['300', '400', '500', '600', '700'],
 });
 
 const cormorant = Cormorant({ 
   subsets: ['latin'], 
-  variable: '--font-serif',
+  variable: '--font-cormorant',
   display: 'swap',
   weight: ['300', '400', '500', '600', '700'],
 });
