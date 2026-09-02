@@ -6,6 +6,9 @@
   body {
     @apply bg-background text-white antialiased selection:bg-primary/20 selection:text-primary;
   }
+  input, button, select, textarea {
+    font-family: inherit;
+  }
 }
 
 @layer utilities {
