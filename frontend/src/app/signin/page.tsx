@@ -471,7 +471,7 @@ function SigninContent() {
                     type="email"
                     required
                     className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-base shadow-inner"
-                    placeholder="analyst@company.com"
+                    placeholder="Enter corporate email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
@@ -487,7 +487,7 @@ function SigninContent() {
                     type={showPassword ? 'text' : 'password'}
                     required
                     className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3.5 pl-4 pr-11 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-base shadow-inner tracking-wider"
-                    placeholder="••••••••••••"
+                    placeholder="Enter your password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   />
