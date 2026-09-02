@@ -49,11 +49,6 @@ function SigninContent() {
     { label: 'Bengali', id: 'bengali' },
   ];
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      router.push('/dashboard/hindi');
-    }
-  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
