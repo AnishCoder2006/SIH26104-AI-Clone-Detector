@@ -265,8 +265,8 @@ function SignupContent() {
                 <input
                   type="text"
                   required
-                  className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-2.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder-silver/40 font-karla text-sm shadow-inner"
-                  placeholder="Dr. Rajesh Sharma"
+                  className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-2.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-silver/40 font-karla text-sm shadow-inner"
+                  placeholder="e.g. Dr. Rajesh Sharma"
                   value={formData.full_name}
                   onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                 />
@@ -279,8 +279,8 @@ function SignupContent() {
                 <input
                   type="email"
                   required
-                  className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-2.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder-silver/40 font-karla text-sm shadow-inner"
-                  placeholder="analyst@agency.gov.in"
+                  className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-2.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-silver/40 font-karla text-sm shadow-inner"
+                  placeholder="analyst@enterprise.domain"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
@@ -294,8 +294,8 @@ function SignupContent() {
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
-                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-2.5 pl-4 pr-11 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder-silver/40 font-karla text-sm shadow-inner"
-                    placeholder="Create secure password"
+                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-2.5 pl-4 pr-11 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-silver/40 font-karla text-sm shadow-inner"
+                    placeholder="Create master password (min. 8 characters)"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   />

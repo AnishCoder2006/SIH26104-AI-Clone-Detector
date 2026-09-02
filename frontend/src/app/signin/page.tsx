@@ -305,8 +305,8 @@ function SigninContent() {
                   <input
                     type="email"
                     required
-                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder-silver/40 font-karla text-sm shadow-inner"
-                    placeholder="Email"
+                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-silver/40 font-karla text-sm shadow-inner"
+                    placeholder="analyst@enterprise.domain"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
@@ -321,8 +321,8 @@ function SigninContent() {
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
-                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3 pl-4 pr-11 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder-silver/40 font-karla text-sm shadow-inner"
-                    placeholder="Password"
+                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3 pl-4 pr-11 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-silver/40 font-karla text-sm shadow-inner"
+                    placeholder="Enter security password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   />
