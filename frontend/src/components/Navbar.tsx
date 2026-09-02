@@ -86,18 +86,6 @@ export function Navbar() {
         {/* Right: Security Telemetry & Analyst Menu */}
         <div className="flex items-center gap-3">
           
-          {/* Real-time Defense Status */}
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950/80 border border-slate-800 shadow-inner">
-            <div className="relative flex items-center justify-center">
-              <span className="absolute w-2 h-2 rounded-full bg-emerald-400 animate-ping opacity-60" />
-              <span className="relative w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.9)]" />
-            </div>
-            <div className="flex items-center gap-1.5 font-mono text-[10px] leading-tight">
-              <span className="font-bold text-emerald-400 tracking-wider">ONLINE</span>
-              <span className="text-slate-500">·</span>
-              <span className="text-slate-400">32ms</span>
-            </div>
-          </div>
 
           {/* Analyst Session Dropdown */}
           <div className="relative">
