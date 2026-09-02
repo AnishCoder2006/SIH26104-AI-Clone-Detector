@@ -352,34 +352,35 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
               </div>
             ) : (
               <div className="flex flex-col items-center py-2 w-full">
-                {/* Active Studio Recording Telemetry Capsule */}
-                <div className="relative mb-5 inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-gradient-to-r from-rose-950/40 via-[#161D2F] to-rose-950/40 border border-rose-500/30 shadow-[0_0_25px_rgba(244,63,94,0.18),inset_0_0_15px_rgba(244,63,94,0.08)] backdrop-blur-md">
-                  {/* Studio On-Air Badge */}
-                  <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-rose-500 text-white shadow-[0_0_12px_rgba(244,63,94,0.6)]">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-80" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
-                    </span>
-                    <span className="text-[10px] font-mono font-black tracking-widest uppercase">REC</span>
-                  </div>
+                {/* Seamless Unboxed Recording Telemetry (No nested box cards) */}
+                <div className="flex flex-wrap items-center justify-center gap-3 mb-6 select-none">
+                  {/* Glowing Live Radar Dot */}
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500 shadow-[0_0_12px_#f43f5e]" />
+                  </span>
 
-                  {/* Channel Description */}
-                  <div className="flex items-center gap-2 text-xs font-karla text-rose-200/90 tracking-wide font-medium">
-                    <span>Live Acoustic Capture</span>
-                    <span className="text-rose-500/50">•</span>
-                    <span className="text-[10px] font-mono text-rose-300/70">16.0 kHz PCM</span>
-                  </div>
+                  {/* Clean Live Label */}
+                  <span className="text-xs font-mono font-bold tracking-widest text-rose-400 uppercase">
+                    LIVE RECORDING
+                  </span>
 
-                  {/* High-Precision Timer Pod */}
-                  <div className="flex items-center px-2.5 py-0.5 rounded-md bg-[#0B0F19] border border-white/10 shadow-inner">
-                    <span className="font-mono text-xs font-bold text-white tracking-widest drop-shadow-[0_0_6px_rgba(255,255,255,0.4)]">
-                      {formatSeconds(recordingSeconds)}
-                    </span>
-                  </div>
+                  <span className="text-silver/40">•</span>
+
+                  {/* Large Clean Timecode */}
+                  <span className="font-mono text-2xl font-bold text-white tracking-wider">
+                    {formatSeconds(recordingSeconds)}
+                  </span>
+
+                  <span className="text-silver/40">•</span>
+
+                  <span className="text-xs font-karla text-silver tracking-wide">
+                    16.0 kHz Mono PCM
+                  </span>
                 </div>
 
-                {/* Animated Cyber Audio Visualizer */}
-                <div className="flex items-center justify-center gap-1.5 h-16 w-full max-w-xs mb-6 px-4 py-2 bg-[#0B0F19] rounded-xl border border-white/10">
+                {/* Animated Cyber Audio Visualizer (Clean & unboxed) */}
+                <div className="flex items-center justify-center gap-1.5 h-14 w-full max-w-xs mb-6">
                   {[40, 75, 55, 90, 60, 100, 70, 85, 45, 95, 65, 80, 50, 90, 70, 60].map((height, i) => (
                     <div
                       key={i}
