@@ -352,12 +352,30 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
               </div>
             ) : (
               <div className="flex flex-col items-center py-2 w-full">
-                {/* Active Recording Pulse Indicator */}
-                <div className="flex items-center gap-2.5 mb-4 px-4 py-1.5 rounded-full bg-rose-500/15 border border-rose-500/40 text-rose-300">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
-                  <span className="font-mono text-xs font-bold tracking-widest uppercase">
-                    CAPTURING AUDIO · {formatSeconds(recordingSeconds)}
-                  </span>
+                {/* Active Studio Recording Telemetry Capsule */}
+                <div className="relative mb-5 inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-gradient-to-r from-rose-950/40 via-[#161D2F] to-rose-950/40 border border-rose-500/30 shadow-[0_0_25px_rgba(244,63,94,0.18),inset_0_0_15px_rgba(244,63,94,0.08)] backdrop-blur-md">
+                  {/* Studio On-Air Badge */}
+                  <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-rose-500 text-white shadow-[0_0_12px_rgba(244,63,94,0.6)]">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-80" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+                    </span>
+                    <span className="text-[10px] font-mono font-black tracking-widest uppercase">REC</span>
+                  </div>
+
+                  {/* Channel Description */}
+                  <div className="flex items-center gap-2 text-xs font-karla text-rose-200/90 tracking-wide font-medium">
+                    <span>Live Acoustic Capture</span>
+                    <span className="text-rose-500/50">•</span>
+                    <span className="text-[10px] font-mono text-rose-300/70">16.0 kHz PCM</span>
+                  </div>
+
+                  {/* High-Precision Timer Pod */}
+                  <div className="flex items-center px-2.5 py-0.5 rounded-md bg-[#0B0F19] border border-white/10 shadow-inner">
+                    <span className="font-mono text-xs font-bold text-white tracking-widest drop-shadow-[0_0_6px_rgba(255,255,255,0.4)]">
+                      {formatSeconds(recordingSeconds)}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Animated Cyber Audio Visualizer */}
