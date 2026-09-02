@@ -120,18 +120,13 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
         {/* Main Title & Subtitle */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium tracking-wide text-white mb-3 drop-shadow-sm leading-[1.15]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-fraunces font-normal tracking-normal text-white mb-3 drop-shadow-sm leading-[1.18]">
               {title}
             </h1>
-            <p className="border-l-2 border-primary/70 pl-4 py-1 leading-relaxed">
-              <span className="font-space font-semibold text-slate-100 text-sm lg:text-[15px] tracking-tight">
-                {language === 'indian' ? 'High-precision forensic synthesis intercept ' : 'Enterprise-grade deepfake voice clone interception '}
-              </span>
-              <span className="font-plex text-slate-300 text-sm lg:text-[15px] font-normal">
-                {language === 'indian'
-                  ? 'specialized for Indian regional dialects, multi-lingual vocoder artifacts, and acoustic anomalies.'
-                  : 'with continuous micro-pitch analysis, spectral phase coherence, and telemetry diagnostics.'}
-              </span>
+            <p className="font-inter text-slate-300 text-sm lg:text-[15px] leading-relaxed border-l-2 border-primary/70 pl-4 py-1 font-normal tracking-wide">
+              {language === 'indian'
+                ? 'High-precision forensic synthesis intercept specialized for Indian regional dialects, multi-lingual vocoder artifacts, and acoustic anomalies.'
+                : 'Enterprise-grade deepfake voice clone interception with continuous micro-pitch analysis, spectral phase coherence, and telemetry diagnostics.'}
             </p>
           </div>
 

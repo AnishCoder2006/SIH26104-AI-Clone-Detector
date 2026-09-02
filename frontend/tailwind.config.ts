@@ -9,8 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-sans)', 'sans-serif'],
-        serif: ['var(--font-serif)', 'serif'],
+        sans: ['var(--font-inter)', 'var(--font-sans)', 'sans-serif'],
+        serif: ['var(--font-fraunces)', 'var(--font-serif)', 'serif'],
+        fraunces: ['var(--font-fraunces)', 'serif'],
+        inter: ['var(--font-inter)', 'sans-serif'],
         space: ['var(--font-space)', 'sans-serif'],
         plex: ['var(--font-plex)', 'sans-serif'],
       },

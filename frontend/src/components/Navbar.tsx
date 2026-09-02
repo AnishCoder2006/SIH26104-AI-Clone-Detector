@@ -43,7 +43,7 @@ export function Navbar() {
           
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-xl tracking-tight text-white font-sans">
+              <span className="font-fraunces font-semibold text-xl tracking-tight text-white">
                 VoiceShield
               </span>
               <span className="text-[9px] font-mono font-bold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-primary/10 border border-primary/30 text-primary shadow-[0_0_10px_rgba(0,255,204,0.2)]">

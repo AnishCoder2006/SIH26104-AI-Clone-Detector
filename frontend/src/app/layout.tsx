@@ -2,7 +2,21 @@ import type { Metadata } from 'next';
 import React from 'react';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
-import { Cormorant, Karla, Space_Grotesk, IBM_Plex_Sans } from 'next/font/google';
+import { Fraunces, Inter, Cormorant, Karla, Space_Grotesk, IBM_Plex_Sans } from 'next/font/google';
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  axes: ['opsz'],
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 const karla = Karla({ 
   subsets: ['latin'], 
@@ -43,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${karla.variable} ${cormorant.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
+    <html lang="en" className={`${inter.variable} ${fraunces.variable} ${karla.variable} ${cormorant.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
       <body className="bg-background text-slate-100 min-h-screen flex flex-col font-sans relative overflow-x-hidden">
         {/* Abstract Background Effects */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">
