@@ -47,6 +47,11 @@ const ibmPlexSans = IBM_Plex_Sans({
 export const metadata: Metadata = {
   title: 'VoiceShield AI - Clone Detection System',
   description: 'Enterprise AI Voice Clone Detection System',
+  icons: {
+    icon: '/tab-icon.png',
+    shortcut: '/tab-icon.png',
+    apple: '/tab-icon.png',
+  },
 };
 
 export default function RootLayout({
@@ -56,6 +61,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable} ${karla.variable} ${cormorant.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
+      <head>
+        <link rel="icon" href="/tab-icon.png" type="image/png" />
+        <link rel="shortcut icon" href="/tab-icon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/tab-icon.png" />
+      </head>
       <body className="bg-background text-slate-100 min-h-screen flex flex-col font-sans relative overflow-x-hidden">
         {/* Abstract Background Effects */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">

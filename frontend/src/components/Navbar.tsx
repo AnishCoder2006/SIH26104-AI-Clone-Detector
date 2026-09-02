@@ -36,8 +36,12 @@ export function Navbar() {
         >
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur-sm opacity-50 group-hover:opacity-85 transition-all duration-300" />
-            <div className="relative p-2 bg-[#0B0F19] rounded-full border border-primary/40 shadow-inner flex items-center justify-center">
-              <ShieldCheck className="w-5 h-5 text-primary drop-shadow-[0_0_8px_rgba(0,245,160,0.6)]" />
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 bg-[#0B0F19] rounded-full border border-primary/40 shadow-inner flex items-center justify-center p-2 group-hover:scale-105 transition-transform">
+              <img 
+                src="/logo-mint.png" 
+                alt="VoiceShield Voice Detection" 
+                className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(0,245,160,0.6)]"
+              />
             </div>
           </div>
           
