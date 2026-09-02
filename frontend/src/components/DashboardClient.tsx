@@ -115,25 +115,6 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
         <div className="absolute -top-24 -left-24 w-72 h-72 bg-primary/15 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
 
-        {/* Top Badges Row */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <div className="flex items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-primary/10 border border-primary/30 text-primary shadow-[0_0_12px_rgba(0,255,204,0.2)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              {language === 'indian' ? 'AI4Bharat Indic Engine' : 'ASVspoof Temporal Engine'}
-            </span>
-            <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-mono text-slate-400 bg-white/5 border border-white/10">
-              Zero-Shot Acoustic Ingest
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 text-[10px] font-mono text-slate-400">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
-              DPDP PRIVACY COMPLIANT // ZERO PERSISTENCE
-            </span>
-          </div>
-        </div>
 
         {/* Main Title & Subtitle */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
