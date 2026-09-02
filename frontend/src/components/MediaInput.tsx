@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { UploadCloud, Mic, Square, Play, ShieldAlert, DollarSign } from 'lucide-react';
+import { UploadCloud, Mic, Square, Play, ShieldAlert, DollarSign, Loader2 } from 'lucide-react';
 import { extractAndEncodeAudio, encodeWAV } from '../lib/audioUtils';
 
 interface MediaInputProps {
@@ -255,20 +255,21 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
       )}
 
       <button
+        type="button"
         onClick={handleSubmit}
         disabled={isAnalyzing || (!file && !recordingBlob)}
-        className="w-full bg-primary hover:bg-primary/90 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,255,204,0.2)] hover:shadow-[0_0_30px_rgba(0,255,204,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full bg-primary hover:bg-primary/90 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,255,204,0.2)] hover:shadow-[0_0_30px_rgba(0,255,204,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 select-none"
       >
         {isAnalyzing ? (
-          <>
-            <div className="w-5 h-5 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin" />
-            Analyzing Threat...
-          </>
+          <span key="state-analyzing" className="inline-flex items-center justify-center gap-2">
+            <Loader2 className="w-5 h-5 animate-spin shrink-0 text-slate-950" />
+            <span>Analyzing Voice Safety...</span>
+          </span>
         ) : (
-          <>
-            <ShieldAlert className="w-5 h-5" />
-            Analyze Voice Safety
-          </>
+          <span key="state-idle" className="inline-flex items-center justify-center gap-2">
+            <ShieldAlert className="w-5 h-5 shrink-0 text-slate-950" />
+            <span>Analyze Voice Safety</span>
+          </span>
         )}
       </button>
     </div>

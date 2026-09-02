@@ -1,6 +1,6 @@
 import React from 'react';
 import { RadialGauge } from './RadialGauge';
-import { AlertTriangle, ShieldCheck, Activity, BarChart2, Radio, Zap } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, Activity, BarChart2, Radio, Zap, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export interface Metrics {
@@ -97,13 +97,15 @@ export function RiskAnalysisPanel({
             className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/20 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isAgentLoading ? (
-              <>
-                <span className="animate-spin">🔄</span> Running AI Telemetry Agent...
-              </>
+              <span key="agent-loading" className="inline-flex items-center gap-2">
+                <Loader2 className="w-5 h-5 animate-spin shrink-0" />
+                <span>Running AI Telemetry Agent...</span>
+              </span>
             ) : (
-              <>
-                🛡️ Run AI Forensic Deep Analysis
-              </>
+              <span key="agent-idle" className="inline-flex items-center gap-2">
+                <span>🛡️</span>
+                <span>Run AI Forensic Deep Analysis</span>
+              </span>
             )}
           </button>
         </div>
