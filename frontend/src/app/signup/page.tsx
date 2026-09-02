@@ -103,16 +103,8 @@ function SignupContent() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#070B14] text-white relative overflow-x-hidden flex flex-col justify-between selection:bg-primary selection:text-[#0B0F19]">
-      {/* Immersive World Map Background Layer */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80"
-          style={{ backgroundImage: "url('/bg-world-map.png')" }}
-        />
-        {/* Deep dark overlay gradient for text legibility & cyber aesthetic */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#070B14]/60 via-[#070B14]/30 to-[#070B14]/70" />
-      </div>
+    <div className="min-h-screen w-full text-white relative overflow-x-hidden flex flex-col justify-between selection:bg-primary selection:text-[#0B0F19]">
+
 
       {/* Main Showcase & Register Workspace */}
       <main className="relative z-10 w-full max-w-[1440px] mx-auto px-6 lg:px-12 py-10 flex-1 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 my-auto">

@@ -67,10 +67,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/tab-icon.png" />
       </head>
       <body className="bg-background text-slate-100 min-h-screen flex flex-col font-sans relative overflow-x-hidden">
-        {/* Abstract Background Effects */}
-        <div className="fixed inset-0 z-[-1] pointer-events-none">
-          <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[150px]" />
+        {/* Immersive World Map Background Layer - Global */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-2]">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80"
+            style={{ backgroundImage: "url('/bg-world-map.png')" }}
+          />
+          {/* Deep dark overlay gradient for text legibility & cyber aesthetic */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#070B14]/80 via-[#070B14]/50 to-[#070B14]/85" />
         </div>
 
         <Navbar />
