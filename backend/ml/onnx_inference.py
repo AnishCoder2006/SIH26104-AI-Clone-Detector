@@ -1,13 +1,17 @@
 import io
+import os  # Fixed: Added missing import
 import numpy as np
 import onnxruntime as ort
 import soundfile as sf
 import librosa
 from transformers import Wav2Vec2FeatureExtractor
 from audio.streamer import stream_audio
+from huggingface_hub import hf_hub_download, snapshot_download
 
-HF_REPO_INDIAN = "https://huggingface.co/Anish5764/asvspoof-wav2vec2-stage7"
-HF_REPO_ENGLISH = "https://huggingface.co/Anish5764/indic-voice-spoof-detector" # TODO: Swap with your English model repo
+# Fixed: Changed full URLs to standard Hugging Face Repo IDs
+HF_REPO_INDIAN = "Anish5764/indic-voice-spoof-detector"
+HF_REPO_ENGLISH = "Anish5764/asvspoof-wav2vec2-stage7"
+
 TARGET_SR = 16000
 MAX_AUDIO_SECONDS = 4
 SPOOF_THRESHOLD = 0.50
@@ -16,7 +20,7 @@ _sessions = {"english": None, "indian": None}
 _extractors = {"english": None, "indian": None}
 
 def load_models():
-    """Loads both English and Indian models lazily."""
+    """Loads feature extractors and auto-downloads split ONNX files."""
     global _sessions, _extractors
     
     if _extractors["indian"] is None:
@@ -24,12 +28,21 @@ def load_models():
         _extractors["english"] = Wav2Vec2FeatureExtractor.from_pretrained(HF_REPO_ENGLISH)
         
     if _sessions["indian"] is None:
-        # TODO: Replace with real .onnx paths once Kaggle exports are done
-        # _sessions["indian"] = ort.InferenceSession("indic_wav2vec2_unified.onnx")
-        # _sessions["english"] = ort.InferenceSession("english_wav2vec2_unified.onnx")
-        _sessions["indian"] = "MOCK_SESSION_INDIAN"
-        _sessions["english"] = "MOCK_SESSION_ENGLISH"
-        print("✅ ONNX Dual-Engine Loaded")
+        print("Downloading ONNX files from Hugging Face... (This may take a minute for the 2GB Indic model)")
+        
+        # 1. Pull Indian ONNX (Downloads BOTH .onnx and .onnx.data to the same folder)
+        indic_dir = snapshot_download(
+            repo_id=HF_REPO_INDIAN, 
+            allow_patterns=["*.onnx", "*.onnx.data"]
+        )
+        indian_onnx_path = os.path.join(indic_dir, "model.onnx")
+        _sessions["indian"] = ort.InferenceSession(indian_onnx_path, providers=['CPUExecutionProvider'])
+        
+        # 2. Pull English ONNX (Single file)
+        english_onnx_path = hf_hub_download(repo_id=HF_REPO_ENGLISH, filename="model.onnx")
+        _sessions["english"] = ort.InferenceSession(english_onnx_path, providers=['CPUExecutionProvider'])
+        
+        print("✅ ONNX Dual-Engine Loaded Successfully")
         
     return _sessions, _extractors
 
