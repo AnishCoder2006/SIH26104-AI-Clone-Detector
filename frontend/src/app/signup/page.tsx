@@ -372,13 +372,13 @@ function SignupContent() {
                 </div>
               </div>
 
-              <p className="text-xs font-karla text-silver text-center">
+              <p className="text-xs font-sans text-silver text-center">
                 Forensic Deep Acoustic Diagnostics
               </p>
             </div>
 
             <div className="rounded-2xl p-5 bg-[#0E1526]/80 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col justify-between hover:border-primary/40 transition-all">
-              <h3 className="font-karla font-bold text-sm text-white tracking-wide mb-3">
+              <h3 className="font-sans font-bold text-sm text-white tracking-wide mb-3">
                 Multi-Source Audio Ingestion
               </h3>
 
@@ -405,7 +405,7 @@ function SignupContent() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-2 p-2 rounded-xl bg-[#070B14] border border-white/10 text-xs font-karla text-slate-200">
+              <div className="flex items-center justify-center gap-2 p-2 rounded-xl bg-[#070B14] border border-white/10 text-xs font-sans text-slate-200">
                 <Video className="w-4 h-4 text-primary" />
                 <span>Live In-Browser Recording</span>
               </div>
@@ -427,20 +427,20 @@ function SignupContent() {
               <h2 className="text-3xl sm:text-4xl font-cormorant font-normal text-white tracking-normal mb-1">
                 Executive Registration
               </h2>
-              <p className="text-xs font-karla text-silver">
+              <p className="text-sm font-sans text-silver">
                 Provision a verified analyst profile to access the dashboard
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-3.5">
               <div>
-                <label className="block font-karla text-xs font-semibold text-silver mb-1.5">
+                <label className="block font-sans text-[15px] font-semibold text-silver mb-2">
                   Full Legal Name
                 </label>
                 <input
                   type="text"
                   required
-                  className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-2.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-sm shadow-inner"
+                  className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-base shadow-inner"
                   placeholder="Rajesh Sharma"
                   value={formData.full_name}
                   onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
@@ -448,13 +448,13 @@ function SignupContent() {
               </div>
 
               <div>
-                <label className="block font-karla text-xs font-semibold text-silver mb-1.5">
+                <label className="block font-sans text-[15px] font-semibold text-silver mb-2">
                   Corporate Email
                 </label>
                 <input
                   type="email"
                   required
-                  className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-2.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-sm shadow-inner"
+                  className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-base shadow-inner"
                   placeholder="analyst@company.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -462,14 +462,14 @@ function SignupContent() {
               </div>
 
               <div>
-                <label className="block font-karla text-xs font-semibold text-silver mb-1.5">
+                <label className="block font-sans text-[15px] font-semibold text-silver mb-2">
                   Platform Password
                 </label>
                 <div className="relative group">
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
-                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-2.5 pl-4 pr-11 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-sm shadow-inner tracking-wider"
+                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3.5 pl-4 pr-11 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-base shadow-inner tracking-wider"
                     placeholder="••••••••••••"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -485,7 +485,7 @@ function SignupContent() {
               </div>
 
               {error && (
-                <div className="flex items-start gap-2.5 text-rose-300 text-xs font-karla bg-rose-500/10 p-3 rounded-xl border border-rose-500/25">
+                <div className="flex items-start gap-2.5 text-rose-300 text-xs font-sans p-3 rounded-xl border border-rose-500/25 bg-rose-500/10">
                   <ShieldAlert className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                   <span>{error}</span>
                 </div>
@@ -497,22 +497,22 @@ function SignupContent() {
                 className="w-full bg-gradient-to-r from-[#00F5A0] via-[#00F5A0] to-[#00D2FF] hover:from-[#00F5A0]/90 text-[#0B0F19] font-bold py-3.5 rounded-2xl transition-all shadow-[0_0_25px_rgba(0,245,160,0.4)] hover:shadow-[0_0_35px_rgba(0,245,160,0.6)] hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed mt-4 flex flex-col items-center justify-center select-none"
               >
                 {loading ? (
-                  <span className="inline-flex items-center gap-2 text-sm font-karla font-bold">
-                    <Loader2 className="w-4 h-4 animate-spin text-[#0B0F19]" />
+                  <span className="inline-flex items-center gap-2 text-base font-sans font-bold">
+                    <Loader2 className="w-5 h-5 animate-spin text-[#0B0F19]" />
                     <span>Provisioning Profile...</span>
                   </span>
                 ) : (
                   <>
-                    <span className="text-base font-karla font-bold leading-tight">Create Account</span>
-                    <span className="text-[10px] font-karla opacity-80 font-medium">Secure Registration</span>
+                    <span className="text-lg font-sans font-bold leading-tight">Create Profile</span>
+                    <span className="text-xs font-sans opacity-80 font-medium">Secure Registration</span>
                   </>
                 )}
               </button>
             </form>
 
-            <div className="mt-5 text-center">
-              <p className="text-xs font-karla text-silver">
-                Already registered?{' '}
+            <div className="mt-6 text-center">
+              <p className="text-sm font-sans text-silver">
+                Already have an analyst profile?{' '}
                 <Link 
                   href="/signin" 
                   className="text-primary font-semibold hover:underline transition-colors hover:text-accent"

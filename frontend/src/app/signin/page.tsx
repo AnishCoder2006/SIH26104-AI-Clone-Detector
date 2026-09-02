@@ -457,7 +457,7 @@ function SigninContent() {
               <h2 className="text-3xl sm:text-4xl font-cormorant font-normal text-white tracking-normal mb-1">
                 Executive Platform Login
               </h2>
-              <p className="text-xs font-karla text-silver">
+              <p className="text-sm font-sans text-silver">
                 Sign in to your analyst profile to continue
               </p>
             </div>
@@ -472,14 +472,14 @@ function SigninContent() {
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block font-karla text-xs font-semibold text-silver mb-1.5">
+                <label className="block font-sans text-[15px] font-semibold text-silver mb-2">
                   Corporate Email
                 </label>
                 <div className="relative group">
                   <input
                     type="email"
                     required
-                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-sm shadow-inner"
+                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3.5 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-base shadow-inner"
                     placeholder="analyst@company.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -488,14 +488,14 @@ function SigninContent() {
               </div>
 
               <div>
-                <label className="block font-karla text-xs font-semibold text-silver mb-1.5">
+                <label className="block font-sans text-[15px] font-semibold text-silver mb-2">
                   Platform Password
                 </label>
                 <div className="relative group">
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
-                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3 pl-4 pr-11 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-sm shadow-inner tracking-wider"
+                    className="w-full bg-[#0B0F19]/85 border border-[#00D2FF]/40 rounded-xl py-3.5 pl-4 pr-11 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder:text-slate-500 font-sans text-base shadow-inner tracking-wider"
                     placeholder="••••••••••••"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -511,7 +511,7 @@ function SigninContent() {
               </div>
 
               {/* Stay Logged In & Forgot Password Row */}
-              <div className="flex items-center justify-between pt-1 pb-1 text-xs font-karla text-silver">
+              <div className="flex items-center justify-between pt-1 pb-1 text-sm font-sans text-silver">
                 <label className="flex items-center gap-2 cursor-pointer select-none">
                   <input
                     type="checkbox"
@@ -548,14 +548,14 @@ function SigninContent() {
                 className="w-full bg-gradient-to-r from-[#00F5A0] via-[#00F5A0] to-[#00D2FF] hover:from-[#00F5A0]/90 text-[#0B0F19] font-bold py-3.5 rounded-2xl transition-all shadow-[0_0_25px_rgba(0,245,160,0.4)] hover:shadow-[0_0_35px_rgba(0,245,160,0.6)] hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed mt-4 flex flex-col items-center justify-center select-none"
               >
                 {loading ? (
-                  <span className="inline-flex items-center gap-2 text-sm font-karla font-bold">
-                    <Loader2 className="w-4 h-4 animate-spin text-[#0B0F19]" />
+                  <span className="inline-flex items-center gap-2 text-base font-sans font-bold">
+                    <Loader2 className="w-5 h-5 animate-spin text-[#0B0F19]" />
                     <span>Verifying Security Clearance...</span>
                   </span>
                 ) : (
                   <>
-                    <span className="text-base font-karla font-bold leading-tight">Login</span>
-                    <span className="text-[10px] font-karla opacity-80 font-medium">Secure Login</span>
+                    <span className="text-lg font-sans font-bold leading-tight">Login</span>
+                    <span className="text-xs font-sans opacity-80 font-medium">Secure Login</span>
                   </>
                 )}
               </button>
@@ -589,26 +589,26 @@ function SigninContent() {
                 <button
                   type="button"
                   onClick={() => handleComingSoon('Access with Voice ID')}
-                  className="py-2.5 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-primary/40 text-xs font-karla text-slate-200 hover:text-white transition-all text-center flex items-center justify-center gap-1.5 active:scale-95"
+                  className="py-3 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-primary/40 text-sm font-sans text-slate-200 hover:text-white transition-all text-center flex items-center justify-center gap-1.5 active:scale-95"
                 >
-                  <Fingerprint className="w-3.5 h-3.5 text-primary" />
+                  <Fingerprint className="w-4 h-4 text-primary" />
                   <span>Access with Voice ID</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => handleComingSoon('SSO Login')}
-                  className="py-2.5 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-accent/40 text-xs font-karla text-slate-200 hover:text-white transition-all text-center flex items-center justify-center gap-1.5 active:scale-95"
+                  className="py-3 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-accent/40 text-sm font-sans text-slate-200 hover:text-white transition-all text-center flex items-center justify-center gap-1.5 active:scale-95"
                 >
-                  <KeyRound className="w-3.5 h-3.5 text-accent" />
+                  <KeyRound className="w-4 h-4 text-accent" />
                   <span>SSO Login</span>
                 </button>
               </div>
             </form>
 
             {/* Switch to Register link */}
-            <div className="mt-5 text-center">
-              <p className="text-xs font-karla text-silver">
+            <div className="mt-6 text-center">
+              <p className="text-sm font-sans text-silver">
                 Don't have an analyst profile?{' '}
                 <Link 
                   href="/signup" 
