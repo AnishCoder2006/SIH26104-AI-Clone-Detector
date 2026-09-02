@@ -229,7 +229,7 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
   const hasPayload = Boolean(file || recordingBlob);
 
   return (
-    <div className="relative rounded-xl p-6 lg:p-7 bg-gradient-to-b from-[#161D2F]/95 via-[#161D2F]/85 to-[#0B0F19] border border-white/10 shadow-[0_20px_50px_rgba(11,15,25,0.85)] flex flex-col overflow-hidden transition-all">
+    <div className="relative rounded-2xl p-6 lg:p-8 bg-gradient-to-b from-[#161D2F]/95 via-[#161D2F]/85 to-[#0B0F19] border border-white/10 shadow-[0_20px_50px_rgba(11,15,25,0.85)] flex flex-col overflow-hidden transition-all">
       {/* Ambient Top Glow Line */}
       <div className="absolute top-0 left-1/4 right-1/4 h-[1.5px] bg-gradient-to-r from-transparent via-primary/70 to-transparent rounded-full pointer-events-none" />
 

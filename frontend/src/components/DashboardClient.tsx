@@ -226,7 +226,7 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
       <div className={`w-full transition-all duration-500 ease-in-out ${
         showAnalysisCard 
           ? 'grid grid-cols-1 lg:grid-cols-2 gap-8 items-start' 
-          : 'max-w-4xl mx-auto'
+          : 'w-full'
       }`}>
         <motion.div layout transition={{ duration: 0.4 }} className="w-full">
           <MediaInput 
