@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Mail, Lock, ShieldAlert, CheckCircle2, ChevronRight, ScanFace } from 'lucide-react';
+import { Mail, Lock, ShieldAlert, CheckCircle2, ChevronRight, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 function SigninForm() {
@@ -12,6 +12,7 @@ function SigninForm() {
   const isRegistered = searchParams.get('registered') === 'true';
 
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -54,28 +55,28 @@ function SigninForm() {
         <motion.div 
           initial={{ opacity: 0, y: -10 }} 
           animate={{ opacity: 1, y: 0 }} 
-          className="mb-8 flex items-start gap-3 text-emerald-400 text-sm bg-emerald-400/10 p-4 rounded-xl border border-emerald-400/20"
+          className="mb-6 flex items-start gap-3 text-emerald-300 text-xs font-karla bg-emerald-500/10 p-3.5 rounded-xl border border-emerald-500/25"
         >
-          <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
           <div>
-            <span className="font-bold block mb-0.5">Profile Registered</span>
-            Your enterprise analyst account was successfully created. Please authenticate below.
+            <span className="font-bold block text-white mb-0.5">Profile Registered</span>
+            Your enterprise analyst account was created. Please authenticate below.
           </div>
         </motion.div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-mono text-[11px] tracking-[0.15em] text-slate-400 uppercase mb-2">
+          <label className="block font-karla text-[11px] font-bold tracking-widest text-silver uppercase mb-2">
             Enterprise Email
           </label>
           <div className="relative group">
-            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-primary transition-colors" />
+            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-silver/60 group-focus-within:text-primary transition-colors" />
             <input
               type="email"
               required
-              className="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl py-3.5 pl-12 pr-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-100 placeholder-slate-400 shadow-sm font-sans"
-              placeholder="Enter enterprise email"
+              className="w-full bg-[#0B0F19]/85 border border-white/10 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:border-primary/70 focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder-silver/40 font-karla text-sm shadow-inner"
+              placeholder="analyst@enterprise.domain"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
@@ -83,19 +84,26 @@ function SigninForm() {
         </div>
 
         <div>
-          <label className="block font-mono text-[11px] tracking-[0.15em] text-slate-400 uppercase mb-2 flex justify-between">
-            <span>Secure Password</span>
+          <label className="block font-karla text-[11px] font-bold tracking-widest text-silver uppercase mb-2">
+            Secure Password
           </label>
           <div className="relative group">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-primary transition-colors" />
+            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-silver/60 group-focus-within:text-primary transition-colors" />
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               required
-              className="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl py-3.5 pl-12 pr-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-slate-100 placeholder-slate-400 shadow-sm font-sans"
-              placeholder="Enter secure password"
+              className="w-full bg-[#0B0F19]/85 border border-white/10 rounded-xl py-3 pl-10 pr-11 focus:outline-none focus:border-primary/70 focus:ring-2 focus:ring-primary/20 transition-all text-white placeholder-silver/40 font-karla text-sm shadow-inner"
+              placeholder="••••••••••••"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-silver/50 hover:text-white transition-colors"
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
           </div>
         </div>
 
@@ -103,9 +111,9 @@ function SigninForm() {
           <motion.div 
             initial={{ opacity: 0, height: 0 }} 
             animate={{ opacity: 1, height: 'auto' }} 
-            className="flex items-start gap-3 text-red-400 text-sm bg-red-400/10 p-4 rounded-xl border border-red-400/20"
+            className="flex items-start gap-2.5 text-rose-300 text-xs font-karla bg-rose-500/10 p-3 rounded-xl border border-rose-500/25"
           >
-            <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5" />
+            <ShieldAlert className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
             <span>{error}</span>
           </motion.div>
         )}
@@ -113,14 +121,17 @@ function SigninForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-primary hover:bg-primary/90 text-slate-950 font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,255,204,0.2)] hover:shadow-[0_0_30px_rgba(0,255,204,0.4)] disabled:opacity-50 disabled:cursor-not-allowed mt-8 group"
+          className="w-full bg-gradient-to-r from-primary via-primary to-accent hover:from-primary/90 hover:to-accent/90 text-[#0B0F19] font-karla font-bold py-3.5 rounded-xl transition-all shadow-[0_0_25px_rgba(0,245,160,0.3)] hover:shadow-[0_0_35px_rgba(0,245,160,0.5)] hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed mt-6 flex items-center justify-center gap-2 select-none group"
         >
           {loading ? (
-            <div className="w-5 h-5 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin" />
+            <span className="inline-flex items-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin text-[#0B0F19]" />
+              <span>Verifying Credentials...</span>
+            </span>
           ) : (
             <>
-              Authenticate
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span>Authenticate Session</span>
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </>
           )}
         </button>
@@ -131,63 +142,69 @@ function SigninForm() {
 
 export default function Signin() {
   return (
-    <div className="flex-1 flex w-full min-h-[calc(100vh-4rem)] bg-background">
-      {/* Left Side - Enterprise Branding */}
-      <div className="hidden lg:flex flex-col justify-center w-1/2 p-16 relative overflow-hidden bg-panel/30 border-r border-slate-800">
-        <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-secondary/10 via-transparent to-transparent pointer-events-none" />
-        
-        <motion.div 
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 max-w-lg"
-        >
-          <ScanFace className="w-16 h-16 text-primary mb-8 opacity-100 drop-shadow-[0_0_15px_rgba(0,255,204,0.5)]" />
-          <h1 className="text-4xl font-extrabold font-serif tracking-tight mb-6">
-            Authentication Protocol
+    <div className="min-h-[calc(100vh-4rem)] w-full flex items-center justify-center p-4 sm:p-6 bg-[#0B0F19] relative overflow-hidden">
+      {/* Ambient Cyber Background Glows */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-primary/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-accent/15 rounded-full blur-[140px] pointer-events-none" />
+      
+      {/* Centered Luxury Cyber Card */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+        className="w-full max-w-[440px] relative z-10 rounded-3xl p-7 sm:p-9 bg-gradient-to-b from-[#161D2F]/95 via-[#161D2F]/90 to-[#0B0F19] border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(0,245,160,0.08)] backdrop-blur-2xl overflow-hidden"
+      >
+        {/* Subtle Top Glowing Cyber Accent */}
+        <div className="absolute top-0 left-1/4 right-1/4 h-[1.5px] bg-gradient-to-r from-transparent via-primary/70 to-transparent rounded-full pointer-events-none" />
+
+        {/* Card Header & Brand Emblem */}
+        <div className="flex flex-col items-center text-center mb-7">
+          <div className="relative mb-4">
+            <div className="absolute -inset-2 bg-gradient-to-r from-primary to-accent rounded-full blur-md opacity-40" />
+            <div className="relative w-14 h-14 rounded-2xl bg-[#0B0F19] border border-primary/40 flex items-center justify-center p-3 shadow-inner">
+              <img 
+                src="/logo-mint.png" 
+                alt="VoiceShield" 
+                className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(0,245,160,0.6)]" 
+              />
+            </div>
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl font-cormorant font-normal text-white tracking-tight mb-1.5">
+            Analyst Authentication
           </h1>
-          <p className="text-lg text-slate-400 leading-relaxed mb-8">
-            Access the VoiceShield AI command center to run forensic checks on suspicious audio profiles. Authorization requires verified credentials.
+          <p className="text-xs font-karla text-silver max-w-xs leading-relaxed">
+            Enter your credentials to access the neural voice clone detection vault
           </p>
-          
-          <div className="grid grid-cols-2 gap-4 text-sm font-medium text-slate-500 mt-8">
-            <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
-              <span className="block text-primary text-2xl font-bold font-mono mb-1">99.8%</span>
-              <span className="text-slate-300">Detection Accuracy</span>
-            </div>
-            <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
-              <span className="block text-primary text-2xl font-bold font-mono mb-1">&lt; 1s</span>
-              <span className="text-slate-300">Latency</span>
-            </div>
+        </div>
+
+        {/* Signin Form */}
+        <Suspense fallback={
+          <div className="h-48 flex items-center justify-center">
+            <Loader2 className="w-6 h-6 animate-spin text-primary" />
           </div>
-        </motion.div>
-      </div>
+        }>
+          <SigninForm />
+        </Suspense>
 
-      {/* Right Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="w-full max-w-md"
-        >
-          <div className="text-center lg:text-left mb-10">
-            <h2 className="text-3xl font-bold font-serif mb-3 tracking-tight">Access Dashboard</h2>
-            <p className="text-slate-400 text-sm">Sign in to your analyst profile to continue.</p>
-          </div>
-
-          <Suspense fallback={<div className="h-64 flex items-center justify-center"><div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" /></div>}>
-            <SigninForm />
-          </Suspense>
-
-          <p className="mt-10 text-center text-sm text-slate-300">
+        {/* Card Footer */}
+        <div className="mt-6 text-center">
+          <p className="text-xs font-karla text-silver">
             Don't have an analyst profile?{' '}
-            <Link href="/signup" className="text-primary font-medium hover:underline transition-all hover:text-primary/80">
-              Request access
+            <Link 
+              href="/signup" 
+              className="text-primary font-semibold hover:underline transition-colors hover:text-accent"
+            >
+              Register here
             </Link>
           </p>
-        </motion.div>
-      </div>
+
+          <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-center gap-1.5 text-[10px] font-mono text-silver/60">
+            <span>🔒</span>
+            <span>Zero-Retention Ephemeral Buffer · DPDP Compliant</span>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }
