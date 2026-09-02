@@ -23,17 +23,37 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const SOUNDWAVE_ANIM_BARS = [
-  { min: 25, max: 80, dur: 1.2 },
-  { min: 35, max: 95, dur: 0.9 },
-  { min: 20, max: 100, dur: 1.4 },
-  { min: 40, max: 70, dur: 0.8 },
-  { min: 30, max: 85, dur: 1.1 },
-  { min: 50, max: 100, dur: 0.95 },
-  { min: 25, max: 75, dur: 1.3 },
-  { min: 35, max: 90, dur: 0.85 },
-  { min: 20, max: 65, dur: 1.15 },
-  { min: 15, max: 50, dur: 1.0 },
+const INDIA_MAP_PATH = "M34.8,5.0 L38.1,9.5 L37.7,12.6 L39.0,14.5 L38.9,16.5 L36.7,16.0 L37.5,20.2 L40.6,22.6 L44.8,25.3 L42.9,27.0 L41.7,30.6 L44.7,32.0 L47.6,33.9 L51.6,36.0 L55.8,36.5 L57.6,38.4 L60.0,38.8 L63.7,39.7 L66.2,39.6 L66.6,38.1 L66.2,35.7 L66.4,34.1 L68.3,33.3 L68.6,36.3 L68.6,37.0 L71.4,38.5 L73.4,37.9 L76.0,38.1 L78.5,38.0 L78.7,35.7 L77.4,34.5 L79.9,34.0 L82.7,31.1 L86.3,28.7 L88.8,29.6 L91.0,28.0 L92.5,30.4 L91.4,32.0 L94.8,32.6 L95.0,34.0 L93.9,34.7 L94.2,37.1 L92.0,36.4 L88.0,39.0 L88.1,41.2 L86.4,44.4 L86.2,46.3 L84.9,49.4 L82.4,48.5 L82.3,52.5 L81.6,53.8 L82.0,55.4 L80.4,56.3 L78.8,50.3 L78.0,50.3 L77.5,52.7 L75.8,50.7 L76.7,48.6 L78.1,48.3 L79.5,45.1 L77.7,44.5 L74.9,44.5 L72.0,44.0 L71.7,41.3 L70.2,41.2 L67.8,39.5 L66.7,42.1 L68.9,44.1 L67.0,45.5 L66.3,46.9 L68.2,47.9 L67.7,50.2 L68.7,53.1 L69.2,56.3 L68.8,57.6 L66.7,57.6 L62.9,58.4 L63.1,61.3 L61.4,63.5 L57.0,66.1 L53.5,70.6 L51.2,73.0 L48.2,75.5 L48.2,77.2 L46.6,78.2 L43.8,79.5 L42.4,79.7 L41.5,82.6 L42.1,87.6 L42.3,90.8 L41.0,94.4 L41.0,100.9 L39.4,101.1 L38.0,104.0 L38.9,105.2 L36.1,106.3 L35.1,108.9 L33.8,110.0 L30.9,106.4 L29.5,101.1 L28.3,97.3 L27.2,95.4 L25.6,91.8 L24.8,87.0 L24.3,84.6 L21.5,79.4 L20.2,72.0 L19.3,67.1 L19.3,62.5 L18.7,58.9 L14.2,61.2 L12.1,60.8 L8.0,56.1 L9.5,54.7 L8.6,53.3 L5.0,50.0 L7.1,47.5 L13.8,47.5 L13.2,44.2 L11.5,42.3 L11.1,39.3 L9.1,37.6 L12.5,33.6 L16.1,33.9 L19.3,29.9 L21.2,26.0 L24.2,22.2 L24.2,19.5 L26.8,17.3 L24.3,15.4 L23.3,12.8 L22.2,9.5 L23.7,7.8 L28.3,8.8 L31.8,8.2 L34.8,5.0 Z";
+
+const EXACT_SOUNDWAVE_PACKETS = [
+  // Packet 1 (small burst)
+  { base: 10, min: 7, max: 14, dur: 1.1 },
+  { base: 18, min: 12, max: 24, dur: 0.9 },
+  { base: 32, min: 22, max: 40, dur: 1.3 },
+  { base: 18, min: 12, max: 24, dur: 0.95 },
+  { base: 10, min: 7, max: 14, dur: 1.05 },
+
+  // Baseline gap
+  { base: 4, min: 3, max: 6, dur: 1.2 },
+
+  // Packet 2 (medium burst)
+  { base: 12, min: 8, max: 18, dur: 1.15 },
+  { base: 26, min: 18, max: 34, dur: 0.85 },
+  { base: 46, min: 34, max: 54, dur: 1.25 },
+  { base: 26, min: 18, max: 34, dur: 0.9 },
+  { base: 12, min: 8, max: 18, dur: 1.1 },
+
+  // Baseline gap
+  { base: 4, min: 3, max: 6, dur: 1.0 },
+
+  // Packet 3 (tallest burst)
+  { base: 10, min: 7, max: 16, dur: 1.05 },
+  { base: 22, min: 16, max: 30, dur: 0.8 },
+  { base: 40, min: 30, max: 50, dur: 1.2 },
+  { base: 60, min: 48, max: 68, dur: 0.9 },
+  { base: 40, min: 30, max: 50, dur: 1.15 },
+  { base: 22, min: 16, max: 30, dur: 0.85 },
+  { base: 10, min: 7, max: 16, dur: 1.1 },
 ];
 
 function SignupContent() {
@@ -124,76 +144,96 @@ function SignupContent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Sub-Engine 1: Indic Regional Dialect */}
               <div className="rounded-xl p-4 bg-[#070B14]/90 border border-white/10 flex flex-col justify-between hover:border-primary/50 transition-all">
-                {/* Visual Graphic: High-Tech India Contour & Sonar Neural Waveform */}
-                <div className="h-28 rounded-xl bg-gradient-to-b from-[#161D2F]/80 via-[#0B0F19] to-[#070B14] border border-white/10 p-3 flex items-center justify-between gap-3 relative overflow-hidden mb-3 group/engine">
-                  {/* Subtle Background Radial Glow */}
-                  <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-24 h-24 bg-primary/10 rounded-full blur-xl pointer-events-none" />
-
-                  {/* High-Precision Cyber India Map Contour with Animated Sonar Nodes */}
-                  <div className="relative w-20 h-24 shrink-0 flex items-center justify-center">
-                    <svg className="w-full h-full drop-shadow-[0_0_12px_rgba(0,245,160,0.5)] overflow-visible" viewBox="0 0 100 120" fill="none">
+                {/* Visual Graphic: Exact India Map with Scanlines, VB Badge & 3-Burst Waveform */}
+                <div className="h-28 rounded-xl bg-[#09111E] border border-white/10 p-2.5 flex items-center justify-between gap-2 relative overflow-hidden mb-3">
+                  {/* Left: Authentic India Map with Scanlines Texture & Center VB Emblem */}
+                  <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">
+                    <svg className="w-full h-full drop-shadow-[0_0_10px_rgba(0,245,160,0.35)] overflow-visible" viewBox="0 0 100 115" fill="none">
                       <defs>
-                        <linearGradient id="indiaGradSignup" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#00F5A0" stopOpacity="0.22" />
-                          <stop offset="100%" stopColor="#00D2FF" stopOpacity="0.06" />
-                        </linearGradient>
+                        <clipPath id="indiaBorderClipSignup">
+                          <path d={INDIA_MAP_PATH} />
+                        </clipPath>
+                        <pattern id="indiaHoriScanlinesSignup" width="100" height="3" patternUnits="userSpaceOnUse">
+                          <line x1="0" y1="1.5" x2="100" y2="1.5" stroke="#00F5A0" strokeWidth="0.9" strokeOpacity="0.55" />
+                        </pattern>
                       </defs>
 
-                      {/* Sonar Beacon Rings radiating from Central India */}
-                      <circle cx="50" cy="58" r="30" stroke="#00F5A0" strokeWidth="0.75" className="animate-ping opacity-25" />
-                      <circle cx="50" cy="58" r="16" stroke="#00D2FF" strokeWidth="0.75" strokeDasharray="3 2" className="animate-pulse opacity-40" />
-
-                      {/* Detailed Authentic India Geopolitical Contour Path */}
+                      {/* Base Dark Teal Fill */}
                       <path
-                        d="M48,6 C54,8 57,14 53,19 C56,22 64,21 66,25 C69,29 78,28 84,32 C88,35 85,41 78,43 C74,44 68,43 64,48 C62,54 61,62 58,72 C55,83 51,96 48,110 C45,96 40,83 37,72 C33,62 29,59 23,55 C17,50 18,42 26,40 C32,38 33,32 35,26 C37,20 42,9 48,6 Z"
-                        fill="url(#indiaGradSignup)"
+                        d={INDIA_MAP_PATH}
+                        fill="#08231E"
                         stroke="#00F5A0"
-                        strokeWidth="1.75"
+                        strokeWidth="1.2"
                         strokeLinejoin="round"
-                        strokeLinecap="round"
                       />
 
-                      {/* Linguistic Cyber Mesh & Telemetry Nodes */}
-                      <path d="M46,28 L66,45 L48,82 L34,55 Z" stroke="rgba(0,245,160,0.35)" strokeWidth="0.75" strokeDasharray="2 2" />
+                      {/* Exact Horizontal Scanline Pattern Clipped to India */}
+                      <rect
+                        x="0"
+                        y="0"
+                        width="100"
+                        height="115"
+                        fill="url(#indiaHoriScanlinesSignup)"
+                        clipPath="url(#indiaBorderClipSignup)"
+                      />
 
-                      {/* Delhi Node */}
-                      <circle cx="46" cy="28" r="2.5" fill="#00D2FF" />
-                      <circle cx="46" cy="28" r="5" stroke="#00D2FF" strokeWidth="0.8" className="animate-ping opacity-60" />
+                      {/* Center VB Emblem with Horizontal Voice Line Passing Through */}
+                      <g transform="translate(46, 56)">
+                        {/* Audio pulse line extending outwards */}
+                        <line x1="-22" y1="0" x2="-9.5" y2="0" stroke="#00F5A0" strokeWidth="1.4" strokeLinecap="round" />
+                        <line x1="9.5" y1="0" x2="22" y2="0" stroke="#00F5A0" strokeWidth="1.4" strokeLinecap="round" />
 
-                      {/* Mumbai Node */}
-                      <circle cx="34" cy="55" r="2" fill="#00F5A0" />
+                        {/* Outer Dark Badge Circle */}
+                        <circle cx="0" cy="0" r="10.5" fill="#07131D" stroke="#00F5A0" strokeWidth="1.6" className="drop-shadow-[0_0_6px_rgba(0,245,160,0.6)]" />
 
-                      {/* Bengaluru Node */}
-                      <circle cx="48" cy="82" r="2.5" fill="#00F5A0" />
+                        {/* Inner Concentric Ring */}
+                        <circle cx="0" cy="0" r="8.5" fill="none" stroke="#00F5A0" strokeWidth="0.6" strokeOpacity="0.5" />
 
-                      {/* Kolkata Node */}
-                      <circle cx="66" cy="45" r="2" fill="#00D2FF" />
+                        {/* Centered VB Text / Monogram */}
+                        <text
+                          x="0"
+                          y="3.2"
+                          textAnchor="middle"
+                          fill="#00F5A0"
+                          fontSize="7.5"
+                          fontWeight="900"
+                          fontFamily="system-ui, -apple-system, sans-serif"
+                          letterSpacing="-0.3px"
+                          className="select-none"
+                        >
+                          VB
+                        </text>
+                      </g>
                     </svg>
                   </div>
 
-                  {/* Dynamic Dancing Soundwave Visualizer (Fluid Framer-Motion) */}
-                  <div className="flex-1 flex items-end justify-between gap-1.5 h-16 px-1">
-                    {SOUNDWAVE_ANIM_BARS.map((bar, i) => (
+                  {/* Right: Exact 3-Burst Symmetrical Soundwave with Fluid Voice Animation */}
+                  <div className="flex-1 flex items-center justify-center gap-[2px] sm:gap-[3px] h-20 px-1">
+                    {EXACT_SOUNDWAVE_PACKETS.map((bar, i) => (
                       <motion.div
                         key={i}
-                        className="flex-1 rounded-full bg-gradient-to-t from-[#00F5A0] via-[#00F5A0] to-[#00D2FF] shadow-[0_0_8px_rgba(0,245,160,0.4)]"
+                        className="w-[3px] sm:w-[3.5px] rounded-full bg-[#00F5A0] shadow-[0_0_6px_rgba(0,245,160,0.5)]"
                         animate={{
-                          height: [`${bar.min}%`, `${bar.max}%`, `${bar.min * 1.2}%`, `${bar.max * 0.8}%`, `${bar.min}%`],
+                          height: [`${bar.min}px`, `${bar.max}px`, `${bar.min}px`],
                         }}
                         transition={{
                           duration: bar.dur,
                           repeat: Infinity,
+                          repeatType: "reverse",
                           ease: "easeInOut",
-                          delay: i * 0.08,
+                          delay: (i * 0.06),
                         }}
-                        style={{ minHeight: '6px' }}
+                        style={{
+                          height: `${bar.base}px`,
+                          minHeight: '4px',
+                        }}
                       />
                     ))}
                   </div>
                 </div>
 
                 <p className="text-xs font-karla font-semibold text-slate-200 tracking-wide text-center">
-                  India Regional Dialect Engine
+                  Indic Regional Dialect Engine
                 </p>
                 <p className="text-[10px] font-mono text-silver/70 text-center mt-0.5">
                   AI4Bharat Wav2Vec2 · 16.0 kHz
