@@ -24,7 +24,8 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
   const [agentReport, setAgentReport] = useState<any>(null);
   const [isAgentLoading, setIsAgentLoading] = useState<boolean>(false);
 
-  const showAnalysisCard = hasMedia || isAnalyzing || Boolean(analysisData);
+  // Only display the second card after clicking on analysis
+  const showAnalysisCard = isAnalyzing || Boolean(analysisData);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
