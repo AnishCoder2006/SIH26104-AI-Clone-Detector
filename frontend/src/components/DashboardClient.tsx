@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { MediaInput } from '@/components/MediaInput';
 import { RiskAnalysisPanel, RiskResponse } from '@/components/RiskAnalysisPanel';
-import { LiveStreamPanel } from '@/components/LiveStreamPanel';
 import { motion } from 'framer-motion';
 
 interface DashboardClientProps {
@@ -17,7 +16,6 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
   const [loading, setLoading] = useState(true);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisData, setAnalysisData] = useState<RiskResponse | null>(null);
-  const [mode, setMode] = useState<'forensic' | 'live'>('forensic');
 
   // 1. State Variables
   const [agentReport, setAgentReport] = useState<any>(null);
@@ -121,44 +119,19 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
         </p>
       </div>
 
-      <div className="flex gap-4 mb-8 z-10 relative">
-        <button 
-          onClick={() => setMode('forensic')}
-          className={`px-6 py-2 rounded-lg font-medium transition-colors ${mode === 'forensic' ? 'bg-primary text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`}
-        >
-          Forensic Scan (File Upload)
-        </button>
-        <button 
-          onClick={() => setMode('live')}
-          className={`px-6 py-2 rounded-lg font-medium transition-colors ${mode === 'live' ? 'bg-primary text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`}
-        >
-          Live Stream (Microphone)
-        </button>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="min-h-[600px] h-full">
-          {mode === 'forensic' ? (
-            <MediaInput onAnalyze={handleAnalyze} isAnalyzing={isAnalyzing} />
-          ) : (
-            <LiveStreamPanel language={language} />
-          )}
+          <MediaInput onAnalyze={handleAnalyze} isAnalyzing={isAnalyzing} />
         </motion.div>
 
         <div className="min-h-[600px] h-full">
-          {mode === 'forensic' ? (
-            <RiskAnalysisPanel 
-              loading={isAnalyzing} 
-              data={analysisData} 
-              onRunForensicAnalysis={handleRunForensicAnalysis}
-              isAgentLoading={isAgentLoading}
-              agentReport={agentReport}
-            />
-          ) : (
-             <div className="h-full flex items-center justify-center bg-slate-900/30 rounded-2xl border border-slate-800 border-dashed text-slate-500">
-               Live analysis metrics are displayed on the left panel.
-             </div>
-          )}
+          <RiskAnalysisPanel 
+            loading={isAnalyzing} 
+            data={analysisData} 
+            onRunForensicAnalysis={handleRunForensicAnalysis}
+            isAgentLoading={isAgentLoading}
+            agentReport={agentReport}
+          />
         </div>
       </div>
     </div>
