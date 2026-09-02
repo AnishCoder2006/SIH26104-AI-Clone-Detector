@@ -2,6 +2,7 @@
 
 import { ShieldCheck, User, LogOut } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export function Navbar() {
@@ -30,6 +31,30 @@ export function Navbar() {
           <span className="font-bold text-2xl tracking-tight text-slate-100 font-serif">
             VoiceShield <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400 font-light">AI</span>
           </span>
+        </div>
+
+        {/* Center: Language Switcher Tabs */}
+        <div className="flex items-center gap-1.5 p-1 bg-slate-900/90 rounded-xl border border-slate-700/60 font-mono text-xs shadow-inner">
+          <Link
+            href="/dashboard/hindi"
+            className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
+              pathname.includes('/hindi')
+                ? 'bg-primary text-slate-950 font-bold shadow-[0_0_15px_rgba(0,255,204,0.3)]'
+                : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+            }`}
+          >
+            <span>🇮🇳</span> Indic / Hindi
+          </Link>
+          <Link
+            href="/dashboard/english"
+            className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
+              pathname.includes('/english')
+                ? 'bg-primary text-slate-950 font-bold shadow-[0_0_15px_rgba(0,255,204,0.3)]'
+                : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+            }`}
+          >
+            <span>🌐</span> English
+          </Link>
         </div>
 
         {/* Right Actions */}
