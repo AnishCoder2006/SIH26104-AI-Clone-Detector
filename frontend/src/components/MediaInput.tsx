@@ -31,6 +31,8 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
   const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null);
   const [mediaUrl, setMediaUrl] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [recordingSeconds, setRecordingSeconds] = useState(0);
   const [error, setError] = useState<string>('');
   const [isDragging, setIsDragging] = useState(false);
@@ -95,7 +97,25 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
     if (mediaUrl) URL.revokeObjectURL(mediaUrl);
     setMediaUrl(null);
     setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
     setError('');
+  };
+
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!audioRef.current || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const targetTime = pos * duration;
+    audioRef.current.currentTime = targetTime;
+    setCurrentTime(targetTime);
+  };
+
+  const formatAudioTime = (sec: number) => {
+    if (!sec || isNaN(sec) || sec <= 0) return '00:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
   const startRecording = async () => {
@@ -373,60 +393,135 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
         )}
       </div>
 
-      {/* Payload Manifest Preview (Rendered when media exists) */}
+      {/* Payload Manifest Preview (Redesigned Cyber Audio Module) */}
       {hasPayload && mediaUrl && (
-        <div className="mb-5 p-4 rounded-2xl bg-[#0B0F19]/90 border border-primary/30 shadow-lg relative overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <div className="flex items-center justify-between gap-3 mb-3">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-8 h-8 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary shrink-0">
-                <Volume2 className="w-4 h-4" />
+        <div className="mb-5 rounded-2xl p-4 bg-gradient-to-b from-[#141B2D] via-[#101726] to-[#0B0F19] border border-[#00D2FF]/25 shadow-[0_10px_35px_rgba(0,0,0,0.7),0_0_25px_rgba(0,245,160,0.08)] relative overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300">
+          {/* Subtle Top Glowing Cyber Accent */}
+          <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent pointer-events-none" />
+
+          {/* Top Metadata Header */}
+          <div className="flex items-center justify-between gap-3 mb-3.5">
+            <div className="flex items-center gap-3 min-w-0">
+              {/* Animated Wave Icon Orb */}
+              <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-primary/15 via-[#161D2F] to-[#0B0F19] border border-primary/40 flex items-center justify-center text-primary shadow-[0_0_12px_rgba(0,245,160,0.2)] shrink-0">
+                <Volume2 className={`w-4 h-4 ${isPlaying ? 'text-primary' : 'text-primary'}`} />
+                {isPlaying && (
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary animate-ping" />
+                )}
               </div>
+
+              {/* Title & Technical Metadata */}
               <div className="min-w-0">
-                <p className="text-xs font-karla font-bold text-white truncate">
-                  {file ? file.name : `Live_Audio_Capture_${formatSeconds(recordingSeconds)}.wav`}
-                </p>
-                <p className="text-[10px] font-mono text-silver">
-                  {file ? `${(file.size / (1024 * 1024)).toFixed(2)} MB · Auto Ingest` : '16.0 kHz Mono WAV'}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="font-karla font-bold text-sm text-white truncate tracking-wide">
+                    {file ? file.name : `Live_Audio_Capture_${formatSeconds(recordingSeconds)}.wav`}
+                  </p>
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[9px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/30 uppercase font-semibold shrink-0">
+                    <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                    Buffered
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-[11px] font-mono text-silver mt-0.5">
+                  <span className="text-slate-300 font-medium">16.0 kHz Mono</span>
+                  <span>•</span>
+                  <span>{file ? `${(file.size / (1024 * 1024)).toFixed(2)} MB` : 'Linear PCM'}</span>
+                  <span className="hidden md:inline">•</span>
+                  <span className="hidden md:inline text-accent font-semibold">Verified Spec</span>
+                </div>
               </div>
             </div>
 
-            {/* Clear & Replace Action */}
+            {/* Reset / Discard Pill */}
             <button
               type="button"
               onClick={clearPayload}
-              title="Discard & replace payload"
-              className="p-1.5 rounded-lg bg-white/5 hover:bg-rose-500/20 text-silver hover:text-rose-400 border border-white/10 hover:border-rose-500/40 transition-all text-xs flex items-center gap-1 shrink-0"
+              title="Discard and select new media"
+              className="px-3 py-1.5 rounded-xl bg-white/[0.04] hover:bg-rose-500/15 border border-white/10 hover:border-rose-500/40 text-silver hover:text-rose-400 transition-all text-xs font-karla font-semibold flex items-center gap-1.5 shadow-sm shrink-0 group"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span className="text-[10px] font-karla font-medium">Reset</span>
+              <RotateCcw className="w-3.5 h-3.5 transition-transform group-hover:-rotate-90 duration-200" />
+              <span>Reset</span>
             </button>
           </div>
 
-          {/* Interactive Player Controller */}
-          <div className="flex items-center gap-3 bg-[#161D2F] p-2.5 rounded-xl border border-white/10">
+          {/* Interactive Player Console */}
+          <div className="bg-[#0B0F19]/90 p-3 rounded-xl border border-white/[0.08] shadow-inner flex items-center gap-3.5">
+            {/* Play/Pause Cyber Dial */}
             <button
               type="button"
               onClick={togglePlayAudio}
-              className="w-8 h-8 rounded-lg bg-primary hover:bg-primary/90 text-[#0B0F19] flex items-center justify-center shrink-0 transition-transform active:scale-95 shadow-sm"
+              className="w-10 h-10 rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-[#0B0F19] flex items-center justify-center shrink-0 transition-all duration-200 shadow-[0_0_16px_rgba(0,245,160,0.35)] hover:scale-105 active:scale-95"
             >
-              {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
+              {isPlaying ? (
+                <Pause className="w-4 h-4 fill-current" />
+              ) : (
+                <Play className="w-4 h-4 fill-current ml-0.5" />
+              )}
             </button>
 
             <audio
               ref={audioRef}
               src={mediaUrl}
-              onEnded={() => setIsPlaying(false)}
+              onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+              onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+              onEnded={() => { setIsPlaying(false); setCurrentTime(0); }}
               className="hidden"
             />
 
-            <div className="flex-1 flex flex-col justify-center">
-              <div className="h-2 rounded-full bg-[#0B0F19] border border-white/10 overflow-hidden relative">
-                <div className={`h-full bg-gradient-to-r from-primary to-accent transition-all duration-300 ${isPlaying ? 'w-full animate-pulse' : 'w-1/3'}`} />
+            {/* Waveform Scrubber & Telemetry Data */}
+            <div className="flex-1 flex flex-col justify-center gap-1.5">
+              {/* Timeline Header */}
+              <div className="flex items-center justify-between text-[11px] font-mono">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-bold text-slate-200 tracking-wider">
+                    {formatAudioTime(currentTime)}
+                  </span>
+                  <span className="text-slate-500">/</span>
+                  <span className="text-silver">
+                    {formatAudioTime(duration || (file ? 0 : recordingSeconds))}
+                  </span>
+
+                  {/* Dancing EQ Bars while playing */}
+                  {isPlaying && (
+                    <div className="flex items-end gap-0.5 h-3 ml-2">
+                      {[60, 100, 40, 80, 50, 90].map((h, i) => (
+                        <div
+                          key={i}
+                          className="w-1 bg-primary rounded-full animate-pulse"
+                          style={{ height: `${h}%`, animationDuration: `${0.2 + (i % 3) * 0.1}s` }}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-1.5 text-[10px]">
+                  <span className="text-accent font-semibold">16.0 kHz Spec</span>
+                  <span className="text-slate-600">•</span>
+                  <span className="text-silver font-medium">Float32</span>
+                </div>
               </div>
-              <div className="flex justify-between text-[9px] font-mono text-silver mt-1">
-                <span>Audio Stream Active</span>
-                <span className="text-primary font-semibold">16.0 kHz Spec</span>
+
+              {/* Clickable Seekable Audio Scrubber Track */}
+              <div
+                onClick={handleSeek}
+                className="h-2 rounded-full bg-[#161D2F] border border-white/10 relative overflow-hidden cursor-pointer group/scrub"
+              >
+                {/* Background Guide Bars */}
+                <div className="absolute inset-0 flex items-center justify-between px-1 opacity-20 pointer-events-none">
+                  {[...Array(24)].map((_, i) => (
+                    <div key={i} className="w-[1px] h-full bg-white" />
+                  ))}
+                </div>
+
+                {/* Progress Bar with Glow Head */}
+                <div
+                  className="h-full bg-gradient-to-r from-primary via-primary to-accent transition-all duration-100 rounded-full relative"
+                  style={{
+                    width: duration > 0 ? `${Math.min(100, (currentTime / duration) * 100)}%` : isPlaying ? '100%' : '0%',
+                  }}
+                >
+                  <div className="absolute right-0 top-0 bottom-0 w-2 bg-white rounded-full shadow-[0_0_8px_#ffffff]" />
+                </div>
               </div>
             </div>
           </div>
