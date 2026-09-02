@@ -246,12 +246,7 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
           </p>
         </div>
 
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0B0F19] border border-white/10 text-[10px] font-mono text-silver shrink-0 shadow-inner">
-          <span className={`w-2 h-2 rounded-full ${hasPayload ? 'bg-primary shadow-[0_0_8px_rgba(0,245,160,0.8)]' : 'bg-emerald-400 animate-pulse'}`} />
-          <span className="font-semibold tracking-wider uppercase text-slate-200">
-            {hasPayload ? 'Buffer Ready' : 'Vault Active'}
-          </span>
-        </div>
+
       </div>
 
       {/* Ingestion Mode Switcher */}
