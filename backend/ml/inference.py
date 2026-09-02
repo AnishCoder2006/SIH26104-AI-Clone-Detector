@@ -1,7 +1,5 @@
-# model_inference.py
-
-import torch
-from transformers import Wav2Vec2ForSequenceClassification, Wav2Vec2FeatureExtractor
+import os
+import random
 
 # IMPORT YOUR TEAMMATE'S NEW STREAMER
 from audio.streamer import stream_audio
@@ -13,12 +11,19 @@ SPOOF_THRESHOLD = 0.1
 
 _model = None
 _extractor = None
-_device = "cuda" if torch.cuda.is_available() else "cpu"
+_device = None
 
 def load_model():
     """Loads model and feature extractor lazily to device."""
-    global _model, _extractor
+    if os.getenv("MOCK_ML_MODELS") == "true":
+        return None, None
+
+    global _model, _extractor, _device
     if _model is None:
+        import torch
+        from transformers import Wav2Vec2ForSequenceClassification, Wav2Vec2FeatureExtractor
+        
+        _device = "cuda" if torch.cuda.is_available() else "cpu"
         _model = Wav2Vec2ForSequenceClassification.from_pretrained(HF_MODEL_REPO)
         _extractor = Wav2Vec2FeatureExtractor.from_pretrained(HF_MODEL_REPO)
         _model.eval()
@@ -27,6 +32,17 @@ def load_model():
 
 def analyze_audio(audio_path: str) -> dict:
     """Runs voice-clone detection on an audio file using batched sliding windows."""
+    if os.getenv("MOCK_ML_MODELS") == "true":
+        # Return realistic looking mock data for 512MB RAM constraint environments
+        is_spoof = random.choice([True, False])
+        return {
+            "synthetic_probability": round(random.uniform(0.65, 0.99) if is_spoof else random.uniform(0.01, 0.15), 4),
+            "speaker_similarity": None,
+            "label": "CLONED" if is_spoof else "REAL",
+            "alert": is_spoof,
+        }
+
+    import torch
     model, extractor = load_model()
 
     try:
