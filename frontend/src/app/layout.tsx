@@ -8,8 +8,6 @@ const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-fraunces',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700', '800'],
-  axes: ['opsz'],
 });
 
 const inter = Inter({
