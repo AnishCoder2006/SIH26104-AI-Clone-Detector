@@ -430,10 +430,6 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
                   <p className="font-karla font-bold text-sm text-white truncate tracking-wide">
                     {file ? file.name : `Live_Audio_Capture_${formatSeconds(recordingSeconds)}.wav`}
                   </p>
-                  <span className="hidden sm:inline-flex items-center gap-1 text-[9px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/30 uppercase font-semibold shrink-0">
-                    <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-                    Buffered
-                  </span>
                 </div>
                 <div className="flex items-center gap-2 text-[11px] font-mono text-silver mt-0.5">
                   <span className="text-slate-300 font-medium">16.0 kHz Mono</span>
