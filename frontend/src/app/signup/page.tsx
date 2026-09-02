@@ -242,40 +242,103 @@ function SignupContent() {
 
               {/* Sub-Engine 2: Global Temporal Engine */}
               <div className="rounded-xl p-4 bg-[#070B14]/90 border border-white/10 flex flex-col justify-between hover:border-accent/50 transition-all">
-                {/* Visual Graphic: Wireframe Globe & Spectrogram */}
-                <div className="h-28 rounded-xl bg-gradient-to-b from-[#161D2F]/80 via-[#0B0F19] to-[#070B14] border border-white/10 p-3 flex items-center justify-between gap-3 relative overflow-hidden mb-3">
-                  {/* Wireframe Globe SVG */}
-                  <div className="relative w-20 h-24 shrink-0 flex items-center justify-center">
-                    <svg className="w-18 h-18 text-accent/80 drop-shadow-[0_0_12px_rgba(0,210,255,0.5)]" viewBox="0 0 100 100" fill="none">
-                      <circle cx="50" cy="50" r="42" stroke="#00D2FF" strokeWidth="1.5" strokeDasharray="4 2" />
-                      <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#00F5A0" strokeWidth="1" strokeDasharray="3 2" />
-                      <ellipse cx="50" cy="50" rx="16" ry="42" stroke="#00D2FF" strokeWidth="1" strokeDasharray="3 2" />
-                      <circle cx="50" cy="50" r="4" fill="#00F5A0" className="animate-pulse" />
+                {/* Visual Graphic: Wireframe Globe & Stacked Telemetry Panels */}
+                <div className="h-28 rounded-xl bg-[#09111E] border border-white/10 p-2.5 flex items-center justify-between gap-2.5 relative overflow-hidden mb-3">
+                  {/* Left: Digital Wireframe Globe */}
+                  <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">
+                    <svg className="w-full h-full drop-shadow-[0_0_10px_rgba(0,210,255,0.4)]" viewBox="0 0 100 100" fill="none">
+                      <defs>
+                        <clipPath id="globeInnerClipSignup">
+                          <circle cx="50" cy="50" r="42" />
+                        </clipPath>
+                        <pattern id="globeDotsSignup" width="4" height="4" patternUnits="userSpaceOnUse">
+                          <circle cx="2" cy="2" r="0.65" fill="#00D2FF" fillOpacity="0.28" />
+                        </pattern>
+                      </defs>
+
+                      {/* Dark Blue Globe Base */}
+                      <circle cx="50" cy="50" r="42" fill="#06121E" />
+                      
+                      {/* Dotted Matrix Texture */}
+                      <rect x="8" y="8" width="84" height="84" fill="url(#globeDotsSignup)" clipPath="url(#globeInnerClipSignup)" />
+
+                      {/* Outer Ring */}
+                      <circle cx="50" cy="50" r="42" stroke="#00D2FF" strokeWidth="1.5" />
+
+                      {/* Latitudes */}
+                      <line x1="8" y1="50" x2="92" y2="50" stroke="#00D2FF" strokeWidth="1.2" />
+                      <path d="M14,30 Q50,40 86,30" stroke="#00D2FF" strokeWidth="1.0" fill="none" />
+                      <path d="M14,70 Q50,60 86,70" stroke="#00D2FF" strokeWidth="1.0" fill="none" />
+
+                      {/* Meridians (Longitudes) */}
+                      <line x1="50" y1="8" x2="50" y2="92" stroke="#00D2FF" strokeWidth="1.2" />
+                      <ellipse cx="50" cy="50" rx="20" ry="42" stroke="#00D2FF" strokeWidth="1.1" fill="none" />
+                      <ellipse cx="50" cy="50" rx="33" ry="42" stroke="#00D2FF" strokeWidth="0.9" fill="none" />
                     </svg>
                   </div>
 
-                  {/* Simulated Mel-Spectrogram Heatmap with Animation */}
-                  <div className="flex-1 h-16 rounded bg-[#070B14] border border-white/10 p-1.5 flex flex-col justify-between overflow-hidden">
-                    <motion.div 
-                      className="h-2 rounded-full bg-gradient-to-r from-accent via-primary to-transparent" 
-                      animate={{ opacity: [0.6, 1, 0.7], x: [-3, 3, -3] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
-                    <motion.div 
-                      className="h-2 rounded-full bg-gradient-to-r from-transparent via-accent to-primary" 
-                      animate={{ opacity: [0.8, 0.4, 0.9], x: [3, -3, 3] }}
-                      transition={{ duration: 1.6, repeat: Infinity }}
-                    />
-                    <motion.div 
-                      className="h-2 rounded-full bg-gradient-to-r from-primary via-transparent to-accent" 
-                      animate={{ opacity: [0.5, 0.95, 0.5] }}
-                      transition={{ duration: 1.8, repeat: Infinity }}
-                    />
-                    <motion.div 
-                      className="h-2 rounded-full bg-gradient-to-r from-accent via-primary to-accent" 
-                      animate={{ opacity: [0.9, 0.6, 1] }}
-                      transition={{ duration: 1.4, repeat: Infinity }}
-                    />
+                  {/* Right: Stacked Sub-Panels (Spectral Wave + Mel-Spectrogram) */}
+                  <div className="flex-1 flex flex-col justify-between h-24 py-0.5">
+                    {/* Top Panel: Oscilloscope Frequency Envelope on Grid */}
+                    <div className="h-[42px] w-full rounded-lg bg-[#060D18] border border-white/10 relative overflow-hidden flex items-center justify-center">
+                      {/* Oscilloscope Grid */}
+                      <svg className="absolute inset-0 w-full h-full opacity-25" viewBox="0 0 120 44" fill="none">
+                        <line x1="0" y1="11" x2="120" y2="11" stroke="#00D2FF" strokeWidth="0.5" strokeDasharray="2 2" />
+                        <line x1="0" y1="22" x2="120" y2="22" stroke="#00D2FF" strokeWidth="0.5" />
+                        <line x1="0" y1="33" x2="120" y2="33" stroke="#00D2FF" strokeWidth="0.5" strokeDasharray="2 2" />
+                        <line x1="24" y1="0" x2="24" y2="44" stroke="#00D2FF" strokeWidth="0.5" />
+                        <line x1="48" y1="0" x2="48" y2="44" stroke="#00D2FF" strokeWidth="0.5" />
+                        <line x1="72" y1="0" x2="72" y2="44" stroke="#00D2FF" strokeWidth="0.5" />
+                        <line x1="96" y1="0" x2="96" y2="44" stroke="#00D2FF" strokeWidth="0.5" />
+                      </svg>
+
+                      {/* Spectral Envelope Curve with Filled Area */}
+                      <svg className="w-full h-full overflow-visible relative z-10" viewBox="0 0 120 44" fill="none" preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="curveGradientSignup" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#00F5A0" stopOpacity="0.45" />
+                            <stop offset="60%" stopColor="#00D2FF" stopOpacity="0.18" />
+                            <stop offset="100%" stopColor="#00D2FF" stopOpacity="0.0" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M 0,34 Q 8,33 12,28 Q 16,8 20,6 Q 24,5 28,26 Q 34,28 38,16 Q 42,4 46,5 Q 50,7 54,24 Q 60,15 66,16 Q 72,18 78,14 Q 84,12 90,20 Q 98,25 106,18 Q 114,14 120,22 L 120,44 L 0,44 Z"
+                          fill="url(#curveGradientSignup)"
+                        />
+                        <path
+                          d="M 0,34 Q 8,33 12,28 Q 16,8 20,6 Q 24,5 28,26 Q 34,28 38,16 Q 42,4 46,5 Q 50,7 54,24 Q 60,15 66,16 Q 72,18 78,14 Q 84,12 90,20 Q 98,25 106,18 Q 114,14 120,22"
+                          stroke="#00F5A0"
+                          strokeWidth="1.4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="drop-shadow-[0_0_6px_rgba(0,245,160,0.6)]"
+                        />
+                      </svg>
+                    </div>
+
+                    {/* Bottom Panel: Real Mel-Spectrogram Heatmap */}
+                    <div className="h-[42px] w-full rounded-lg bg-[#07091A] border border-white/10 relative overflow-hidden p-0.5">
+                      <div className="w-full h-full rounded-[6px] overflow-hidden flex relative">
+                        <div className="w-[14%] h-full bg-gradient-to-t from-emerald-500/80 via-indigo-700/60 to-purple-900/80 opacity-90" />
+                        <div className="w-[8%] h-full bg-[#07091A]" />
+                        <div className="w-[16%] h-full bg-gradient-to-t from-[#00F5A0] via-cyan-400/80 to-indigo-600/60 shadow-[0_0_8px_rgba(0,245,160,0.5)]" />
+                        <div className="w-[6%] h-full bg-[#07091A]" />
+                        <div className="w-[18%] h-full bg-gradient-to-t from-[#00F5A0] via-[#00D2FF] to-purple-700/70" />
+                        <div className="w-[5%] h-full bg-[#07091A]" />
+                        <div className="w-[15%] h-full bg-gradient-to-t from-teal-400 via-indigo-600/70 to-purple-900/80" />
+                        <div className="w-[18%] h-full bg-gradient-to-t from-[#00F5A0]/90 via-emerald-600/70 to-indigo-900" />
+                        
+                        {/* Horizontal frequency scanline stripes */}
+                        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_3px,rgba(0,0,0,0.4)_4px)] bg-[length:100%_4px] pointer-events-none" />
+
+                        {/* Animated subtle sweep */}
+                        <motion.div
+                          className="absolute top-0 bottom-0 w-8 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none"
+                          animate={{ x: [-20, 160] }}
+                          transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
