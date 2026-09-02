@@ -229,7 +229,7 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
   const hasPayload = Boolean(file || recordingBlob);
 
   return (
-    <div className="relative rounded-3xl p-6 lg:p-7 bg-gradient-to-b from-[#161D2F]/95 via-[#161D2F]/85 to-[#0B0F19] border border-white/10 shadow-[0_20px_50px_rgba(11,15,25,0.85)] flex flex-col overflow-hidden transition-all">
+    <div className="relative rounded-xl p-6 lg:p-7 bg-gradient-to-b from-[#161D2F]/95 via-[#161D2F]/85 to-[#0B0F19] border border-white/10 shadow-[0_20px_50px_rgba(11,15,25,0.85)] flex flex-col overflow-hidden transition-all">
       {/* Ambient Top Glow Line */}
       <div className="absolute top-0 left-1/4 right-1/4 h-[1.5px] bg-gradient-to-r from-transparent via-primary/70 to-transparent rounded-full pointer-events-none" />
 
@@ -250,11 +250,11 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
       </div>
 
       {/* Ingestion Mode Switcher */}
-      <div className="grid grid-cols-2 gap-2 p-1.5 bg-[#0B0F19]/90 rounded-2xl border border-white/10 mb-5 shadow-inner backdrop-blur-md">
+      <div className="grid grid-cols-2 gap-2 p-1.5 bg-[#0B0F19]/90 rounded-xl border border-white/10 mb-5 shadow-inner backdrop-blur-md">
         <button
           type="button"
           onClick={() => setActiveTab('upload')}
-          className={`py-2 px-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 font-karla text-xs font-bold tracking-wide ${
+          className={`py-2 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 font-karla text-xs font-bold tracking-wide ${
             activeTab === 'upload'
               ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] shadow-[0_0_15px_rgba(0,245,160,0.35)]'
               : 'text-silver hover:text-white hover:bg-white/5'
@@ -267,7 +267,7 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
         <button
           type="button"
           onClick={() => setActiveTab('record')}
-          className={`py-2 px-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 font-karla text-xs font-bold tracking-wide ${
+          className={`py-2 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 font-karla text-xs font-bold tracking-wide ${
             activeTab === 'record'
               ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] shadow-[0_0_15px_rgba(0,245,160,0.35)]'
               : 'text-silver hover:text-white hover:bg-white/5'
@@ -286,7 +286,7 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
             onDrop={handleFileDrop}
-            className={`relative rounded-2xl p-7 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 border-2 border-dashed ${
+            className={`relative rounded-xl p-7 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 border-2 border-dashed ${
               isDragging
                 ? 'border-primary bg-primary/10 scale-[1.01] shadow-[0_0_30px_rgba(0,245,160,0.2)]'
                 : 'border-white/15 bg-[#0B0F19]/60 hover:border-primary/60 hover:bg-[#0B0F19]/80'
@@ -332,7 +332,7 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
           </div>
         ) : (
           /* High-Tech Live Microphone Console */
-          <div className="rounded-2xl p-7 bg-[#0B0F19]/60 border border-white/15 flex flex-col items-center justify-center text-center relative overflow-hidden">
+          <div className="rounded-xl p-7 bg-[#0B0F19]/60 border border-white/15 flex flex-col items-center justify-center text-center relative overflow-hidden">
             {!isRecording ? (
               <div className="flex flex-col items-center py-2">
                 <button
@@ -390,7 +390,7 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
 
       {/* Payload Manifest Preview (Redesigned Cyber Audio Module) */}
       {hasPayload && mediaUrl && (
-        <div className="mb-5 rounded-2xl p-4 bg-gradient-to-b from-[#141B2D] via-[#101726] to-[#0B0F19] border border-[#00D2FF]/25 shadow-[0_10px_35px_rgba(0,0,0,0.7),0_0_25px_rgba(0,245,160,0.08)] relative overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <div className="mb-5 rounded-xl p-4 bg-gradient-to-b from-[#141B2D] via-[#101726] to-[#0B0F19] border border-[#00D2FF]/25 shadow-[0_10px_35px_rgba(0,0,0,0.7),0_0_25px_rgba(0,245,160,0.08)] relative overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300">
           {/* Subtle Top Glowing Cyber Accent */}
           <div className="absolute top-0 left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent pointer-events-none" />
 
@@ -536,7 +536,7 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
         type="button"
         onClick={handleSubmit}
         disabled={isAnalyzing || !hasPayload}
-        className="relative group w-full bg-gradient-to-r from-[#00F5A0] via-[#00F5A0] to-[#00D2FF] hover:from-[#00F5A0]/90 hover:to-[#00D2FF]/90 text-[#0B0F19] font-karla font-bold py-4 px-6 rounded-2xl transition-all duration-300 shadow-[0_0_25px_rgba(0,245,160,0.3)] hover:shadow-[0_0_35px_rgba(0,245,160,0.5)] hover:scale-[1.01] active:scale-[0.99] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none flex items-center justify-center gap-2.5 select-none overflow-hidden"
+        className="relative group w-full bg-gradient-to-r from-[#00F5A0] via-[#00F5A0] to-[#00D2FF] hover:from-[#00F5A0]/90 hover:to-[#00D2FF]/90 text-[#0B0F19] font-karla font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-[0_0_25px_rgba(0,245,160,0.3)] hover:shadow-[0_0_35px_rgba(0,245,160,0.5)] hover:scale-[1.005] active:scale-[0.995] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none flex items-center justify-center gap-2.5 select-none overflow-hidden"
       >
         <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
         
