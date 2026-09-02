@@ -11,6 +11,8 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-sans)', 'sans-serif'],
         serif: ['var(--font-serif)', 'serif'],
+        space: ['var(--font-space)', 'sans-serif'],
+        plex: ['var(--font-plex)', 'sans-serif'],
       },
       colors: {
         background: "#000000", // Pitch Black

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import React from 'react';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
-import { Cormorant, Karla } from 'next/font/google';
+import { Cormorant, Karla, Space_Grotesk, IBM_Plex_Sans } from 'next/font/google';
 
 const karla = Karla({ 
   subsets: ['latin'], 
@@ -18,6 +18,20 @@ const cormorant = Cormorant({
   weight: ['300', '400', '500', '600', '700'],
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ['latin'],
+  variable: '--font-plex',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
+});
+
 export const metadata: Metadata = {
   title: 'VoiceShield AI - Clone Detection System',
   description: 'Enterprise AI Voice Clone Detection System',
@@ -29,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${karla.variable} ${cormorant.variable}`}>
+    <html lang="en" className={`${karla.variable} ${cormorant.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
       <body className="bg-background text-slate-100 min-h-screen flex flex-col font-sans relative overflow-x-hidden">
         {/* Abstract Background Effects */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">
