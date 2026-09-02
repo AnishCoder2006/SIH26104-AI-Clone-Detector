@@ -248,7 +248,7 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
             </h2>
           </div>
           <p className="text-xs font-karla text-silver">
-            Secure ephemeral buffer · Zero-persistence neural clone dissection
+            Neural clone dissection · Multi-band spectral synthesis analysis
           </p>
         </div>
 

@@ -430,8 +430,6 @@ function SignupContent() {
       <footer className="relative z-20 w-full px-6 lg:px-12 py-5 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-karla text-silver/70">
         <div className="flex flex-wrap items-center gap-2 text-center sm:text-left">
           <span>Developed by: <strong className="text-white font-medium">Cybersecurity Innovations</strong></span>
-          <span className="hidden sm:inline">•</span>
-          <span>Compliance: <strong className="text-primary font-mono text-[11px]">DPDP Act (zero audio persistence)</strong></span>
         </div>
 
         <div className="flex items-center gap-5 text-xs text-silver">
