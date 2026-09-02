@@ -125,28 +125,14 @@ function SigninContent() {
 
   return (
     <div className="min-h-screen w-full bg-[#070B14] text-white relative overflow-x-hidden flex flex-col justify-between selection:bg-primary selection:text-[#0B0F19]">
-      {/* Background Decorative Cyber Matrix & Soundwave */}
+      {/* Immersive World Map Background Layer */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        {/* World Map Silhouette Background */}
-        <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
-        
-        {/* Ambient Radial Glows */}
-        <div className="absolute -top-32 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[160px]" />
-        <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[150px]" />
-        <div className="absolute -bottom-32 left-10 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[160px]" />
-
-        {/* Ambient Soundwave Horizon Lines */}
-        <div className="absolute top-1/2 left-0 right-0 h-44 -translate-y-1/2 opacity-20 flex items-center justify-between pointer-events-none px-4">
-          {[...Array(60)].map((_, i) => (
-            <div
-              key={i}
-              className="w-[1.5px] bg-gradient-to-t from-transparent via-primary to-transparent rounded-full"
-              style={{
-                height: `${20 + Math.sin(i * 0.3) * 50 + (i % 5) * 8}%`,
-              }}
-            />
-          ))}
-        </div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80"
+          style={{ backgroundImage: "url('/bg-world-map.png')" }}
+        />
+        {/* Deep dark overlay gradient for text legibility & cyber aesthetic */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#070B14]/60 via-[#070B14]/30 to-[#070B14]/70" />
       </div>
 
       {/* Main Showcase & Login Workspace */}
