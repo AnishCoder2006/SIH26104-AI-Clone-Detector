@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { UploadCloud, Mic, Square, Play, ShieldAlert, DollarSign, Loader2 } from 'lucide-react';
+import { UploadCloud, Mic, Square, Play, ShieldAlert, Loader2 } from 'lucide-react';
 import { extractAndEncodeAudio, encodeWAV } from '../lib/audioUtils';
 
 interface MediaInputProps {
@@ -14,9 +14,6 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null);
   const [mediaUrl, setMediaUrl] = useState<string | null>(null);
-  
-  const [transactionValue, setTransactionValue] = useState<string>('');
-  const [knownContact, setKnownContact] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -135,8 +132,8 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
 
       await onAnalyze({
         file: finalWavBlob,
-        transaction_value: parseFloat(transactionValue) || 0,
-        known_contact: knownContact
+        transaction_value: 0,
+        known_contact: false,
       });
 
     } catch (err) {
@@ -215,37 +212,7 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
         </div>
       )}
 
-      {/* Metadata Inputs */}
-      <div className="space-y-4 mb-8 mt-auto">
-        <div>
-          <label className="block font-mono text-[11px] tracking-[0.15em] text-slate-400 uppercase mb-2">Transaction Amount (USD)</label>
-          <div className="relative group">
-            <DollarSign className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-primary transition-colors" />
-            <input
-              type="number"
-              value={transactionValue}
-              onChange={(e) => setTransactionValue(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-base font-medium focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-slate-100 transition-all placeholder:text-slate-600"
-              placeholder="0.00"
-              min="0"
-              step="0.01"
-            />
-          </div>
-        </div>
 
-        <label className="flex items-center gap-4 cursor-pointer group w-fit mt-6">
-          <div className="relative inline-flex items-center">
-            <input 
-              type="checkbox" 
-              className="sr-only peer" 
-              checked={knownContact}
-              onChange={(e) => setKnownContact(e.target.checked)}
-            />
-            <div className="w-11 h-6 bg-white/10 rounded-full peer peer-focus:ring-2 peer-focus:ring-primary/50 peer-checked:bg-primary transition-colors duration-300 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-transform peer-checked:after:translate-x-full shadow-inner"></div>
-          </div>
-          <span className="font-mono text-xs tracking-[0.15em] text-slate-400 uppercase group-hover:text-slate-300 transition-colors">Known Contact Identity</span>
-        </label>
-      </div>
 
       {error && (
         <div className="mb-4 text-xs text-red-400 flex items-center gap-1.5 bg-red-400/10 p-2 rounded">
@@ -258,7 +225,7 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
         type="button"
         onClick={handleSubmit}
         disabled={isAnalyzing || (!file && !recordingBlob)}
-        className="w-full bg-primary hover:bg-primary/90 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,255,204,0.2)] hover:shadow-[0_0_30px_rgba(0,255,204,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 select-none"
+        className="w-full bg-primary hover:bg-primary/90 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,255,204,0.2)] hover:shadow-[0_0_30px_rgba(0,255,204,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 select-none mt-auto"
       >
         {isAnalyzing ? (
           <span key="state-analyzing" className="inline-flex items-center justify-center gap-2">
