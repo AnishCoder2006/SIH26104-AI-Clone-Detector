@@ -166,12 +166,12 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1">
-        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="min-h-[600px] h-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
           <MediaInput onAnalyze={handleAnalyze} isAnalyzing={isAnalyzing} />
         </motion.div>
 
-        <div className="min-h-[600px] h-full">
+        <div className="w-full">
           <RiskAnalysisPanel 
             loading={isAnalyzing} 
             data={analysisData} 

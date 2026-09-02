@@ -143,12 +143,12 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
   };
 
   return (
-    <div className="glass-panel p-6 rounded-2xl flex flex-col h-full">
-      <h2 className="text-xl font-bold font-serif mb-6">Media Input</h2>
+    <div className="glass-panel p-6 rounded-2xl flex flex-col">
+      <h2 className="text-xl font-bold font-serif mb-4">Media Input</h2>
       
       {/* Upload Zone */}
       <div 
-        className="border-2 border-dashed border-white/10 rounded-xl p-8 mb-6 flex flex-col items-center justify-center text-center hover:border-primary/50 transition-colors bg-white/5 cursor-pointer relative"
+        className="border-2 border-dashed border-white/10 rounded-xl p-6 mb-4 flex flex-col items-center justify-center text-center hover:border-primary/50 transition-colors bg-white/5 cursor-pointer relative"
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleFileDrop}
       >
@@ -158,31 +158,33 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
           accept="audio/*,video/*"
           onChange={handleFileInput}
         />
-        <UploadCloud className="w-10 h-10 text-slate-500 mb-3" />
+        <UploadCloud className="w-9 h-9 text-slate-500 mb-2.5" />
         <p className="text-sm font-medium text-slate-300">Drag & drop Media File</p>
-        <p className="text-xs text-slate-500 mt-1">Supports WAV, FLAC, MP4, MOV</p>
+        <p className="text-xs text-slate-500 mt-0.5">Supports WAV, FLAC, MP4, MOV</p>
       </div>
 
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-4 mb-4">
         <div className="h-px bg-white/10 flex-1" />
-        <span className="text-xs text-slate-500 font-medium">OR</span>
+        <span className="text-xs text-slate-500 font-medium font-mono">OR</span>
         <div className="h-px bg-white/10 flex-1" />
       </div>
 
       {/* Mic Recorder */}
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-5">
         {!isRecording ? (
           <button 
+            type="button"
             onClick={startRecording}
-            className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full py-2.5 px-6 transition-all"
+            className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full py-2 px-5 transition-all shadow-sm"
           >
-            <Mic className="w-5 h-5 text-accent" />
+            <Mic className="w-4 h-4 text-accent" />
             <span className="text-sm font-medium">Start Live Recording</span>
           </button>
         ) : (
           <button 
+            type="button"
             onClick={stopRecording}
-            className="flex items-center gap-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 rounded-full py-2.5 px-6 transition-all relative overflow-hidden"
+            className="flex items-center gap-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 rounded-full py-2 px-5 transition-all relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-red-500/20 animate-pulse" />
             <Square className="w-4 h-4 text-red-400 fill-red-400 z-10" />
@@ -200,19 +202,17 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
 
       {/* Dynamic Player */}
       {mediaUrl && (
-        <div className="mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
+        <div className="mb-4 p-3.5 rounded-xl bg-white/5 border border-white/10">
           <p className="text-xs text-slate-400 mb-2 truncate">
             {file ? `File: ${file.name}` : 'Recorded Audio'}
           </p>
           {file && file.type.startsWith('video/') ? (
             <video src={mediaUrl} controls className="w-full rounded bg-black max-h-40" />
           ) : (
-            <audio src={mediaUrl} controls className="w-full h-10" />
+            <audio src={mediaUrl} controls className="w-full h-9" />
           )}
         </div>
       )}
-
-
 
       {error && (
         <div className="mb-4 text-xs text-red-400 flex items-center gap-1.5 bg-red-400/10 p-2 rounded">
@@ -225,7 +225,7 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
         type="button"
         onClick={handleSubmit}
         disabled={isAnalyzing || (!file && !recordingBlob)}
-        className="w-full bg-primary hover:bg-primary/90 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,255,204,0.2)] hover:shadow-[0_0_30px_rgba(0,255,204,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 select-none mt-auto"
+        className="w-full bg-primary hover:bg-primary/90 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,255,204,0.2)] hover:shadow-[0_0_30px_rgba(0,255,204,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 select-none mt-2"
       >
         {isAnalyzing ? (
           <span key="state-analyzing" className="inline-flex items-center justify-center gap-2">
