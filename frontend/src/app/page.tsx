@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Activity, Lock, Database, ChevronRight, Server, Shield, Hexagon } from 'lucide-react';
+import { Activity, Lock, Database, ChevronRight, Server, Shield, Hexagon, Globe, Cpu } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -95,22 +95,22 @@ export default function Home() {
             {/* Mock Telemetry Data */}
             <div className="space-y-4 font-mono text-sm">
               <div className="flex justify-between items-center p-3 bg-slate-900/50 rounded-lg border border-slate-800">
-                <span className="text-slate-400">SPECTRAL_ENTROPY</span>
-                <span className="text-emerald-400">0.9842 SECURE</span>
+                <span className="text-slate-400">WS_LATENCY_OVERHEAD</span>
+                <span className="text-emerald-400">142ms [ULTRA_FAST]</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-slate-900/50 rounded-lg border border-slate-800">
-                <span className="text-slate-400">PHASE_COHERENCE</span>
-                <span className="text-red-400 animate-pulse">0.4121 ANOMALY</span>
+                <span className="text-slate-400">ACTIVE_ENGINE_ROUTING</span>
+                <span className="text-primary">INDIC_WAV2VEC2.ONNX</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-slate-900/50 rounded-lg border border-slate-800">
-                <span className="text-slate-400">MEL_CEPSTRAL_DIST</span>
-                <span className="text-emerald-400">12.441 SECURE</span>
+                <span className="text-slate-400">SYNTHETIC_PROBABILITY</span>
+                <span className="text-red-400 animate-pulse">0.8921 ANOMALY</span>
               </div>
               
               <div className="mt-6 pt-4 border-t border-slate-800">
                 <div className="text-[10px] text-slate-500 uppercase tracking-widest mb-2">Live Node Status</div>
                 <div className="font-mono text-xs text-primary/80 break-all">
-                  0x7F8C9A... INITIALIZING FORENSIC PIPELINE... [OK]
+                  0x7F8C9A... IN_MEMORY_BYTE_DECODE... [ZERO_DISK_IO]
                 </div>
               </div>
             </div>
@@ -118,46 +118,46 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Compliance & Trust Bar */}
+      {/* Tech Stack Trust Bar (Replaced Fake Compliances) */}
       <section className="w-full border-y border-slate-800 bg-slate-900/50 py-10 relative z-10">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-center text-[11px] font-mono font-bold tracking-[0.2em] text-slate-500 uppercase mb-8">
-            Certified Enterprise Infrastructure
+            Powered by Industry-Standard Machine Learning
           </p>
           <div className="flex flex-wrap justify-center items-center gap-12 lg:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-            <div className="flex items-center gap-2 font-bold text-lg"><ShieldCheck className="w-6 h-6"/> SOC 2 Type II</div>
-            <div className="flex items-center gap-2 font-bold text-lg"><Server className="w-6 h-6"/> ISO 27001</div>
-            <div className="flex items-center gap-2 font-bold text-lg"><Lock className="w-6 h-6"/> HIPAA Compliant</div>
-            <div className="flex items-center gap-2 font-bold text-lg"><Hexagon className="w-6 h-6"/> GDPR Ready</div>
+            <div className="flex items-center gap-2 font-bold text-lg"><Database className="w-6 h-6"/> PyTorch</div>
+            <div className="flex items-center gap-2 font-bold text-lg"><Cpu className="w-6 h-6"/> ONNX Runtime</div>
+            <div className="flex items-center gap-2 font-bold text-lg"><Server className="w-6 h-6"/> FastAPI WebSocket</div>
+            <div className="flex items-center gap-2 font-bold text-lg"><Hexagon className="w-6 h-6"/> Hugging Face</div>
           </div>
         </div>
       </section>
 
-      {/* Service Buckets (Features) */}
+      {/* Service Buckets */}
       <section className="w-full max-w-7xl mx-auto px-6 py-24 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           <div className="glass-panel p-8 rounded-2xl border border-slate-800 hover:border-primary/50 transition-colors group">
             <Activity className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold font-serif mb-3">Real-Time Telemetry</h3>
+            <h3 className="text-xl font-bold font-serif mb-3">Sub-200ms Live Streaming</h3>
             <p className="text-slate-400 leading-[1.6]">
-              Analyze incoming audio streams instantly. Our low-latency engine extracts lossless PCM data to ensure zero compression artifacts interfere with detection models.
+              Zero disk I/O. We process raw microphone bytes directly in memory utilizing WebSockets and ONNX Runtime for ultra-fast, real-time audio intercepts.
             </p>
           </div>
 
           <div className="glass-panel p-8 rounded-2xl border border-slate-800 hover:border-primary/50 transition-colors group">
-            <Database className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold font-serif mb-3">Forensic Analysis</h3>
+            <Globe className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform" />
+            <h3 className="text-xl font-bold font-serif mb-3">Dual-Language Neural Nets</h3>
             <p className="text-slate-400 leading-[1.6]">
-              Deep neural networks scan for phase incoherence, unnatural spectral entropy, and micro-tremors associated with synthetic voice generation.
+              Concurrent execution of dedicated English and AI4Bharat Indic models. Audio streams are dynamically routed to the specialized Wav2Vec2 backbone for maximum accuracy.
             </p>
           </div>
 
           <div className="glass-panel p-8 rounded-2xl border border-slate-800 hover:border-primary/50 transition-colors group">
-            <Lock className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold font-serif mb-3">Instant Threat Mitigation</h3>
+            <Cpu className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform" />
+            <h3 className="text-xl font-bold font-serif mb-3">Hybrid Compute Architecture</h3>
             <p className="text-slate-400 leading-[1.6]">
-              Automatically flag high-risk transactions. Integrate directly with your existing IAM pipelines to freeze accounts upon detecting adversarial audio.
+              A dual-pipeline backend: A high-speed ONNX WebSocket layer for real-time inference, alongside a deep-forensic PyTorch REST API for high-fidelity file analysis.
             </p>
           </div>
 
