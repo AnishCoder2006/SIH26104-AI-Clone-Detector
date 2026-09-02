@@ -18,6 +18,12 @@ import {
 } from 'lucide-react';
 import { extractAndEncodeAudio, encodeWAV } from '../lib/audioUtils';
 
+const WAVEFORM_BARS = [
+  25, 45, 70, 35, 80, 100, 65, 40, 85, 95, 75, 50, 30, 65, 90, 100,
+  80, 55, 35, 60, 95, 85, 60, 40, 75, 90, 100, 70, 45, 80, 95, 65,
+  40, 75, 90, 60, 45, 30, 65, 85, 70, 45, 60, 75, 50, 35, 25, 15
+];
+
 interface MediaInputProps {
   onAnalyze: (payload: { file: Blob; transaction_value: number; known_contact: boolean }) => Promise<void>;
   isAnalyzing: boolean;
@@ -453,18 +459,18 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
             </button>
           </div>
 
-          {/* Interactive Player Console */}
-          <div className="bg-[#0B0F19]/90 p-3 rounded-xl border border-white/[0.08] shadow-inner flex items-center gap-3.5">
-            {/* Play/Pause Cyber Dial */}
+          {/* Waveform Audio Player (Completely Unboxed & Seamless) */}
+          <div className="pt-3.5 border-t border-white/[0.08] flex items-center gap-4">
+            {/* Play/Pause Tactile Dial */}
             <button
               type="button"
               onClick={togglePlayAudio}
-              className="w-10 h-10 rounded-xl bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-[#0B0F19] flex items-center justify-center shrink-0 transition-all duration-200 shadow-[0_0_16px_rgba(0,245,160,0.35)] hover:scale-105 active:scale-95"
+              className="w-12 h-12 rounded-full bg-gradient-to-br from-primary via-primary to-accent hover:from-primary/90 hover:to-accent/90 text-[#0B0F19] flex items-center justify-center shrink-0 transition-all duration-200 shadow-[0_0_20px_rgba(0,245,160,0.35)] hover:scale-105 active:scale-95"
             >
               {isPlaying ? (
-                <Pause className="w-4 h-4 fill-current" />
+                <Pause className="w-5 h-5 fill-current" />
               ) : (
-                <Play className="w-4 h-4 fill-current ml-0.5" />
+                <Play className="w-5 h-5 fill-current ml-0.5" />
               )}
             </button>
 
@@ -477,61 +483,49 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
               className="hidden"
             />
 
-            {/* Waveform Scrubber & Telemetry Data */}
-            <div className="flex-1 flex flex-col justify-center gap-1.5">
-              {/* Timeline Header */}
-              <div className="flex items-center justify-between text-[11px] font-mono">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-bold text-slate-200 tracking-wider">
-                    {formatAudioTime(currentTime)}
-                  </span>
-                  <span className="text-slate-500">/</span>
-                  <span className="text-silver">
-                    {formatAudioTime(duration || (file ? 0 : recordingSeconds))}
-                  </span>
-
-                  {/* Dancing EQ Bars while playing */}
-                  {isPlaying && (
-                    <div className="flex items-end gap-0.5 h-3 ml-2">
-                      {[60, 100, 40, 80, 50, 90].map((h, i) => (
-                        <div
-                          key={i}
-                          className="w-1 bg-primary rounded-full animate-pulse"
-                          style={{ height: `${h}%`, animationDuration: `${0.2 + (i % 3) * 0.1}s` }}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-1.5 text-[10px]">
-                  <span className="text-accent font-semibold">16.0 kHz Spec</span>
-                  <span className="text-slate-600">•</span>
-                  <span className="text-silver font-medium">Float32</span>
-                </div>
+            {/* Interactive Soundwave Waveform Track */}
+            <div 
+              onClick={handleSeek}
+              className="flex-1 flex flex-col justify-center gap-2 cursor-pointer group/wave select-none py-1"
+            >
+              {/* Soundwave Bars */}
+              <div className="flex items-center justify-between gap-[2px] sm:gap-1 h-9 w-full">
+                {WAVEFORM_BARS.map((h, i) => {
+                  const barPercent = (i / WAVEFORM_BARS.length) * 100;
+                  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
+                  const isPlayed = progressPercent >= barPercent;
+                  return (
+                    <div
+                      key={i}
+                      className={`flex-1 rounded-full transition-all duration-150 ${
+                        isPlayed
+                          ? 'bg-gradient-to-t from-primary to-accent shadow-[0_0_6px_rgba(0,245,160,0.4)]'
+                          : 'bg-white/15 group-hover/wave:bg-white/25'
+                      }`}
+                      style={{
+                        height: `${h}%`,
+                        minHeight: '4px',
+                      }}
+                    />
+                  );
+                })}
               </div>
 
-              {/* Clickable Seekable Audio Scrubber Track */}
-              <div
-                onClick={handleSeek}
-                className="h-2 rounded-full bg-[#161D2F] border border-white/10 relative overflow-hidden cursor-pointer group/scrub"
-              >
-                {/* Background Guide Bars */}
-                <div className="absolute inset-0 flex items-center justify-between px-1 opacity-20 pointer-events-none">
-                  {[...Array(24)].map((_, i) => (
-                    <div key={i} className="w-[1px] h-full bg-white" />
-                  ))}
+              {/* Unboxed Time & Spec Metadata */}
+              <div className="flex items-center justify-between text-[11px] font-mono text-silver px-0.5">
+                <span className="text-white font-semibold tracking-wider">
+                  {formatAudioTime(currentTime)}
+                </span>
+                
+                <div className="flex items-center gap-2 text-[10px] tracking-wide text-silver/70">
+                  <span className="text-accent font-medium">16.0 kHz PCM</span>
+                  <span>•</span>
+                  <span>Float32</span>
                 </div>
 
-                {/* Progress Bar with Glow Head */}
-                <div
-                  className="h-full bg-gradient-to-r from-primary via-primary to-accent transition-all duration-100 rounded-full relative"
-                  style={{
-                    width: duration > 0 ? `${Math.min(100, (currentTime / duration) * 100)}%` : isPlaying ? '100%' : '0%',
-                  }}
-                >
-                  <div className="absolute right-0 top-0 bottom-0 w-2 bg-white rounded-full shadow-[0_0_8px_#ffffff]" />
-                </div>
+                <span className="text-silver/80 font-medium tracking-wider">
+                  {formatAudioTime(duration || (file ? 0 : recordingSeconds))}
+                </span>
               </div>
             </div>
           </div>
