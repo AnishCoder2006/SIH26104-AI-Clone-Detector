@@ -122,21 +122,17 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
 
   return (
     <div className="flex-1 max-w-7xl w-full mx-auto p-6 flex flex-col">
-      {/* Executive Command Header */}
-      <div className="relative mb-8 rounded-2xl p-6 lg:p-8 bg-gradient-to-b from-[#161D2F]/95 via-[#161D2F]/80 to-[#0B0F19] border border-white/[0.08] shadow-[0_12px_40px_rgba(11,15,25,0.8)] overflow-hidden">
-        {/* Ambient Glows */}
-        <div className="absolute -top-24 -left-24 w-72 h-72 bg-primary/15 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-accent/15 rounded-full blur-[100px] pointer-events-none" />
-
+      {/* Executive Command Header (Completely Unboxed, Editorial Luxury) */}
+      <div className="mb-10 w-full">
         {/* Model Switcher Pill Row (Above Title) */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="inline-flex items-center gap-1.5 p-1 bg-[#0B0F19]/90 rounded-full border border-white/10 shadow-inner backdrop-blur-md">
+        <div className="flex items-center justify-between mb-5">
+          <div className="inline-flex items-center gap-1.5 p-1 bg-[#161D2F]/80 rounded-full border border-white/10 shadow-sm backdrop-blur-md">
             <Link
               href="/dashboard/hindi"
               className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 font-karla text-xs font-semibold ${
                 language === 'indian'
                   ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
-                  : 'text-silver hover:text-white hover:bg-[#161D2F]'
+                  : 'text-silver hover:text-white hover:bg-white/5'
               }`}
             >
               <span className="text-sm leading-none">🇮🇳</span>
@@ -148,83 +144,66 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
               className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 font-karla text-xs font-semibold ${
                 language === 'english'
                   ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
-                  : 'text-silver hover:text-white hover:bg-[#161D2F]'
+                  : 'text-silver hover:text-white hover:bg-white/5'
               }`}
             >
               <span className="text-sm leading-none">🌐</span>
               <span>English</span>
             </Link>
           </div>
-
         </div>
 
-        {/* Main Title & Subtitle */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-cormorant font-normal tracking-normal text-white mb-3 drop-shadow-sm leading-[1.12]">
+        {/* Main Title, Subtitle & Unboxed Telemetry Specs */}
+        <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-8 pb-6 border-b border-white/[0.08]">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-cormorant font-normal tracking-normal text-white mb-3.5 leading-[1.1]">
               {title}
             </h1>
-            <p className="font-karla text-silver text-sm lg:text-base leading-relaxed border-l-2 border-primary/70 pl-4 py-1 font-normal tracking-wide">
+            <p className="font-karla text-silver text-sm sm:text-base leading-relaxed border-l-2 border-primary/70 pl-4 py-0.5 tracking-wide">
               {language === 'indian'
                 ? 'High-precision forensic synthesis intercept specialized for Indian regional dialects, multi-lingual vocoder artifacts, and acoustic anomalies.'
                 : 'Enterprise-grade deepfake voice clone interception with continuous micro-pitch analysis, spectral phase coherence, and telemetry diagnostics.'}
             </p>
           </div>
 
-          {/* Telemetry Spec Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 lg:min-w-[440px]">
-            
-            {/* Card 1: Sample Rate */}
-            <div className="group relative overflow-hidden rounded-2xl bg-[#161D2F] border border-white/[0.08] hover:border-primary/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,245,160,0.18)] flex flex-col justify-between">
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-8 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary shadow-sm group-hover:scale-105 transition-transform">
-                  <Activity className="w-4 h-4" />
-                </div>
-                <span className="text-[11px] font-karla font-medium px-2.5 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-silver tracking-wide">
-                  Mono Stream
-                </span>
+          {/* Unboxed Editorial Telemetry Specs (No Boxes, Pure Metrics) */}
+          <div className="flex flex-wrap items-center gap-6 sm:gap-8 lg:gap-10 shrink-0">
+            {/* Metric 1: Sample Rate */}
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5 text-[11px] font-karla tracking-widest text-silver uppercase font-semibold mb-1">
+                <Activity className="w-3.5 h-3.5 text-primary" />
+                <span>Sample Rate</span>
               </div>
-              <div>
-                <p className="text-[10px] font-karla tracking-widest text-silver uppercase font-bold">Sample Rate</p>
-                <p className="text-2xl font-cormorant font-semibold text-white tracking-tight mt-0.5">16.0 <span className="text-xs font-normal text-silver font-karla">kHz</span></p>
-              </div>
+              <p className="text-3xl font-cormorant font-semibold text-white tracking-tight">
+                16.0 <span className="text-xs font-normal text-silver font-karla uppercase">kHz Mono</span>
+              </p>
             </div>
 
-            {/* Card 2: Inference */}
-            <div className="group relative overflow-hidden rounded-2xl bg-[#161D2F] border border-white/[0.08] hover:border-accent/60 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,210,255,0.18)] flex flex-col justify-between">
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-accent/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-8 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center text-accent shadow-sm group-hover:scale-105 transition-transform">
-                  <Cpu className="w-4 h-4" />
-                </div>
-                <span className="text-[11px] font-karla font-medium px-2.5 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-accent tracking-wide">
-                  FP32 Core
-                </span>
+            <div className="hidden sm:block h-10 w-[1px] bg-white/10" />
+
+            {/* Metric 2: Inference */}
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5 text-[11px] font-karla tracking-widest text-silver uppercase font-semibold mb-1">
+                <Cpu className="w-3.5 h-3.5 text-accent" />
+                <span>Inference Core</span>
               </div>
-              <div>
-                <p className="text-[10px] font-karla tracking-widest text-silver uppercase font-bold">Inference</p>
-                <p className="text-2xl font-cormorant font-semibold text-white tracking-tight mt-0.5">ONNX <span className="text-xs font-semibold text-accent font-karla">Neural</span></p>
-              </div>
+              <p className="text-3xl font-cormorant font-semibold text-white tracking-tight">
+                ONNX <span className="text-xs font-semibold text-accent font-karla uppercase">Neural FP32</span>
+              </p>
             </div>
 
-            {/* Card 3: Accuracy */}
-            <div className="group relative overflow-hidden rounded-2xl bg-[#161D2F] border border-white/[0.08] hover:border-primary/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,245,160,0.18)] flex flex-col justify-between">
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-8 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary shadow-sm group-hover:scale-105 transition-transform">
-                  <ShieldCheck className="w-4 h-4" />
-                </div>
-                <span className="text-[11px] font-karla font-medium px-2.5 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-primary tracking-wide">
-                  Benchmark
-                </span>
-              </div>
-              <div>
-                <p className="text-[10px] font-karla tracking-widest text-silver uppercase font-bold">Accuracy</p>
-                <p className="text-2xl font-cormorant font-semibold text-primary tracking-tight mt-0.5">99.4% <span className="text-xs font-normal text-silver font-karla">F1</span></p>
-              </div>
-            </div>
+            <div className="hidden sm:block h-10 w-[1px] bg-white/10" />
 
+            {/* Metric 3: Accuracy */}
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5 text-[11px] font-karla tracking-widest text-silver uppercase font-semibold mb-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+                <span>Accuracy Benchmark</span>
+              </div>
+              <p className="text-3xl font-cormorant font-semibold text-primary tracking-tight">
+                99.4% <span className="text-xs font-normal text-silver font-karla uppercase">F1 Score</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
