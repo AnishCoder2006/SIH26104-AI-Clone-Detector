@@ -60,32 +60,7 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Center: Neural Engine Switcher */}
-        <div className="hidden md:flex items-center gap-1 p-1 bg-[#0B0F19]/90 rounded-full border border-white/10 shadow-inner font-mono text-xs backdrop-blur-md">
-          <Link
-            href="/dashboard/hindi"
-            className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 ${
-              isIndic
-                ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
-                : 'text-silver hover:text-white hover:bg-[#161D2F]'
-            }`}
-          >
-            <span className="text-sm leading-none">🇮🇳</span>
-            <span className="text-xs font-semibold">Indic / Hindi</span>
-          </Link>
 
-          <Link
-            href="/dashboard/english"
-            className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 ${
-              isEnglish
-                ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
-                : 'text-silver hover:text-white hover:bg-[#161D2F]'
-            }`}
-          >
-            <span className="text-sm leading-none">🌐</span>
-            <span className="text-xs font-semibold">English</span>
-          </Link>
-        </div>
 
         {/* Right: Security Telemetry & Analyst Menu */}
         <div className="flex items-center gap-3">

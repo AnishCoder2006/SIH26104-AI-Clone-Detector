@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { MediaInput } from '@/components/MediaInput';
 import { RiskAnalysisPanel, RiskResponse } from '@/components/RiskAnalysisPanel';
 import { motion } from 'framer-motion';
@@ -115,6 +116,40 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
         {/* Ambient Glows */}
         <div className="absolute -top-24 -left-24 w-72 h-72 bg-primary/15 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-accent/15 rounded-full blur-[100px] pointer-events-none" />
+
+        {/* Model Switcher Pill Row (Above Title) */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="inline-flex items-center gap-1.5 p-1 bg-[#0B0F19]/90 rounded-full border border-white/10 shadow-inner backdrop-blur-md">
+            <Link
+              href="/dashboard/hindi"
+              className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 font-karla text-xs font-semibold ${
+                language === 'indian'
+                  ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
+                  : 'text-silver hover:text-white hover:bg-[#161D2F]'
+              }`}
+            >
+              <span className="text-sm leading-none">🇮🇳</span>
+              <span>Indic / Hindi</span>
+            </Link>
+
+            <Link
+              href="/dashboard/english"
+              className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 font-karla text-xs font-semibold ${
+                language === 'english'
+                  ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
+                  : 'text-silver hover:text-white hover:bg-[#161D2F]'
+              }`}
+            >
+              <span className="text-sm leading-none">🌐</span>
+              <span>English</span>
+            </Link>
+          </div>
+
+          <div className="hidden sm:flex items-center gap-2 text-xs font-karla text-silver">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="font-mono text-[11px] tracking-wider uppercase">Active Neural Model</span>
+          </div>
+        </div>
 
         {/* Main Title & Subtitle */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
