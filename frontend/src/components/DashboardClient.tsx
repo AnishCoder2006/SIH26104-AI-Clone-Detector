@@ -148,10 +148,6 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
             </Link>
           </div>
 
-          <div className="hidden sm:flex items-center gap-2 text-xs font-karla text-silver">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="font-mono text-[11px] tracking-wider uppercase">Active Neural Model</span>
-          </div>
         </div>
 
         {/* Main Title & Subtitle */}
