@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { MediaInput } from '@/components/MediaInput';
 import { RiskAnalysisPanel, RiskResponse } from '@/components/RiskAnalysisPanel';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, Cpu, ShieldCheck } from 'lucide-react';
 
 interface DashboardClientProps {
@@ -20,8 +20,11 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
   const [analysisData, setAnalysisData] = useState<RiskResponse | null>(null);
 
   // 1. State Variables
+  const [hasMedia, setHasMedia] = useState(false);
   const [agentReport, setAgentReport] = useState<any>(null);
   const [isAgentLoading, setIsAgentLoading] = useState<boolean>(false);
+
+  const showAnalysisCard = hasMedia || isAnalyzing || Boolean(analysisData);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -222,20 +225,39 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="w-full">
-          <MediaInput onAnalyze={handleAnalyze} isAnalyzing={isAnalyzing} />
+      {/* Main Workspace: Single Card before upload/analysis, 2-Columns after upload/analysis */}
+      <div className={`w-full transition-all duration-500 ease-in-out ${
+        showAnalysisCard 
+          ? 'grid grid-cols-1 lg:grid-cols-2 gap-8 items-start' 
+          : 'max-w-2xl mx-auto'
+      }`}>
+        <motion.div layout transition={{ duration: 0.4 }} className="w-full">
+          <MediaInput 
+            onAnalyze={handleAnalyze} 
+            isAnalyzing={isAnalyzing} 
+            onMediaChange={setHasMedia} 
+          />
         </motion.div>
 
-        <div className="w-full">
-          <RiskAnalysisPanel 
-            loading={isAnalyzing} 
-            data={analysisData} 
-            onRunForensicAnalysis={handleRunForensicAnalysis}
-            isAgentLoading={isAgentLoading}
-            agentReport={agentReport}
-          />
-        </div>
+        <AnimatePresence>
+          {showAnalysisCard && (
+            <motion.div 
+              initial={{ opacity: 0, x: 25, scale: 0.98 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 25, scale: 0.98 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+              className="w-full"
+            >
+              <RiskAnalysisPanel 
+                loading={isAnalyzing} 
+                data={analysisData} 
+                onRunForensicAnalysis={handleRunForensicAnalysis}
+                isAgentLoading={isAgentLoading}
+                agentReport={agentReport}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

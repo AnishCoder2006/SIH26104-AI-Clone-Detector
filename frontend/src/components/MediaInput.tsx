@@ -7,14 +7,19 @@ import { extractAndEncodeAudio, encodeWAV } from '../lib/audioUtils';
 interface MediaInputProps {
   onAnalyze: (payload: { file: Blob; transaction_value: number; known_contact: boolean }) => Promise<void>;
   isAnalyzing: boolean;
+  onMediaChange?: (hasMedia: boolean) => void;
 }
 
-export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
+export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInputProps) {
   const [file, setFile] = useState<File | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null);
   const [mediaUrl, setMediaUrl] = useState<string | null>(null);
   const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    onMediaChange?.(Boolean(file || recordingBlob));
+  }, [file, recordingBlob, onMediaChange]);
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
