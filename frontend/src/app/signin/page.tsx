@@ -438,13 +438,13 @@ function SigninContent() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="w-full max-w-[480px] rounded-3xl p-8 sm:p-10 bg-gradient-to-b from-[#161D2F]/95 via-[#161D2F]/90 to-[#0B0F19] border border-[#00D2FF]/25 shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(0,245,160,0.12)] backdrop-blur-2xl relative overflow-hidden"
+            className="w-full max-w-[480px] rounded-3xl p-10 sm:p-12 bg-gradient-to-b from-[#161D2F]/95 via-[#161D2F]/90 to-[#0B0F19] border border-[#00D2FF]/25 shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(0,245,160,0.12)] backdrop-blur-2xl relative overflow-hidden"
           >
             {/* Subtle Top Glowing Cyber Accent */}
             <div className="absolute top-0 left-1/4 right-1/4 h-[1.5px] bg-gradient-to-r from-transparent via-primary/70 to-transparent rounded-full pointer-events-none" />
 
             {/* Card Header */}
-            <div className="text-center mb-6">
+            <div className="text-center mb-10">
               <h2 className="text-3xl sm:text-4xl font-cormorant font-normal text-white tracking-normal mb-1">
                 Executive Platform Login
               </h2>
@@ -461,7 +461,7 @@ function SigninContent() {
             )}
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block font-sans text-[15px] font-semibold text-silver mb-2">
                   Corporate Email
@@ -536,7 +536,7 @@ function SigninContent() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-[#00F5A0] via-[#00F5A0] to-[#00D2FF] hover:from-[#00F5A0]/90 text-[#0B0F19] font-bold py-3.5 rounded-2xl transition-all shadow-[0_0_25px_rgba(0,245,160,0.4)] hover:shadow-[0_0_35px_rgba(0,245,160,0.6)] hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed mt-4 flex flex-col items-center justify-center select-none"
+                className="w-full bg-gradient-to-r from-[#00F5A0] via-[#00F5A0] to-[#00D2FF] hover:from-[#00F5A0]/90 text-[#0B0F19] font-bold py-4 rounded-2xl transition-all shadow-[0_0_25px_rgba(0,245,160,0.4)] hover:shadow-[0_0_35px_rgba(0,245,160,0.6)] hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed mt-6 flex flex-col items-center justify-center select-none"
               >
                 {loading ? (
                   <span className="inline-flex items-center gap-2 text-base font-sans font-bold">
@@ -598,7 +598,7 @@ function SigninContent() {
             </form>
 
             {/* Switch to Register link */}
-            <div className="mt-6 text-center">
+            <div className="mt-10 text-center">
               <p className="text-sm font-sans text-silver">
                 Don't have an analyst profile?{' '}
                 <Link 
