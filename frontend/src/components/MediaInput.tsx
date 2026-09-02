@@ -144,11 +144,11 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
 
   return (
     <div className="glass-panel p-6 rounded-2xl flex flex-col">
-      <h2 className="text-xl font-bold font-serif mb-4">Media Input</h2>
+      <h2 className="text-xl font-bold font-serif mb-4 text-white">Media Input</h2>
       
       {/* Upload Zone */}
       <div 
-        className="border-2 border-dashed border-white/10 rounded-xl p-6 mb-4 flex flex-col items-center justify-center text-center hover:border-primary/50 transition-colors bg-white/5 cursor-pointer relative"
+        className="border-2 border-dashed border-white/10 rounded-xl p-6 mb-4 flex flex-col items-center justify-center text-center hover:border-primary/60 transition-colors bg-[#0B0F19]/50 cursor-pointer relative group"
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleFileDrop}
       >
@@ -158,14 +158,14 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
           accept="audio/*,video/*"
           onChange={handleFileInput}
         />
-        <UploadCloud className="w-9 h-9 text-slate-500 mb-2.5" />
-        <p className="text-sm font-medium text-slate-300">Drag & drop Media File</p>
-        <p className="text-xs text-slate-500 mt-0.5">Supports WAV, FLAC, MP4, MOV</p>
+        <UploadCloud className="w-9 h-9 text-silver/60 group-hover:text-primary mb-2.5 transition-colors" />
+        <p className="text-sm font-medium text-slate-200">Drag & drop Media File</p>
+        <p className="text-xs text-silver mt-0.5 font-mono">Supports WAV, FLAC, MP4, MOV</p>
       </div>
 
       <div className="flex items-center gap-4 mb-4">
         <div className="h-px bg-white/10 flex-1" />
-        <span className="text-xs text-slate-500 font-medium font-mono">OR</span>
+        <span className="text-xs text-silver font-medium font-mono">OR</span>
         <div className="h-px bg-white/10 flex-1" />
       </div>
 
@@ -175,10 +175,10 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
           <button 
             type="button"
             onClick={startRecording}
-            className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full py-2 px-5 transition-all shadow-sm"
+            className="flex items-center gap-2 bg-[#0B0F19]/80 hover:bg-[#0B0F19] border border-white/10 hover:border-accent/50 rounded-full py-2 px-5 transition-all shadow-sm group"
           >
-            <Mic className="w-4 h-4 text-accent" />
-            <span className="text-sm font-medium">Start Live Recording</span>
+            <Mic className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
+            <span className="text-sm font-medium text-slate-200 group-hover:text-white">Start Live Recording</span>
           </button>
         ) : (
           <button 
@@ -202,8 +202,8 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
 
       {/* Dynamic Player */}
       {mediaUrl && (
-        <div className="mb-4 p-3.5 rounded-xl bg-white/5 border border-white/10">
-          <p className="text-xs text-slate-400 mb-2 truncate">
+        <div className="mb-4 p-3.5 rounded-xl bg-[#0B0F19]/80 border border-white/10">
+          <p className="text-xs text-silver mb-2 truncate font-mono">
             {file ? `File: ${file.name}` : 'Recorded Audio'}
           </p>
           {file && file.type.startsWith('video/') ? (
@@ -225,16 +225,16 @@ export function MediaInput({ onAnalyze, isAnalyzing }: MediaInputProps) {
         type="button"
         onClick={handleSubmit}
         disabled={isAnalyzing || (!file && !recordingBlob)}
-        className="w-full bg-primary hover:bg-primary/90 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,255,204,0.2)] hover:shadow-[0_0_30px_rgba(0,255,204,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 select-none mt-2"
+        className="w-full bg-primary hover:bg-primary/90 text-[#0B0F19] font-bold py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,245,160,0.3)] hover:shadow-[0_0_30px_rgba(0,245,160,0.5)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 select-none mt-2"
       >
         {isAnalyzing ? (
           <span key="state-analyzing" className="inline-flex items-center justify-center gap-2">
-            <Loader2 className="w-5 h-5 animate-spin shrink-0 text-slate-950" />
+            <Loader2 className="w-5 h-5 animate-spin shrink-0 text-[#0B0F19]" />
             <span>Analyzing Voice Safety...</span>
           </span>
         ) : (
           <span key="state-idle" className="inline-flex items-center justify-center gap-2">
-            <ShieldAlert className="w-5 h-5 shrink-0 text-slate-950" />
+            <ShieldAlert className="w-5 h-5 shrink-0 text-[#0B0F19]" />
             <span>Analyze Voice Safety</span>
           </span>
         )}

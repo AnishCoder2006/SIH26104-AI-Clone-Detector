@@ -111,11 +111,10 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
   return (
     <div className="flex-1 max-w-7xl w-full mx-auto p-6 flex flex-col">
       {/* Executive Command Header */}
-      <div className="relative mb-8 rounded-2xl p-6 lg:p-8 bg-gradient-to-b from-slate-900/90 via-slate-950/90 to-[#08090d] border border-slate-800 shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden">
+      <div className="relative mb-8 rounded-2xl p-6 lg:p-8 bg-gradient-to-b from-[#161D2F]/95 via-[#161D2F]/80 to-[#0B0F19] border border-white/[0.08] shadow-[0_12px_40px_rgba(11,15,25,0.8)] overflow-hidden">
         {/* Ambient Glows */}
         <div className="absolute -top-24 -left-24 w-72 h-72 bg-primary/15 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
-
+        <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-accent/15 rounded-full blur-[100px] pointer-events-none" />
 
         {/* Main Title & Subtitle */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
@@ -123,7 +122,7 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-fraunces font-normal tracking-normal text-white mb-3 drop-shadow-sm leading-[1.18]">
               {title}
             </h1>
-            <p className="font-inter text-slate-300 text-sm lg:text-[15px] leading-relaxed border-l-2 border-primary/70 pl-4 py-1 font-normal tracking-wide">
+            <p className="font-inter text-silver text-sm lg:text-[15px] leading-relaxed border-l-2 border-primary/70 pl-4 py-1 font-normal tracking-wide">
               {language === 'indian'
                 ? 'High-precision forensic synthesis intercept specialized for Indian regional dialects, multi-lingual vocoder artifacts, and acoustic anomalies.'
                 : 'Enterprise-grade deepfake voice clone interception with continuous micro-pitch analysis, spectral phase coherence, and telemetry diagnostics.'}
@@ -134,53 +133,53 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 lg:min-w-[440px]">
             
             {/* Card 1: Sample Rate */}
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950 border border-slate-800/90 hover:border-primary/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,255,204,0.15)] flex flex-col justify-between">
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="group relative overflow-hidden rounded-2xl bg-[#161D2F] border border-white/[0.08] hover:border-primary/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,245,160,0.18)] flex flex-col justify-between">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-sm group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary shadow-sm group-hover:scale-105 transition-transform">
                   <Activity className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400">
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-silver">
                   Mono Stream
                 </span>
               </div>
               <div>
-                <p className="text-[10px] font-mono tracking-widest text-slate-400 uppercase font-semibold">Sample Rate</p>
-                <p className="text-base font-bold font-sans text-white tracking-tight mt-0.5">16.0 <span className="text-xs font-normal text-slate-400 font-mono">kHz</span></p>
+                <p className="text-[10px] font-inter tracking-widest text-silver uppercase font-semibold">Sample Rate</p>
+                <p className="text-base font-bold font-inter text-white tracking-tight mt-0.5">16.0 <span className="text-xs font-normal text-silver font-mono">kHz</span></p>
               </div>
             </div>
 
             {/* Card 2: Inference */}
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950 border border-slate-800/90 hover:border-cyan-400/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] flex flex-col justify-between">
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="group relative overflow-hidden rounded-2xl bg-[#161D2F] border border-white/[0.08] hover:border-accent/60 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,210,255,0.18)] flex flex-col justify-between">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-accent/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-sm group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center text-accent shadow-sm group-hover:scale-105 transition-transform">
                   <Cpu className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-cyan-400">
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-accent">
                   FP32 Core
                 </span>
               </div>
               <div>
-                <p className="text-[10px] font-mono tracking-widest text-slate-400 uppercase font-semibold">Inference</p>
-                <p className="text-base font-bold font-sans text-white tracking-tight mt-0.5">ONNX <span className="text-xs font-normal text-cyan-400 font-mono">Neural</span></p>
+                <p className="text-[10px] font-inter tracking-widest text-silver uppercase font-semibold">Inference</p>
+                <p className="text-base font-bold font-inter text-white tracking-tight mt-0.5">ONNX <span className="text-xs font-normal text-accent font-mono">Neural</span></p>
               </div>
             </div>
 
             {/* Card 3: Accuracy */}
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950 border border-slate-800/90 hover:border-emerald-400/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(52,211,153,0.15)] flex flex-col justify-between">
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="group relative overflow-hidden rounded-2xl bg-[#161D2F] border border-white/[0.08] hover:border-primary/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,245,160,0.18)] flex flex-col justify-between">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-sm group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary shadow-sm group-hover:scale-105 transition-transform">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-emerald-400">
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-[#0B0F19] border border-white/10 text-primary">
                   Benchmark
                 </span>
               </div>
               <div>
-                <p className="text-[10px] font-mono tracking-widest text-slate-400 uppercase font-semibold">Accuracy</p>
-                <p className="text-base font-bold font-sans text-emerald-400 tracking-tight mt-0.5">99.4% <span className="text-xs font-normal text-slate-400 font-mono">F1</span></p>
+                <p className="text-[10px] font-inter tracking-widest text-silver uppercase font-semibold">Accuracy</p>
+                <p className="text-base font-bold font-inter text-primary tracking-tight mt-0.5">99.4% <span className="text-xs font-normal text-silver font-mono">F1</span></p>
               </div>
             </div>
 

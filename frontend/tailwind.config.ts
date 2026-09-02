@@ -17,11 +17,20 @@ const config: Config = {
         plex: ['var(--font-plex)', 'sans-serif'],
       },
       colors: {
-        background: "#000000", // Pitch Black
-        panel: "#09090b", // Deep Obsidian
-        primary: "#00FFCC", // Cyber Cyan
-        secondary: "#09090b", 
-        accent: "#00FFCC", 
+        // Neo-Mint & Deep Slate (The AI-Cyber Look)
+        background: "#0B0F19", // Deep Slate — sophisticated, ultra-dark blue-gray
+        panel: "#161D2F",      // Dark Card — for structuring content containers and cards
+        card: "#161D2F",       // Dark Card
+        primary: "#00F5A0",    // Neo-Mint — glowing, energetic green for primary CTA buttons
+        secondary: "#161D2F",  // Dark Card
+        accent: "#00D2FF",     // Electric Cyan — for links, borders, and subheadings
+        mint: "#00F5A0",       // Neo-Mint
+        cyan: {
+          DEFAULT: "#00D2FF",
+          400: "#00D2FF",
+          500: "#00B8E6",
+        },
+        silver: "#94A3B8",     // Muted Silver — for body copy and secondary metadata
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

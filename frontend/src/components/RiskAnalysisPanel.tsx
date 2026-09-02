@@ -59,10 +59,10 @@ export function RiskAnalysisPanel({
 
   if (!data) {
     return (
-      <div className="glass-panel p-6 rounded-2xl h-full flex flex-col items-center justify-center text-slate-500 text-center">
-        <Activity className="w-16 h-16 mb-4 opacity-50" />
-        <h2 className="text-xl font-semibold mb-2">Awaiting Media Payload</h2>
-        <p className="max-w-xs text-sm">Upload a media file or record audio to begin the forensic analysis sequence.</p>
+      <div className="glass-panel p-6 rounded-2xl h-full flex flex-col items-center justify-center text-center">
+        <Activity className="w-14 h-14 mb-4 text-silver/40 animate-pulse" />
+        <h2 className="text-xl font-semibold mb-2 text-white">Awaiting Media Payload</h2>
+        <p className="max-w-xs text-sm text-silver font-mono">Upload a media file or record audio to begin the forensic analysis sequence.</p>
       </div>
     );
   }
@@ -94,7 +94,7 @@ export function RiskAnalysisPanel({
           <button
             onClick={handleRunForensicAnalysis}
             disabled={isAgentLoading}
-            className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/20 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-[#0B0F19] font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isAgentLoading ? (
               <span key="agent-loading" className="inline-flex items-center gap-2">
@@ -113,17 +113,17 @@ export function RiskAnalysisPanel({
 
       {/* 2. Forensic Analysis Results Display Panel (Only renders after click) */}
       {agentReport && (
-        <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 text-white space-y-4 mb-6 shadow-2xl backdrop-blur-md">
+        <div className="p-5 rounded-2xl bg-[#161D2F] border border-white/10 text-white space-y-4 mb-6 shadow-2xl backdrop-blur-md">
           {/* Header & Threat Badge */}
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-            <h3 className="font-semibold text-lg flex items-center gap-2 text-cyan-400">
+          <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <h3 className="font-semibold text-lg flex items-center gap-2 text-accent">
               🛡️ AI Threat Intelligence Report
             </h3>
             <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wider ${
               agentReport.threat_level === 'CRITICAL' ? 'bg-red-500/20 text-red-400 border border-red-500/50 animate-pulse' :
               agentReport.threat_level === 'HIGH' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/50' :
               agentReport.threat_level === 'ELEVATED' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50' :
-              'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'
+              'bg-primary/20 text-primary border border-primary/50'
             }`}>
               {agentReport.threat_level} THREAT
             </span>
@@ -131,10 +131,10 @@ export function RiskAnalysisPanel({
 
           {/* XAI Diagnostic Tags */}
           <div>
-            <p className="text-xs text-slate-400 uppercase tracking-wider font-mono mb-2">Detected Anomaly Tags</p>
+            <p className="text-xs text-silver uppercase tracking-wider font-mono mb-2">Detected Anomaly Tags</p>
             <div className="flex gap-2 flex-wrap">
               {agentReport.xai_tags?.map((tag: string, idx: number) => (
-                <span key={idx} className="bg-cyan-950/80 text-cyan-300 text-xs font-mono px-3 py-1 rounded-md border border-cyan-800/80">
+                <span key={idx} className="bg-[#0B0F19] text-accent text-xs font-mono px-3 py-1 rounded-md border border-accent/30">
                   🔍 {tag}
                 </span>
               ))}

@@ -4,12 +4,12 @@
 
 @layer base {
   body {
-    @apply bg-background text-slate-100 antialiased;
+    @apply bg-background text-white antialiased selection:bg-primary/20 selection:text-primary;
   }
 }
 
 @layer utilities {
   .glass-panel {
-    @apply bg-panel/80 backdrop-blur-md border border-white/10 shadow-xl;
+    @apply bg-panel/90 backdrop-blur-xl border border-white/[0.08] shadow-[0_12px_40px_rgba(11,15,25,0.7)];
   }
 }
