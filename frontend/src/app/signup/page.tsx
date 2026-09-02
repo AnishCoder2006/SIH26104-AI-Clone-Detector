@@ -118,25 +118,25 @@ function SignupContent() {
       <main className="relative z-10 w-full max-w-[1440px] mx-auto px-6 lg:px-12 py-10 flex-1 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 my-auto">
         
         {/* Left Side: Cyber Feature Architecture Cards */}
-        <div className="w-full lg:w-7/12 flex flex-col gap-5">
+        <div className="w-full lg:w-7/12 flex flex-col gap-6">
           {/* Card 1: Dual-Neural Detection Engines */}
-          <div className="rounded-2xl p-5 sm:p-6 bg-[#0E1526]/80 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md relative overflow-hidden group hover:border-primary/40 transition-all duration-300">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-karla font-bold text-base text-white tracking-wide flex items-center gap-2">
+          <div className="rounded-2xl p-6 sm:p-8 bg-[#0E1526]/80 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md relative overflow-hidden group hover:border-primary/40 transition-all duration-300">
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="font-sans font-bold text-[17px] text-white tracking-wide flex items-center gap-2">
                 <span>Dual-Neural Detection Engines</span>
               </h3>
-              <span className="text-[10px] font-mono text-primary bg-primary/10 border border-primary/25 px-2.5 py-0.5 rounded-full uppercase font-semibold">
+              <span className="text-[11px] font-mono text-primary bg-primary/10 border border-primary/25 px-3 py-1 rounded-full uppercase font-semibold">
                 Active Architecture
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Sub-Engine 1: Indic Regional Dialect */}
               <div className="rounded-xl p-4 bg-[#070B14]/90 border border-white/10 flex flex-col justify-between hover:border-primary/50 transition-all">
                 {/* Visual Graphic: Exact India Map with Scanlines, VB Badge & 3-Burst Waveform */}
-                <div className="h-28 rounded-xl bg-[#09111E] border border-white/10 p-2.5 flex items-center justify-between gap-2 relative overflow-hidden mb-3">
+                <div className="h-[140px] rounded-xl bg-[#09111E] border border-white/10 p-4 flex items-center justify-between gap-3 relative overflow-hidden mb-4">
                   {/* Left: Authentic India Map with Scanlines Texture & Center VB Emblem */}
-                  <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">
+                  <div className="relative w-28 h-28 shrink-0 flex items-center justify-center">
                     <svg className="w-full h-full drop-shadow-[0_0_10px_rgba(0,245,160,0.35)] overflow-visible" viewBox="0 0 100 115" fill="none">
                       <defs>
                         <clipPath id="indiaBorderClipSignup">
@@ -197,7 +197,7 @@ function SignupContent() {
                   </div>
 
                   {/* Right: Exact 3-Burst Symmetrical Soundwave with Fluid Voice Animation */}
-                  <div className="flex-1 flex items-center justify-center gap-[2px] sm:gap-[3px] h-20 px-1">
+                  <div className="flex-1 flex items-center justify-center gap-[2px] sm:gap-[3px] h-24 px-1">
                     {EXACT_SOUNDWAVE_PACKETS.map((bar, i) => (
                       <motion.div
                         key={i}
@@ -221,10 +221,10 @@ function SignupContent() {
                   </div>
                 </div>
 
-                <p className="text-xs font-karla font-semibold text-slate-200 tracking-wide text-center">
+                <p className="text-[13px] font-sans font-semibold text-slate-200 tracking-wide text-center">
                   Indic Regional Dialect Engine
                 </p>
-                <p className="text-[10px] font-mono text-silver/70 text-center mt-0.5">
+                <p className="text-[11px] font-mono text-silver/70 text-center mt-1">
                   AI4Bharat Wav2Vec2 · 16.0 kHz
                 </p>
               </div>
@@ -232,9 +232,9 @@ function SignupContent() {
               {/* Sub-Engine 2: Global Temporal Engine */}
               <div className="rounded-xl p-4 bg-[#070B14]/90 border border-white/10 flex flex-col justify-between hover:border-accent/50 transition-all">
                 {/* Visual Graphic: Wireframe Globe & Stacked Telemetry Panels */}
-                <div className="h-28 rounded-xl bg-[#09111E] border border-white/10 p-2.5 flex items-center justify-between gap-2.5 relative overflow-hidden mb-3">
+                <div className="h-[140px] rounded-xl bg-[#09111E] border border-white/10 p-4 flex items-center justify-between gap-3 relative overflow-hidden mb-4">
                   {/* Left: Digital Wireframe Globe */}
-                  <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">
+                  <div className="relative w-28 h-28 shrink-0 flex items-center justify-center">
                     <svg className="w-full h-full drop-shadow-[0_0_10px_rgba(0,210,255,0.4)]" viewBox="0 0 100 100" fill="none">
                       <defs>
                         <clipPath id="globeInnerClipSignup">
@@ -267,9 +267,9 @@ function SignupContent() {
                   </div>
 
                   {/* Right: Stacked Sub-Panels (Spectral Wave + Mel-Spectrogram) */}
-                  <div className="flex-1 flex flex-col justify-between h-24 py-0.5">
+                  <div className="flex-1 flex flex-col justify-between h-28 py-0.5">
                     {/* Top Panel: Oscilloscope Frequency Envelope on Grid */}
-                    <div className="h-[42px] w-full rounded-lg bg-[#060D18] border border-white/10 relative overflow-hidden flex items-center justify-center">
+                    <div className="h-[50px] w-full rounded-lg bg-[#060D18] border border-white/10 relative overflow-hidden flex items-center justify-center">
                       {/* Oscilloscope Grid */}
                       <svg className="absolute inset-0 w-full h-full opacity-25" viewBox="0 0 120 44" fill="none">
                         <line x1="0" y1="11" x2="120" y2="11" stroke="#00D2FF" strokeWidth="0.5" strokeDasharray="2 2" />
@@ -306,7 +306,7 @@ function SignupContent() {
                     </div>
 
                     {/* Bottom Panel: Real Mel-Spectrogram Heatmap */}
-                    <div className="h-[42px] w-full rounded-lg bg-[#07091A] border border-white/10 relative overflow-hidden p-0.5">
+                    <div className="h-[50px] w-full rounded-lg bg-[#07091A] border border-white/10 relative overflow-hidden p-0.5">
                       <div className="w-full h-full rounded-[6px] overflow-hidden flex relative">
                         <div className="w-[14%] h-full bg-gradient-to-t from-emerald-500/80 via-indigo-700/60 to-purple-900/80 opacity-90" />
                         <div className="w-[8%] h-full bg-[#07091A]" />
@@ -331,10 +331,10 @@ function SignupContent() {
                   </div>
                 </div>
 
-                <p className="text-xs font-karla font-semibold text-slate-200 tracking-wide text-center">
+                <p className="text-[14px] font-karla font-semibold text-slate-200 tracking-wide text-center">
                   Global Temporal Engine
                 </p>
-                <p className="text-[10px] font-mono text-silver/70 text-center mt-0.5">
+                <p className="text-[12px] font-mono text-silver/70 text-center mt-1.5">
                   ASVspoof Deep ConvNet · FP32
                 </p>
               </div>
@@ -342,70 +342,70 @@ function SignupContent() {
           </div>
 
           {/* Row: Card 2 (Deep Agent) & Card 3 (Audio Ingestion) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="rounded-2xl p-5 bg-[#0E1526]/80 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col justify-between hover:border-primary/40 transition-all">
-              <h3 className="font-karla font-bold text-sm text-white tracking-wide mb-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="rounded-2xl p-6 sm:p-7 bg-[#0E1526]/80 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col justify-between hover:border-primary/40 transition-all">
+              <h3 className="font-karla font-bold text-[15px] text-white tracking-wide mb-4">
                 On-Demand AI Forensic Deep Agent
               </h3>
 
-              <div className="rounded-xl bg-[#070B14] border border-white/10 p-3 mb-3 relative overflow-hidden">
-                <div className="flex items-center gap-1.5 pb-2 mb-2 border-b border-white/10">
-                  <div className="w-2 h-2 rounded-full bg-rose-500/80" />
-                  <div className="w-2 h-2 rounded-full bg-amber-500/80" />
-                  <div className="w-2 h-2 rounded-full bg-emerald-500/80" />
-                  <span className="text-[9px] font-mono text-silver/50 ml-2">telemetry_agent.bin</span>
+              <div className="rounded-xl bg-[#070B14] border border-white/10 p-4 mb-4 relative overflow-hidden">
+                <div className="flex items-center gap-2 pb-3 mb-3 border-b border-white/10">
+                  <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                  <span className="text-[10px] font-mono text-silver/50 ml-2">telemetry_agent.bin</span>
                 </div>
 
-                <div className="space-y-2 py-1">
+                <div className="space-y-3 py-1">
                   <div className="flex items-center justify-between">
-                    <div className="h-1.5 w-16 bg-white/10 rounded" />
-                    <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-rose-500/15 text-rose-300 border border-rose-500/30">
+                    <div className="h-1.5 w-20 bg-white/10 rounded" />
+                    <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-rose-500/15 text-rose-300 border border-rose-500/30">
                       Vocoder Phase Jitter
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="h-1.5 w-24 bg-white/10 rounded" />
-                    <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                    <div className="h-1.5 w-28 bg-white/10 rounded" />
+                    <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
                       Synthetic Mel Inconsistencies
                     </span>
                   </div>
                 </div>
               </div>
 
-              <p className="text-xs font-sans text-silver text-center">
+              <p className="text-[13px] font-sans text-silver text-center">
                 Forensic Deep Acoustic Diagnostics
               </p>
             </div>
 
-            <div className="rounded-2xl p-5 bg-[#0E1526]/80 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col justify-between hover:border-primary/40 transition-all">
-              <h3 className="font-sans font-bold text-sm text-white tracking-wide mb-3">
+            <div className="rounded-2xl p-6 sm:p-7 bg-[#0E1526]/80 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col justify-between hover:border-primary/40 transition-all">
+              <h3 className="font-sans font-bold text-[15px] text-white tracking-wide mb-4">
                 Multi-Source Audio Ingestion
               </h3>
 
-              <div className="flex items-center justify-center gap-4 py-2 mb-2">
-                <div className="flex flex-col items-center gap-1 text-slate-300">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-primary">
-                    <FileAudio className="w-5 h-5" />
+              <div className="flex items-center justify-center gap-5 py-3 mb-4">
+                <div className="flex flex-col items-center gap-1.5 text-slate-300">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-primary">
+                    <FileAudio className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-mono text-silver">.wav</span>
+                  <span className="text-[11px] font-mono text-silver">.wav</span>
                 </div>
 
-                <div className="flex flex-col items-center gap-1 text-slate-300">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent">
-                    <Activity className="w-5 h-5" />
+                <div className="flex flex-col items-center gap-1.5 text-slate-300">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent">
+                    <Activity className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-mono text-silver">.flac</span>
+                  <span className="text-[11px] font-mono text-silver">.flac</span>
                 </div>
 
-                <div className="flex flex-col items-center gap-1 text-slate-300">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-rose-400">
-                    <FileVideo className="w-5 h-5" />
+                <div className="flex flex-col items-center gap-1.5 text-slate-300">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-rose-400">
+                    <FileVideo className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-mono text-silver">.mp4</span>
+                  <span className="text-[11px] font-mono text-silver">.mp4</span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-2 p-2 rounded-xl bg-[#070B14] border border-white/10 text-xs font-sans text-slate-200">
+              <div className="flex items-center justify-center gap-2 p-3 rounded-xl bg-[#070B14] border border-white/10 text-[13px] font-sans text-slate-200">
                 <Video className="w-4 h-4 text-primary" />
                 <span>Live In-Browser Recording</span>
               </div>
