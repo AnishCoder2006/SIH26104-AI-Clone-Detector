@@ -4,7 +4,7 @@ export default function HindiDashboard() {
   return (
     <DashboardClient 
       language="indian" 
-      title="Indic Voice Clone Detector and Forensic Analysis" // <-- CHANGE THIS TEXT
+      title="India Voice Clone Detector and Forensic Analysis"
     />
   );
 }

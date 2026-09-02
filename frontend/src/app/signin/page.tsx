@@ -209,7 +209,7 @@ function SigninContent() {
                 </div>
 
                 <p className="text-xs font-karla font-semibold text-slate-200 tracking-wide text-center">
-                  Indic Regional Dialect Engine
+                  India Regional Dialect Engine
                 </p>
                 <p className="text-[10px] font-mono text-silver/70 text-center mt-0.5">
                   AI4Bharat Wav2Vec2 · 16.0 kHz

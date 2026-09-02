@@ -136,7 +136,7 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
               }`}
             >
               <span className="text-sm leading-none">🇮🇳</span>
-              <span>Indic / Hindi</span>
+              <span>India / Hindi</span>
             </Link>
 
             <Link

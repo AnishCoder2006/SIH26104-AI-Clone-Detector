@@ -93,7 +93,7 @@ export function Navbar() {
                     onClick={() => setDropdownOpen(false)}
                     className="flex md:hidden items-center justify-between px-3 py-2 text-xs text-slate-300 hover:bg-slate-900 rounded-xl"
                   >
-                    <span>🇮🇳 Indic / Hindi Model</span>
+                    <span>🇮🇳 India / Hindi Model</span>
                     {isIndic && <span className="text-[9px] text-primary font-mono font-bold">ACTIVE</span>}
                   </Link>
                   <Link
