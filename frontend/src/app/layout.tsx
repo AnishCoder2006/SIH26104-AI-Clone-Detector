@@ -2,18 +2,20 @@ import type { Metadata } from 'next';
 import React from 'react';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
-import { Playfair_Display, Inter } from 'next/font/google';
+import { Cormorant, Karla } from 'next/font/google';
 
-const inter = Inter({ 
+const karla = Karla({ 
   subsets: ['latin'], 
   variable: '--font-sans',
-  display: 'swap' 
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
 });
 
-const playfair = Playfair_Display({ 
+const cormorant = Cormorant({ 
   subsets: ['latin'], 
   variable: '--font-serif',
-  display: 'swap' 
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${karla.variable} ${cormorant.variable}`}>
       <body className="bg-background text-slate-100 min-h-screen flex flex-col font-sans relative overflow-x-hidden">
         {/* Abstract Background Effects */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">

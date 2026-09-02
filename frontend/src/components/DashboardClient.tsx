@@ -138,10 +138,10 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
         {/* Main Title & Subtitle */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-tight text-white mb-3 font-sans">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium tracking-wide text-white mb-3 drop-shadow-sm leading-[1.15]">
               {title}
             </h1>
-            <p className="text-slate-400 text-sm lg:text-base leading-relaxed border-l-2 border-primary/50 pl-4 py-0.5">
+            <p className="font-sans text-slate-300 text-sm lg:text-base leading-relaxed border-l-2 border-primary/60 pl-4 py-0.5 tracking-wide font-normal">
               {language === 'indian'
                 ? 'High-precision forensic synthesis intercept specialized for Indian regional dialects, multi-lingual vocoder artifacts, and acoustic anomalies.'
                 : 'Enterprise-grade deepfake voice clone interception with continuous micro-pitch analysis, spectral phase coherence, and telemetry diagnostics.'}
