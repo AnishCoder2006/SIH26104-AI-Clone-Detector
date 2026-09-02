@@ -1,0 +1,42 @@
+# render.yaml
+# Blueprint to automate deployment of the AI Clone Detector Backend & Database
+
+services:
+  # 1. FastAPI Python Backend
+  - type: web
+    name: voiceshield-backend
+    env: python
+    region: ohio
+    # Ensure the root directory points to where requirements.txt and code live
+    rootDir: backend
+    # Using the standard uvicorn ASGI command, binding to the port Render provides
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    
+    # We require a machine with enough RAM for PyTorch and Librosa 
+    # (Render Free tier is 512MB which might OOM. If deployment fails due to OOM,
+    # you may need to upgrade to the Starter instance types)
+    plan: starter
+    
+    envVars:
+      - key: DATABASE_URL
+        # This dynamically connects to the PostgreSQL database created below
+        fromDatabase:
+          name: voiceshield-db
+          property: connectionString
+      - key: PYTHON_VERSION
+        value: 3.10.12
+      # Allows CORS requests from anywhere temporarily until frontend is deployed
+      # Change ALLOW_ALL_CORS to false and set FRONTEND_URL to your Vercel URL later
+      - key: ALLOW_ALL_CORS
+        value: "true"
+      - key: FRONTEND_URL
+        value: "" # Fill this in with your Next.js frontend URL
+      - key: JWT_SECRET_KEY
+        generateValue: true # Render will securely generate a secure random string for JWTs
+
+  # 2. Managed PostgreSQL Database
+  - type: psql
+    name: voiceshield-db
+    region: ohio
+    plan: free # Free for 90 days
