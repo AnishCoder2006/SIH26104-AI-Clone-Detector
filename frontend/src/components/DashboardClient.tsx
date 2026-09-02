@@ -6,7 +6,6 @@ import { MediaInput } from '@/components/MediaInput';
 import { RiskAnalysisPanel, RiskResponse } from '@/components/RiskAnalysisPanel';
 import { LiveStreamPanel } from '@/components/LiveStreamPanel';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 
 interface DashboardClientProps {
   language: 'english' | 'indian';
@@ -112,40 +111,14 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
 
   return (
     <div className="flex-1 max-w-7xl w-full mx-auto p-6 flex flex-col">
-      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 relative">
-        <div className="flex flex-col items-start">
-          <div className="absolute -top-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-[80px] pointer-events-none" />
-          <h1 className="text-3xl lg:text-5xl font-extrabold font-serif tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400 mb-2">
-            {title}
-          </h1>
-          <p className="text-slate-400 text-sm lg:text-base max-w-xl border-l-2 border-primary/50 pl-4 py-1 relative">
-            Real-time {language === 'indian' ? 'Hindi/Indic' : 'English'} voice cloning detection.
-          </p>
-        </div>
-
-        {/* Quick Model Navigation */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-900/90 rounded-xl border border-slate-700/60 font-mono text-xs shadow-inner self-start md:self-auto">
-          <Link
-            href="/dashboard/hindi"
-            className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
-              language === 'indian'
-                ? 'bg-primary text-slate-950 font-bold shadow-[0_0_12px_rgba(0,255,204,0.3)]'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <span>🇮🇳</span> Indic Model
-          </Link>
-          <Link
-            href="/dashboard/english"
-            className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
-              language === 'english'
-                ? 'bg-primary text-slate-950 font-bold shadow-[0_0_12px_rgba(0,255,204,0.3)]'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <span>🌐</span> English Model
-          </Link>
-        </div>
+      <div className="mb-6 flex flex-col items-start relative">
+        <div className="absolute -top-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-[80px] pointer-events-none" />
+        <h1 className="text-4xl lg:text-5xl font-extrabold font-serif tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400 mb-2">
+          {title}
+        </h1>
+        <p className="text-slate-400 text-sm lg:text-base max-w-xl border-l-2 border-primary/50 pl-4 py-1 relative">
+          Real-time {language === 'indian' ? 'Hindi/Indic' : 'English'} voice cloning detection.
+        </p>
       </div>
 
       <div className="flex gap-4 mb-8 z-10 relative">
