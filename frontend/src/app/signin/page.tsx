@@ -108,89 +108,8 @@ function SigninContent() {
         </div>
       </div>
 
-      {/* Top Navbar Header */}
-      <header className="relative z-20 w-full px-6 lg:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-white/[0.06] backdrop-blur-md bg-[#070B14]/70">
-        {/* Left: Brand Identity */}
-        <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => router.push('/')}>
-          <div className="relative w-11 h-11 rounded-2xl bg-[#0E1526] border border-primary/40 flex items-center justify-center p-2 shadow-[0_0_15px_rgba(0,245,160,0.3)] shrink-0">
-            <img 
-              src="/logo-mint.png" 
-              alt="VoiceShield AI" 
-              className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(0,245,160,0.8)]" 
-            />
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-2xl font-cormorant font-bold text-white tracking-tight leading-none">
-                VoiceShield AI
-              </span>
-            </div>
-            <p className="text-[11px] font-karla text-silver tracking-wide mt-0.5">
-              Indic Voice Clone Detector and Forensic Analysis
-            </p>
-          </div>
-        </div>
-
-        {/* Right: Navigation Links & Dialect Selector */}
-        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-          {/* Nav Links Pill */}
-          <div className="hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#0E1526]/80 border border-white/10 text-xs font-karla text-silver shadow-inner">
-            <button type="button" onClick={() => router.push('/')} className="px-3 py-1 rounded-full hover:text-white hover:bg-white/5 transition-colors">
-              Learn More
-            </button>
-            <button type="button" onClick={() => router.push('/')} className="px-3 py-1 rounded-full hover:text-white hover:bg-white/5 transition-colors">
-              Technology
-            </button>
-            <button type="button" onClick={() => router.push('/')} className="px-3 py-1 rounded-full hover:text-white hover:bg-white/5 transition-colors">
-              Pricing
-            </button>
-            <button type="button" onClick={() => router.push('/')} className="px-3 py-1 rounded-full hover:text-white hover:bg-white/5 transition-colors">
-              Request Demo
-            </button>
-          </div>
-
-          {/* Dialect Selector Dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setDialectOpen(!dialectOpen)}
-              className="px-3.5 py-1.5 rounded-full bg-[#0E1526] border border-white/15 hover:border-primary/50 text-xs font-karla text-white flex items-center gap-2 transition-all shadow-sm"
-            >
-              <span className="text-silver">Dialect:</span>
-              <span className="font-semibold text-primary">{dialect}</span>
-              <ChevronDown className={`w-3.5 h-3.5 text-silver transition-transform duration-200 ${dialectOpen ? 'rotate-180' : ''}`} />
-            </button>
-
-            {dialectOpen && (
-              <div className="absolute right-0 mt-2 w-44 rounded-xl bg-[#0E1526] border border-white/15 shadow-2xl p-1 z-50 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-150">
-                {dialects.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => { setDialect(item.label); setDialectOpen(false); }}
-                    className={`w-full text-left px-3 py-2 rounded-lg text-xs font-karla transition-all ${
-                      dialect === item.label
-                        ? 'bg-primary/20 text-primary font-bold'
-                        : 'text-silver hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Security Clearance Badge */}
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0E1526] border border-emerald-500/40 text-emerald-400 text-xs font-mono shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[11px] font-semibold tracking-wider uppercase">Security Clearance: L3</span>
-          </div>
-        </div>
-      </header>
-
       {/* Main Showcase & Login Workspace */}
-      <main className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 lg:py-12 flex-1 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+      <main className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-10 flex-1 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 my-auto">
         
         {/* Left Side: Cyber Feature Architecture Cards */}
         <div className="w-full lg:w-7/12 flex flex-col gap-5">
@@ -505,24 +424,7 @@ function SigninContent() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-20 w-full px-6 lg:px-12 py-5 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-karla text-silver/70">
-        <div className="flex flex-wrap items-center gap-2 text-center sm:text-left">
-          <span>Developed by: <strong className="text-white font-medium">Cybersecurity Innovations</strong></span>
-        </div>
 
-        <div className="flex items-center gap-5 text-xs text-silver">
-          <button type="button" onClick={() => alert('DPDP Privacy Policy: All audio streams are ephemeral and processed strictly in-memory without persistent disk retention.')} className="hover:text-white transition-colors">
-            Privacy Policy
-          </button>
-          <button type="button" onClick={() => alert('Terms of Service: Authorized for certified security analysts and enterprise risk officers.')} className="hover:text-white transition-colors">
-            Terms of Service
-          </button>
-          <button type="button" onClick={() => alert('Support: 24/7 Security Operations Center at support@voiceshield.ai')} className="hover:text-white transition-colors">
-            Support
-          </button>
-        </div>
-      </footer>
     </div>
   );
 }
