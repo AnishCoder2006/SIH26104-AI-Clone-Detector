@@ -111,6 +111,13 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
     }
   };
 
+  const handleReset = () => {
+    setAnalysisData(null);
+    setIsAnalyzing(false);
+    setHasMedia(false);
+    setAgentReport(null);
+  };
+
   if (loading) return <div className="flex-1 flex items-center justify-center">Loading...</div>;
 
   return (
@@ -222,27 +229,32 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
         </div>
       </div>
 
-      {/* Main Workspace: Single Card before upload/analysis, 2-Columns after upload/analysis */}
-      <div className={`w-full transition-all duration-500 ease-in-out ${
-        showAnalysisCard 
-          ? 'grid grid-cols-1 lg:grid-cols-2 gap-8 items-start' 
-          : 'w-full'
-      }`}>
-        <motion.div layout transition={{ duration: 0.4 }} className="w-full">
-          <MediaInput 
-            onAnalyze={handleAnalyze} 
-            isAnalyzing={isAnalyzing} 
-            onMediaChange={setHasMedia} 
-          />
-        </motion.div>
-
-        <AnimatePresence>
-          {showAnalysisCard && (
+      {/* Main Workspace: Standalone Single Card View */}
+      {/* Shows Acoustic Payload Ingestion initially, and replaces it with Forensic Analysis separately */}
+      <div className="w-full">
+        <AnimatePresence mode="wait">
+          {!showAnalysisCard ? (
             <motion.div 
-              initial={{ opacity: 0, x: 25, scale: 0.98 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 25, scale: 0.98 }}
-              transition={{ duration: 0.45, ease: 'easeOut' }}
+              key="media-input"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35 }}
+              className="w-full"
+            >
+              <MediaInput 
+                onAnalyze={handleAnalyze} 
+                isAnalyzing={isAnalyzing} 
+                onMediaChange={setHasMedia} 
+              />
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="forensic-analysis"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
               className="w-full"
             >
               <RiskAnalysisPanel 
@@ -251,6 +263,7 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
                 onRunForensicAnalysis={handleRunForensicAnalysis}
                 isAgentLoading={isAgentLoading}
                 agentReport={agentReport}
+                onReset={handleReset}
               />
             </motion.div>
           )}
