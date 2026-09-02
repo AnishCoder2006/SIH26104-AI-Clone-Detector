@@ -19,6 +19,10 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
   const [analysisData, setAnalysisData] = useState<RiskResponse | null>(null);
   const [mode, setMode] = useState<'forensic' | 'live'>('forensic');
 
+  // 1. State Variables
+  const [agentReport, setAgentReport] = useState<any>(null);
+  const [isAgentLoading, setIsAgentLoading] = useState<boolean>(false);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -28,9 +32,47 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
     }
   }, [router]);
 
+  // 2. On-Demand Trigger Function (Called ONLY on Button Click)
+  async function handleRunForensicAnalysis() {
+    const detectionResult = analysisData;
+    // Ensure we have a valid detection result first
+    if (!detectionResult) return;
+
+    setIsAgentLoading(true);
+    try {
+      const prob = (detectionResult as any).synthetic_probability 
+        ?? ((detectionResult.metrics?.synthetic_voice_probability != null) 
+            ? detectionResult.metrics.synthetic_voice_probability / 100 
+            : detectionResult.risk_score / 100);
+
+      const res = await fetch('/api/forensic-agent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          probability: prob,
+          language: language, // 'english' or 'indian'
+          telemetry: {
+            spectral_entropy: (detectionResult as any).spectral_entropy ?? 0.89,
+            phase_coherence: (detectionResult as any).phase_coherence ?? 0.41,
+            mel_cepstral_dist: (detectionResult as any).mel_cepstral_dist ?? 12.4,
+            pitch_variance: (detectionResult as any).pitch_variance ?? 0.02,
+          },
+        }),
+      });
+
+      const data = await res.json();
+      setAgentReport(data);
+    } catch (err) {
+      console.error('Error triggering forensic analysis:', err);
+    } finally {
+      setIsAgentLoading(false);
+    }
+  }
+
   const handleAnalyze = async (payload: { file: Blob; transaction_value: number; known_contact: boolean }) => {
     setIsAnalyzing(true);
     setAnalysisData(null);
+    setAgentReport(null);
 
     try {
       const token = localStorage.getItem('token');
@@ -99,14 +141,19 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
           {mode === 'forensic' ? (
             <MediaInput onAnalyze={handleAnalyze} isAnalyzing={isAnalyzing} />
           ) : (
-            {/* Pass the language prop to the Live Stream Panel */}
             <LiveStreamPanel language={language} />
           )}
         </motion.div>
 
         <div className="min-h-[600px] h-full">
           {mode === 'forensic' ? (
-            <RiskAnalysisPanel loading={isAnalyzing} data={analysisData} />
+            <RiskAnalysisPanel 
+              loading={isAnalyzing} 
+              data={analysisData} 
+              onRunForensicAnalysis={handleRunForensicAnalysis}
+              isAgentLoading={isAgentLoading}
+              agentReport={agentReport}
+            />
           ) : (
              <div className="h-full flex items-center justify-center bg-slate-900/30 rounded-2xl border border-slate-800 border-dashed text-slate-500">
                Live analysis metrics are displayed on the left panel.

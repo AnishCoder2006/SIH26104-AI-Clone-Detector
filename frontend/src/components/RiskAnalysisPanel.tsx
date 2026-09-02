@@ -18,14 +18,28 @@ export interface RiskResponse {
   alert: boolean;
   recommendation: string;
   metrics: Metrics;
+  synthetic_probability?: number;
+  spectral_entropy?: number;
+  phase_coherence?: number;
+  mel_cepstral_dist?: number;
+  pitch_variance?: number;
 }
 
 interface RiskAnalysisPanelProps {
   loading: boolean;
   data: RiskResponse | null;
+  onRunForensicAnalysis?: () => void;
+  isAgentLoading?: boolean;
+  agentReport?: any;
 }
 
-export function RiskAnalysisPanel({ loading, data }: RiskAnalysisPanelProps) {
+export function RiskAnalysisPanel({
+  loading,
+  data,
+  onRunForensicAnalysis,
+  isAgentLoading = false,
+  agentReport = null,
+}: RiskAnalysisPanelProps) {
   if (loading) {
     return (
       <div className="glass-panel p-6 rounded-2xl h-full flex flex-col animate-pulse">
@@ -53,6 +67,8 @@ export function RiskAnalysisPanel({ loading, data }: RiskAnalysisPanelProps) {
     );
   }
 
+  const detectionResult = data;
+  const handleRunForensicAnalysis = onRunForensicAnalysis;
   const isHighRisk = data.alert || data.risk_score > 50;
 
   return (
@@ -71,6 +87,75 @@ export function RiskAnalysisPanel({ loading, data }: RiskAnalysisPanelProps) {
       <div className="flex flex-col items-center mb-8">
         <RadialGauge score={data.risk_score} size={200} />
       </div>
+
+      {/* 1. On-Demand Analysis Trigger Button */}
+      {detectionResult && handleRunForensicAnalysis && (
+        <div className="mb-6 flex flex-col items-center">
+          <button
+            onClick={handleRunForensicAnalysis}
+            disabled={isAgentLoading}
+            className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/20 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isAgentLoading ? (
+              <>
+                <span className="animate-spin">🔄</span> Running AI Telemetry Agent...
+              </>
+            ) : (
+              <>
+                🛡️ Run AI Forensic Deep Analysis
+              </>
+            )}
+          </button>
+        </div>
+      )}
+
+      {/* 2. Forensic Analysis Results Display Panel (Only renders after click) */}
+      {agentReport && (
+        <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 text-white space-y-4 mb-6 shadow-2xl backdrop-blur-md">
+          {/* Header & Threat Badge */}
+          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 className="font-semibold text-lg flex items-center gap-2 text-cyan-400">
+              🛡️ AI Threat Intelligence Report
+            </h3>
+            <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wider ${
+              agentReport.threat_level === 'CRITICAL' ? 'bg-red-500/20 text-red-400 border border-red-500/50 animate-pulse' :
+              agentReport.threat_level === 'HIGH' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/50' :
+              agentReport.threat_level === 'ELEVATED' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50' :
+              'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'
+            }`}>
+              {agentReport.threat_level} THREAT
+            </span>
+          </div>
+
+          {/* XAI Diagnostic Tags */}
+          <div>
+            <p className="text-xs text-slate-400 uppercase tracking-wider font-mono mb-2">Detected Anomaly Tags</p>
+            <div className="flex gap-2 flex-wrap">
+              {agentReport.xai_tags?.map((tag: string, idx: number) => (
+                <span key={idx} className="bg-cyan-950/80 text-cyan-300 text-xs font-mono px-3 py-1 rounded-md border border-cyan-800/80">
+                  🔍 {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Forensic Insights */}
+          <div className="space-y-2 text-sm text-slate-300 bg-slate-950/60 p-3.5 rounded-xl border border-slate-800">
+            <p className="font-semibold text-slate-400 text-xs uppercase tracking-wider font-mono">Acoustic Insights</p>
+            <ul className="list-disc list-inside space-y-1 text-slate-300">
+              {agentReport.forensic_insights?.map((insight: string, idx: number) => (
+                <li key={idx}>{insight}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Mitigation Protocol */}
+          <div className="bg-red-950/20 border border-red-900/40 p-3.5 rounded-xl text-sm text-red-200">
+            <p className="font-bold text-red-400 text-xs uppercase tracking-wider font-mono mb-1">Recommended Mitigation Protocol</p>
+            <p>{agentReport.mitigation_plan}</p>
+          </div>
+        </div>
+      )}
 
       <div 
         className={`p-5 rounded-xl mb-8 flex items-start gap-4 border backdrop-blur-md transition-all duration-500 ${
