@@ -68,6 +68,14 @@ function SigninContent() {
   const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [comingSoonMsg, setComingSoonMsg] = useState<string | null>(null);
+
+  const handleComingSoon = (featureName: string) => {
+    setComingSoonMsg(`${featureName} is coming soon!`);
+    setTimeout(() => {
+      setComingSoonMsg(null);
+    }, 3500);
+  };
 
   // Dialect selector state
   const [dialect, setDialect] = useState('Global English');
@@ -566,12 +574,36 @@ function SigninContent() {
                 )}
               </button>
 
+              {/* Coming Soon Notification Banner */}
+              <AnimatePresence>
+                {comingSoonMsg && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 6, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.95 }}
+                    className="p-3 rounded-xl bg-gradient-to-r from-accent/15 via-primary/10 to-accent/15 border border-accent/40 text-accent text-xs font-karla flex items-center justify-between shadow-[0_0_20px_rgba(0,210,255,0.2)] backdrop-blur-md"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-primary animate-pulse shrink-0" />
+                      <span className="font-semibold text-slate-100">{comingSoonMsg}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setComingSoonMsg(null)}
+                      className="text-silver/70 hover:text-white transition-colors text-xs px-1 font-bold"
+                    >
+                      ✕
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {/* Secondary Alternate Login Actions */}
-              <div className="grid grid-cols-2 gap-2.5 pt-2">
+              <div className="grid grid-cols-2 gap-2.5 pt-1">
                 <button
                   type="button"
-                  onClick={() => alert('Voice Biometric Authentication: Please speak into your microphone to verify vocal acoustics.')}
-                  className="py-2.5 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-primary/40 text-xs font-karla text-slate-200 hover:text-white transition-all text-center flex items-center justify-center gap-1.5"
+                  onClick={() => handleComingSoon('Access with Voice ID')}
+                  className="py-2.5 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-primary/40 text-xs font-karla text-slate-200 hover:text-white transition-all text-center flex items-center justify-center gap-1.5 active:scale-95"
                 >
                   <Fingerprint className="w-3.5 h-3.5 text-primary" />
                   <span>Access with Voice ID</span>
@@ -579,8 +611,8 @@ function SigninContent() {
 
                 <button
                   type="button"
-                  onClick={() => alert('Enterprise SSO Portal: Redirecting to SAML / OAuth Gateway...')}
-                  className="py-2.5 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-primary/40 text-xs font-karla text-slate-200 hover:text-white transition-all text-center flex items-center justify-center gap-1.5"
+                  onClick={() => handleComingSoon('SSO Login')}
+                  className="py-2.5 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-accent/40 text-xs font-karla text-slate-200 hover:text-white transition-all text-center flex items-center justify-center gap-1.5 active:scale-95"
                 >
                   <KeyRound className="w-3.5 h-3.5 text-accent" />
                   <span>SSO Login</span>
