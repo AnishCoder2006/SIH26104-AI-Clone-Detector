@@ -23,8 +23,8 @@ export function Navbar() {
   const isEnglish = pathname.includes('/english');
 
   return (
-    <div className="sticky top-3 sm:top-4 z-50 w-full px-3 sm:px-6 lg:px-8 flex justify-center pointer-events-none mb-4">
-      <header className="w-full max-w-[1400px] xl:max-w-[1440px] h-16 sm:h-[68px] bg-[#161D2F]/85 backdrop-blur-2xl border border-[#00D2FF]/20 rounded-2xl sm:rounded-full shadow-[0_16px_40px_rgba(11,15,25,0.9),0_0_25px_rgba(0,245,160,0.1)] px-5 sm:px-8 flex items-center justify-between pointer-events-auto relative overflow-visible transition-all">
+    <div className="sticky top-3 sm:top-4 z-50 w-full px-4 sm:px-6 flex justify-center pointer-events-none mb-4">
+      <header className="w-full max-w-7xl h-16 sm:h-[68px] bg-[#161D2F]/85 backdrop-blur-2xl border border-[#00D2FF]/20 rounded-2xl sm:rounded-full shadow-[0_16px_40px_rgba(11,15,25,0.9),0_0_25px_rgba(0,245,160,0.1)] px-5 sm:px-7 flex items-center justify-between pointer-events-auto relative overflow-visible transition-all">
         
         {/* Subtle Cyber Glow Top Line */}
         <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent rounded-full pointer-events-none" />
