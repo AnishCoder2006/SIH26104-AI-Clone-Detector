@@ -42,5 +42,6 @@ class RiskResponse(BaseModel):
     risk_level: str
     alert: bool
     recommendation: str
+    synthetic_probability: Optional[float] = 0.0
     
     metrics: Optional[TelemetryMetrics] = None

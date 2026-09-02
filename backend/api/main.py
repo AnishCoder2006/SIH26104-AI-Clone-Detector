@@ -127,6 +127,7 @@ async def analyze_audio_endpoint(
 
         telemetry["synthetic_voice_probability"] = synthetic_prob * 100
         result["metrics"] = telemetry
+        result["synthetic_probability"] = synthetic_prob
 
         return result
 
