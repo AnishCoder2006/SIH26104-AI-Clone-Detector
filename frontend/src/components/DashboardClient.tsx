@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { MediaInput } from '@/components/MediaInput';
 import { RiskAnalysisPanel, RiskResponse } from '@/components/RiskAnalysisPanel';
 import { motion } from 'framer-motion';
+import { Activity, Cpu, ShieldCheck } from 'lucide-react';
 
 interface DashboardClientProps {
   language: 'english' | 'indian';
@@ -129,20 +130,60 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
             </p>
           </div>
 
-          {/* Mini Telemetry Spec Chips */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 lg:min-w-[340px] font-mono text-[11px]">
-            <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col">
-              <span className="text-[9px] uppercase tracking-wider text-slate-500">SAMPLE RATE</span>
-              <span className="font-bold text-slate-200 mt-0.5">16.0 kHz Mono</span>
+          {/* Telemetry Spec Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 lg:min-w-[440px]">
+            
+            {/* Card 1: Sample Rate */}
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950 border border-slate-800/90 hover:border-primary/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,255,204,0.15)] flex flex-col justify-between">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-sm group-hover:scale-105 transition-transform">
+                  <Activity className="w-4 h-4" />
+                </div>
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400">
+                  Mono Stream
+                </span>
+              </div>
+              <div>
+                <p className="text-[10px] font-mono tracking-widest text-slate-400 uppercase font-semibold">Sample Rate</p>
+                <p className="text-base font-bold font-sans text-white tracking-tight mt-0.5">16.0 <span className="text-xs font-normal text-slate-400 font-mono">kHz</span></p>
+              </div>
             </div>
-            <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col">
-              <span className="text-[9px] uppercase tracking-wider text-slate-500">INFERENCE</span>
-              <span className="font-bold text-primary mt-0.5">ONNX Neural</span>
+
+            {/* Card 2: Inference */}
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950 border border-slate-800/90 hover:border-cyan-400/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] flex flex-col justify-between">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-sm group-hover:scale-105 transition-transform">
+                  <Cpu className="w-4 h-4" />
+                </div>
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-cyan-400">
+                  FP32 Core
+                </span>
+              </div>
+              <div>
+                <p className="text-[10px] font-mono tracking-widest text-slate-400 uppercase font-semibold">Inference</p>
+                <p className="text-base font-bold font-sans text-white tracking-tight mt-0.5">ONNX <span className="text-xs font-normal text-cyan-400 font-mono">Neural</span></p>
+              </div>
             </div>
-            <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 col-span-2 sm:col-span-1 flex flex-col">
-              <span className="text-[9px] uppercase tracking-wider text-slate-500">ACCURACY</span>
-              <span className="font-bold text-emerald-400 mt-0.5">99.4% F1</span>
+
+            {/* Card 3: Accuracy */}
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950 border border-slate-800/90 hover:border-emerald-400/50 p-4 transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(52,211,153,0.15)] flex flex-col justify-between">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-sm group-hover:scale-105 transition-transform">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-emerald-400">
+                  Benchmark
+                </span>
+              </div>
+              <div>
+                <p className="text-[10px] font-mono tracking-widest text-slate-400 uppercase font-semibold">Accuracy</p>
+                <p className="text-base font-bold font-sans text-emerald-400 tracking-tight mt-0.5">99.4% <span className="text-xs font-normal text-slate-400 font-mono">F1</span></p>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
