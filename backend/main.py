@@ -6,7 +6,7 @@ import librosa
 from datetime import timedelta
 from sqlalchemy.orm import Session
 
-from ml.inference import analyze_audio
+from ml.onnx_inference import analyze_audio_onnx
 from api.schemas import RiskRequest, RiskResponse, UserSignup, UserSignin, Token
 from risk.risk_engine import calculate_risk
 from ml.forensic_telemetry import compute_all_forensic_metrics
@@ -119,7 +119,8 @@ async def analyze_audio_endpoint(
             temp_file.write(await file.read())
             temp_path = temp_file.name
 
-        ml_result = analyze_audio(temp_path)
+        # Using onnx inference. Change language to 'english' if needed.
+        ml_result = analyze_audio_onnx(temp_path, language="indian")
 
         try:
             audio_data, sr = librosa.load(temp_path, sr=16000, mono=True)
