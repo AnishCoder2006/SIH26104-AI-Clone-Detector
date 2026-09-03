@@ -3,23 +3,23 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  Mail, 
-  Lock, 
-  ShieldAlert, 
-  CheckCircle2, 
-  ChevronDown, 
-  Eye, 
-  EyeOff, 
-  Loader2, 
-  Mic, 
-  Video, 
-  FileAudio, 
-  FileVideo, 
-  Globe, 
-  ShieldCheck, 
-  Activity, 
-  Fingerprint, 
+import {
+  Mail,
+  Lock,
+  ShieldAlert,
+  CheckCircle2,
+  ChevronDown,
+  Eye,
+  EyeOff,
+  Loader2,
+  Mic,
+  Video,
+  FileAudio,
+  FileVideo,
+  Globe,
+  ShieldCheck,
+  Activity,
+  Fingerprint,
   Sparkles,
   KeyRound
 } from 'lucide-react';
@@ -97,9 +97,12 @@ function SigninContent() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/signin`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || '/backend'}/signin`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+        },
         body: JSON.stringify(formData),
       });
 
@@ -128,7 +131,7 @@ function SigninContent() {
 
       {/* Main Showcase & Login Workspace */}
       <main className="relative z-10 w-full max-w-[1440px] mx-auto px-6 lg:px-12 py-10 flex-1 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 my-auto">
-        
+
         {/* Left Side: Cyber Feature Architecture Cards */}
         <div className="w-full lg:w-7/12 flex flex-col gap-6">
           {/* Card 1: Dual-Neural Detection Engines */}
@@ -142,7 +145,7 @@ function SigninContent() {
               </span>
             </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Sub-Engine 1: Indic Regional Dialect */}
               <div className="rounded-xl p-4 bg-[#070B14]/90 border border-white/10 flex flex-col justify-between hover:border-primary/50 transition-all">
                 {/* Visual Graphic: Exact India Map with Scanlines, VB Badge & 3-Burst Waveform */}
@@ -259,7 +262,7 @@ function SigninContent() {
 
                       {/* Dark Blue Globe Base */}
                       <circle cx="50" cy="50" r="42" fill="#06121E" />
-                      
+
                       {/* Dotted Matrix Texture */}
                       <rect x="8" y="8" width="84" height="84" fill="url(#globeDotsSignin)" clipPath="url(#globeInnerClipSignin)" />
 
@@ -328,7 +331,7 @@ function SigninContent() {
                         <div className="w-[5%] h-full bg-[#07091A]" />
                         <div className="w-[15%] h-full bg-gradient-to-t from-teal-400 via-indigo-600/70 to-purple-900/80" />
                         <div className="w-[18%] h-full bg-gradient-to-t from-[#00F5A0]/90 via-emerald-600/70 to-indigo-900" />
-                        
+
                         {/* Horizontal frequency scanline stripes */}
                         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_3px,rgba(0,0,0,0.4)_4px)] bg-[length:100%_4px] pointer-events-none" />
 
@@ -434,7 +437,7 @@ function SigninContent() {
 
         {/* Right Side: The Star — Executive Platform Login Card */}
         <div className="w-full lg:w-5/12 flex flex-col items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -601,8 +604,8 @@ function SigninContent() {
             <div className="mt-10 text-center">
               <p className="text-sm font-sans text-silver">
                 Don't have an analyst profile?{' '}
-                <Link 
-                  href="/signup" 
+                <Link
+                  href="/signup"
                   className="text-primary font-semibold hover:underline transition-colors hover:text-accent"
                 >
                   Register here

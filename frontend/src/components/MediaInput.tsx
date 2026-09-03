@@ -145,7 +145,10 @@ export function MediaInput({ onAnalyze, isAnalyzing, onMediaChange }: MediaInput
       };
 
       source.connect(processor);
-      processor.connect(ctx.destination);
+      const gainNode = ctx.createGain();
+      gainNode.gain.value = 0;
+      processor.connect(gainNode);
+      gainNode.connect(ctx.destination);
       
       setFile(null);
       if (mediaUrl) URL.revokeObjectURL(mediaUrl);
