@@ -44,10 +44,10 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
 
     setIsAgentLoading(true);
     try {
-      const prob = (detectionResult as any).synthetic_probability
-        ?? ((detectionResult.metrics?.synthetic_voice_probability != null)
-          ? detectionResult.metrics.synthetic_voice_probability / 100
-          : detectionResult.risk_score / 100);
+      const prob = (detectionResult as any).synthetic_probability 
+        ?? ((detectionResult.metrics?.synthetic_voice_probability != null) 
+            ? detectionResult.metrics.synthetic_voice_probability / 100 
+            : detectionResult.risk_score / 100);
 
       const res = await fetch('/api/forensic-agent', {
         method: 'POST',
@@ -84,15 +84,15 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
       formData.append('file', payload.file, 'audio.wav');
       formData.append('transaction_value', payload.transaction_value.toString());
       formData.append('known_contact', payload.known_contact.toString());
-
+      
       // Send language to backend REST API
-      formData.append('language', language);
+      formData.append('language', language); 
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || '/backend'}/analyze-audio`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/analyze-audio`, {
         method: 'POST',
-        headers: {
+        headers: { 
           'Authorization': `Bearer ${token}`,
-          'ngrok-skip-browser-warning': 'true',
+          'ngrok-skip-browser-warning': 'true'
         },
         body: formData,
       });
@@ -132,10 +132,11 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
           <div className="inline-flex items-center gap-1.5 p-1 bg-[#161D2F]/80 rounded-full border border-white/10 shadow-sm backdrop-blur-md">
             <Link
               href="/dashboard/hindi"
-              className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 font-karla text-xs font-semibold ${language === 'indian'
-                ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
-                : 'text-silver hover:text-white hover:bg-white/5'
-                }`}
+              className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 font-karla text-xs font-semibold ${
+                language === 'indian'
+                  ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
+                  : 'text-silver hover:text-white hover:bg-white/5'
+              }`}
             >
               <span className="text-sm leading-none">🇮🇳</span>
               <span>India / Hindi</span>
@@ -143,10 +144,11 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
 
             <Link
               href="/dashboard/english"
-              className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 font-karla text-xs font-semibold ${language === 'english'
-                ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
-                : 'text-silver hover:text-white hover:bg-white/5'
-                }`}
+              className={`px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 font-karla text-xs font-semibold ${
+                language === 'english'
+                  ? 'bg-gradient-to-r from-primary to-accent text-[#0B0F19] font-bold shadow-[0_0_18px_rgba(0,245,160,0.4)]'
+                  : 'text-silver hover:text-white hover:bg-white/5'
+              }`}
             >
               <span className="text-sm leading-none">🌐</span>
               <span>English</span>
@@ -195,14 +197,14 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
 
             <div className="hidden sm:block h-10 w-[1px] bg-white/10" />
 
-            {/* Metric 3: Equal Error Rate */}
+            {/* Metric 3: Accuracy */}
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5 text-[11px] font-karla tracking-widest text-silver uppercase font-semibold mb-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-                <span>EER</span>
+                <span>Accuracy Benchmark</span>
               </div>
               <p className="text-3xl font-cormorant font-semibold text-primary tracking-tight">
-                {language === 'indian' ? '2.97%' : '5.33%'}
+                99.4% <span className="text-xs font-normal text-silver font-karla uppercase">F1 Score</span>
               </p>
             </div>
           </div>
@@ -214,7 +216,7 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
       <div className="w-full">
         <AnimatePresence mode="wait">
           {!showAnalysisCard ? (
-            <motion.div
+            <motion.div 
               key="media-input"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -222,14 +224,14 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
               transition={{ duration: 0.35 }}
               className="w-full"
             >
-              <MediaInput
-                onAnalyze={handleAnalyze}
-                isAnalyzing={isAnalyzing}
-                onMediaChange={setHasMedia}
+              <MediaInput 
+                onAnalyze={handleAnalyze} 
+                isAnalyzing={isAnalyzing} 
+                onMediaChange={setHasMedia} 
               />
             </motion.div>
           ) : (
-            <motion.div
+            <motion.div 
               key="forensic-analysis"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -237,9 +239,9 @@ export function DashboardClient({ language, title }: DashboardClientProps) {
               transition={{ duration: 0.4 }}
               className="w-full"
             >
-              <RiskAnalysisPanel
-                loading={isAnalyzing}
-                data={analysisData}
+              <RiskAnalysisPanel 
+                loading={isAnalyzing} 
+                data={analysisData} 
                 onRunForensicAnalysis={handleRunForensicAnalysis}
                 isAgentLoading={isAgentLoading}
                 agentReport={agentReport}

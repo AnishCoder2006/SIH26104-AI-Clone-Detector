@@ -6,7 +6,7 @@ import librosa
 from datetime import timedelta
 from sqlalchemy.orm import Session
 
-from ml.onnx_inference import analyze_audio_onnx
+from ml.inference import analyze_audio
 from api.schemas import RiskRequest, RiskResponse, UserSignup, UserSignin, Token
 from risk.risk_engine import calculate_risk
 from ml.forensic_telemetry import compute_all_forensic_metrics
@@ -49,6 +49,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    allow_origin_regex=r"https://.*\.vercel\.app"
 )
 
 @app.get("/")
@@ -96,7 +97,6 @@ async def analyze_audio_endpoint(
     file: UploadFile = File(...),
     transaction_value: float = Form(...),
     known_contact: bool = Form(...),
-    language: str = Form("indian"),
     current_user: User = Depends(get_current_user)
 ):
     valid_extensions = (".wav", ".mp3", ".ogg", ".webm", ".flac", ".m4a")
@@ -119,7 +119,7 @@ async def analyze_audio_endpoint(
             temp_file.write(await file.read())
             temp_path = temp_file.name
 
-        ml_result = analyze_audio_onnx(temp_path, language=language)
+        ml_result = analyze_audio(temp_path)
 
         try:
             audio_data, sr = librosa.load(temp_path, sr=16000, mono=True)
