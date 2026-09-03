@@ -1,0 +1,11 @@
+.git
+.gitignore
+.next
+node_modules
+__pycache__
+*.pyc
+.pytest_cache
+**/.env
+**/.env.*
+ml_pipeline/data
+ml_pipeline/models

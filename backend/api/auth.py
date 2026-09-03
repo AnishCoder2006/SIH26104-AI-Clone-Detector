@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from typing import Optional
+import os
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from fastapi import Depends, HTTPException, status
@@ -9,7 +10,7 @@ from sqlalchemy.orm import Session
 from db.database import get_db
 from db.models import User
 
-SECRET_KEY = "your-super-secret-key-for-development"
+SECRET_KEY = os.getenv("SECRET_KEY", "your-super-secret-key-for-development")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 

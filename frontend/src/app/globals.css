@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --font-inter: "Trebuchet MS", sans-serif;
+  --font-fraunces: Georgia, serif;
+  --font-karla: "Trebuchet MS", sans-serif;
+  --font-cormorant: Georgia, serif;
+  --font-space: "Trebuchet MS", sans-serif;
+  --font-plex: "Trebuchet MS", sans-serif;
+}
+
 @layer base {
   body {
     @apply bg-background text-white antialiased selection:bg-primary/20 selection:text-primary;

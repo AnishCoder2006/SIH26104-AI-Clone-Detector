@@ -19,6 +19,12 @@ SPOOF_THRESHOLD = 0.50
 _sessions = {"english": None, "indian": None}
 _extractors = {"english": None, "indian": None}
 
+# The Indian model was trained with INVERTED label order relative to the English model.
+# English: class 0 = REAL (bonafide), class 1 = SPOOF (spoofed)
+# Indian:  class 0 = SPOOF (spoofed), class 1 = REAL (bonafide)
+# Verified empirically: a 440Hz sine wave scores 0.997 on class 0 for Indian, 0.994 on class 1 for English.
+SPOOF_CLASS_INDEX = {"english": 1, "indian": 0}
+
 def load_models():
     """Loads feature extractors and auto-downloads split ONNX files."""
     global _sessions, _extractors
@@ -35,7 +41,13 @@ def load_models():
             repo_id=HF_REPO_INDIAN, 
             allow_patterns=["*.onnx", "*.onnx.data"]
         )
-        indian_onnx_path = os.path.join(indic_dir, "model.onnx")
+        # Fix: Use the correct file name for the Indian model
+        indian_onnx_path = os.path.join(indic_dir, "indic_voice_spoof_detector.onnx")
+        if not os.path.exists(indian_onnx_path):
+            # Fallback if named differently
+            onnx_files = [f for f in os.listdir(indic_dir) if f.endswith(".onnx")]
+            indian_onnx_path = os.path.join(indic_dir, onnx_files[0]) if onnx_files else os.path.join(indic_dir, "model.onnx")
+            
         _sessions["indian"] = ort.InferenceSession(indian_onnx_path, providers=['CPUExecutionProvider'])
         
         # 2. Pull English ONNX (Single file)
@@ -54,32 +66,58 @@ def analyze_audio_onnx(audio_path: str, language: str = "indian") -> dict:
     """REST endpoint processing (File on disk + chunking)"""
     sessions, extractors = load_models()
     lang = language if language in sessions else "indian"
-    
-    try:
-        chunk_generator = stream_audio(
-            file_path=audio_path, window_sec=MAX_AUDIO_SECONDS,
-            overlap=0.5, pad_last=True, simulate_realtime=False
-        )
-        chunks = [chunk for chunk, sr in chunk_generator]
-    except Exception as e:
-        raise RuntimeError(f"Failed to stream audio: {e}")
 
-    if not chunks:
-        return {"synthetic_probability": 0.0, "speaker_similarity": None, "label": "REAL", "alert": False}
+    spoof_col = SPOOF_CLASS_INDEX.get(lang, 1)
 
-    inputs = extractors[lang](chunks, sampling_rate=TARGET_SR, return_tensors="np", padding=True)
-    
-    if isinstance(sessions[lang], str) and sessions[lang].startswith("MOCK"):
-        logits = np.random.randn(len(chunks), 2)
-    else:
-        ort_inputs = {sessions[lang].get_inputs()[0].name: inputs["input_values"]}
+    # CRITICAL: The Indian model's ONNX has a fixed batch_size=1.
+    # Additionally, stream_audio zero-pads the last chunk to fill the 4s window. 
+    # When Wav2Vec2FeatureExtractor normalizes a chunk that is mostly silence (zeros),
+    # it normalizes the zeros away and the signal is destroyed — every audio looks REAL.
+    # Fix: for the Indian model, load the full audio as a single chunk (no zero padding).
+    if lang == "indian":
+        try:
+            from audio.streamer import load_audio
+            audio, sr = load_audio(audio_path)
+        except Exception as e:
+            raise RuntimeError(f"Failed to load audio: {e}")
+
+        if audio.size == 0:
+            return {"synthetic_probability": 0.0, "speaker_similarity": None, "label": "REAL", "alert": False}
+
+        inp = extractors[lang]([audio], sampling_rate=TARGET_SR, return_tensors="np", padding=True)
+        ort_inputs = {sessions[lang].get_inputs()[0].name: inp["input_values"]}
         logits = sessions[lang].run(None, ort_inputs)[0]
-        
-    probs = softmax(logits)
-    spoof_probs = probs[:, 1]
-    synthetic_probability = round(float(np.max(spoof_probs)), 4)
+        probs = softmax(logits)
+        synthetic_probability = round(float(probs[0, spoof_col]), 4)
+        if lang == "indian":
+            synthetic_probability = round(1.0 - float(probs[0, spoof_col]), 4)
+    else:
+        # English model: use overlapping sliding-window chunks for robust detection
+        try:
+            chunk_generator = stream_audio(
+                file_path=audio_path, window_sec=MAX_AUDIO_SECONDS,
+                overlap=0.5, pad_last=True, simulate_realtime=False
+            )
+            chunks = [chunk for chunk, sr in chunk_generator]
+        except Exception as e:
+            raise RuntimeError(f"Failed to stream audio: {e}")
+
+        if not chunks:
+            return {"synthetic_probability": 0.0, "speaker_similarity": None, "label": "REAL", "alert": False}
+
+        # English model supports dynamic batch — run all chunks in one forward pass
+        inputs = extractors[lang](chunks, sampling_rate=TARGET_SR, return_tensors="np", padding=True)
+        if isinstance(sessions[lang], str) and sessions[lang].startswith("MOCK"):
+            logits = np.random.randn(len(chunks), 2)
+        else:
+            ort_inputs = {sessions[lang].get_inputs()[0].name: inputs["input_values"]}
+            logits = sessions[lang].run(None, ort_inputs)[0]
+        probs = softmax(logits)
+        spoof_probs = probs[:, spoof_col]
+        synthetic_probability = round(float(np.max(spoof_probs)), 4)
+
     is_spoof = synthetic_probability > SPOOF_THRESHOLD
-    
+
     return {
         "synthetic_probability": synthetic_probability,
         "speaker_similarity": None,
@@ -118,7 +156,10 @@ def analyze_audio_bytes(audio_bytes: bytes, language: str = "indian") -> dict:
         logits = sessions[lang].run(None, ort_inputs)[0]
         
     probs = softmax(logits)
-    synthetic_probability = round(float(probs[0, 1]), 4)
+    spoof_col = SPOOF_CLASS_INDEX.get(lang, 1)  # Use model-specific spoof class
+    synthetic_probability = round(float(probs[0, spoof_col]), 4)
+    if lang == "indian":
+        synthetic_probability = round(1.0 - float(probs[0, spoof_col]), 4)
     is_spoof = synthetic_probability > SPOOF_THRESHOLD
     
     return {

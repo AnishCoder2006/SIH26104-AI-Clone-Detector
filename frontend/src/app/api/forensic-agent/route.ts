@@ -26,9 +26,9 @@ export async function POST(req: NextRequest) {
 
     // Determine Threat Level
     let threat_level: 'CRITICAL' | 'HIGH' | 'ELEVATED' | 'LOW' = 'LOW';
-    if (prob >= 0.75 || coherence < 0.30) {
+    if (prob >= 0.75 || (prob >= 0.50 && coherence < 0.30)) {
       threat_level = 'CRITICAL';
-    } else if (prob >= 0.50 || coherence < 0.45) {
+    } else if (prob >= 0.50 || (prob >= 0.25 && coherence < 0.45)) {
       threat_level = 'HIGH';
     } else if (prob >= 0.25) {
       threat_level = 'ELEVATED';
