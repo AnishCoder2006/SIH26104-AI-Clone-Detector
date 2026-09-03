@@ -18,7 +18,8 @@ export async function POST(req: NextRequest) {
     const body: ForensicRequest = await req.json();
     const { probability = 0, language = 'indian', telemetry = {} } = body;
 
-    const prob = Number(probability);
+    const rawProbability = Number(probability);
+    const prob = rawProbability > 1 ? rawProbability / 100 : rawProbability;
     const entropy = telemetry.spectral_entropy ?? 0.89;
     const coherence = telemetry.phase_coherence ?? 0.41;
     const mcd = telemetry.mel_cepstral_dist ?? 12.4;
@@ -26,7 +27,9 @@ export async function POST(req: NextRequest) {
 
     // Determine Threat Level
     let threat_level: 'CRITICAL' | 'HIGH' | 'ELEVATED' | 'LOW' = 'LOW';
-    if (prob >= 0.75 || (prob >= 0.50 && coherence < 0.30)) {
+    if (!Number.isFinite(prob) || prob < 0.25) {
+      threat_level = 'LOW';
+    } else if (prob >= 0.75 || (prob >= 0.50 && coherence < 0.30)) {
       threat_level = 'CRITICAL';
     } else if (prob >= 0.50 || (prob >= 0.25 && coherence < 0.45)) {
       threat_level = 'HIGH';
