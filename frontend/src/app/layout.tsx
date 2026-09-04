@@ -32,7 +32,7 @@ export default function RootLayout({
             className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80"
             style={{ backgroundImage: "url('/bg-world-map.png')" }}
           />
-          {/* Deep dark overlay gradient for text legibility & cyber aesthetic */}
+          {/* Deep dark overlay gradient for text legibility & cyber aesthetic view*/}
           <div className="absolute inset-0 bg-gradient-to-br from-[#070B14]/80 via-[#070B14]/50 to-[#070B14]/85" />
         </div>
 
