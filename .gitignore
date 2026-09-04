@@ -53,3 +53,7 @@ integration_test.py
 # Next.js
 .next/
 .env.local
+
+# md files
+phase1_team_division.md
+phase2_roadmap.md
