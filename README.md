@@ -33,7 +33,6 @@ A production-grade, enterprise-ready defense system engineered to detect and pre
 - [API Reference](#api-reference)
 - [Testing and Verification](#testing-and-verification)
 - [Deployment](#deployment)
-- [Roadmap and Governance](#roadmap-and-governance)
 
 ---
 
