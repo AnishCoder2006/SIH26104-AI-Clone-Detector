@@ -126,78 +126,45 @@ function SignupContent() {
             </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Sub-Engine 1: Neural Liveness Biometrics */}
-              <div className="rounded-xl p-4 bg-[#070B14]/90 border border-white/10 flex flex-col justify-between hover:border-[#8B5CF6]/50 transition-all">
-                {/* Visual Graphic: Neural Node Graph & Pulsing Data Bars */}
+              {/* Sub-Engine 1: Indic Regional Dialect */}
+              <div className="rounded-xl p-4 bg-[#070B14]/90 border border-white/10 flex flex-col justify-between hover:border-primary/50 transition-all">
+                {/* Visual Graphic: Exact India Map with Scanlines, VB Badge & 3-Burst Waveform */}
                 <div className="h-[140px] rounded-xl bg-[#09111E] border border-white/10 p-4 flex items-center justify-between gap-3 relative overflow-hidden mb-4">
-                  {/* Left: Glowing AI Node Graph */}
+                  {/* Left: Authentic India Map with Scanlines Texture & Center VB Emblem */}
                   <div className="relative w-28 h-28 shrink-0 flex items-center justify-center">
-                    <svg className="w-full h-full drop-shadow-[0_0_12px_rgba(139,92,246,0.4)] overflow-visible" viewBox="0 0 100 100" fill="none">
-                      {/* Background pulsing circle */}
-                      <motion.circle 
-                        cx="50" cy="50" r="35" 
-                        fill="rgba(139,92,246,0.08)"
-                        stroke="#8B5CF6" 
-                        strokeWidth="1"
-                        animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.7, 0.3] }}
-                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                      />
-                      
-                      {/* Rotating tech ring */}
-                      <motion.circle 
-                        cx="50" cy="50" r="42" 
-                        stroke="#A78BFA" 
-                        strokeWidth="1.2" 
-                        strokeDasharray="10 5 2 5"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                        style={{ originX: '50px', originY: '50px' }}
-                      />
-
-                      {/* Center node graph */}
-                      <path d="M50 26 L30 62 L70 62 Z" stroke="#8B5CF6" strokeWidth="1.5" fill="rgba(139,92,246,0.1)" strokeLinejoin="round"/>
-                      <path d="M50 50 L50 26 M50 50 L30 62 M50 50 L70 62" stroke="#C084FC" strokeWidth="1.2" strokeDasharray="3 3"/>
-                      
-                      {/* Nodes */}
-                      <circle cx="50" cy="26" r="4" fill="#C084FC" />
-                      <circle cx="30" cy="62" r="4" fill="#C084FC" />
-                      <circle cx="70" cy="62" r="4" fill="#C084FC" />
-                      <circle cx="50" cy="50" r="5" fill="#8B5CF6" className="drop-shadow-[0_0_8px_rgba(139,92,246,0.9)]" />
-                    </svg>
+                    <img src="/india-map.svg?v=2" alt="India Map" className="w-full h-full drop-shadow-[0_0_10px_rgba(0,245,160,0.35)] object-contain" />
                   </div>
 
-                  {/* Right: Pulsating AI Data Bars */}
-                  <div className="flex-1 flex flex-col justify-center gap-[7px] h-24 px-2">
-                    {[
-                      { width: '85%', color: 'from-[#8B5CF6] to-[#C084FC]', dur: 1.2 },
-                      { width: '55%', color: 'from-[#C084FC] to-[#8B5CF6]', dur: 0.9 },
-                      { width: '95%', color: 'from-[#8B5CF6] to-[#C084FC]', dur: 1.5 },
-                      { width: '40%', color: 'from-[#C084FC] to-[#8B5CF6]', dur: 1.1 },
-                      { width: '70%', color: 'from-[#8B5CF6] to-[#C084FC]', dur: 1.3 },
-                    ].map((bar, i) => (
-                      <div key={i} className="w-full h-1.5 bg-[#06121E] rounded-full overflow-hidden border border-white/5 relative">
-                        <motion.div
-                          className={`absolute top-0 bottom-0 left-0 bg-gradient-to-r ${bar.color} rounded-full`}
-                          animate={{
-                            width: ['15%', bar.width, '15%']
-                          }}
-                          transition={{
-                            duration: bar.dur,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.15
-                          }}
-                        />
-                      </div>
+                  {/* Right: Exact 3-Burst Symmetrical Soundwave with Fluid Voice Animation */}
+                  <div className="flex-1 flex items-center justify-center gap-[2px] sm:gap-[3px] h-24 px-1">
+                    {EXACT_SOUNDWAVE_PACKETS.map((bar, i) => (
+                      <motion.div
+                        key={i}
+                        className="w-[3px] sm:w-[3.5px] rounded-full bg-[#00F5A0] shadow-[0_0_6px_rgba(0,245,160,0.5)]"
+                        animate={{
+                          height: [`${bar.min}px`, `${bar.max}px`, `${bar.min}px`],
+                        }}
+                        transition={{
+                          duration: bar.dur,
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                          ease: "easeInOut",
+                          delay: (i * 0.06),
+                        }}
+                        style={{
+                          height: `${bar.base}px`,
+                          minHeight: '4px',
+                        }}
+                      />
                     ))}
                   </div>
                 </div>
 
                 <p className="text-[13px] font-sans font-semibold text-slate-200 tracking-wide text-center">
-                  Neural Liveness Biometrics
+                  Indic Regional Dialect Engine
                 </p>
                 <p className="text-[11px] font-mono text-silver/70 text-center mt-1">
-                  Deepfake Voice Scanner · 24ms
+                  AI4Bharat Wav2Vec2 · 16.0 kHz
                 </p>
               </div>
 
