@@ -334,11 +334,3 @@ docker run -d -p 8000:8000 --env-file backend/.env sih26104-clone-detector
 The repository includes a declarative `render.yaml` specification configured to deploy:
 1. Managed PostgreSQL database instance (`voiceshield-db`).
 2. FastAPI Python web service running Uvicorn with auto-configured database credentials and environment bindings.
-
----
-
-## Roadmap and Governance
-
-For details on architecture staging, modular delivery schedules, and technical milestones:
-- Phase 1 Architecture & Functional Division: [`phase1_team_division.md`](./phase1_team_division.md)
-- Phase 2 Advanced Capabilities & Scaling: [`phase2_roadmap.md`](./phase2_roadmap.md)
