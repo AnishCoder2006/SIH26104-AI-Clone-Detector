@@ -1,110 +1,344 @@
-# 🎙️ AI-Powered Real-Time Detection and Prevention of Voice Cloning Impersonation Attacks
+# AI-Powered Real-Time Detection and Prevention of Voice Cloning Impersonation Attacks
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.95%2B-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black.svg?logo=next.js)](https://nextjs.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?logo=PyTorch&logoColor=white)](https://pytorch.org/)
+[![ONNX Runtime](https://img.shields.io/badge/ONNX-Runtime-blue.svg)](https://onnxruntime.ai/)
 
-> **SIH26104** – Phase 1 Minimum Viable Product (MVP)
+**Smart India Hackathon (SIH26104)**
 
-Welcome to the official repository for our AI-Powered Voice Cloning Detection system. This project aims to provide real-time, robust detection and prevention mechanisms against sophisticated audio spoofing and voice cloning impersonation attacks.
+A production-grade, enterprise-ready defense system engineered to detect and prevent unauthorized voice cloning, deepfake audio impersonation, and synthetic voice fraud in real time.
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
-- [Overview](#-overview)
-- [Project Architecture](#-project-architecture)
-- [Key Features](#-key-features)
-- [Getting Started](#-getting-started)
+- [Executive Summary](#executive-summary)
+- [System Architecture](#system-architecture)
+- [Core Capabilities and Features](#core-capabilities-and-features)
+  - [Dual-Engine Neural Inference](#1-dual-engine-neural-inference)
+  - [Acoustic Forensic Telemetry](#2-acoustic-forensic-telemetry)
+  - [Context-Aware Composite Risk Engine](#3-context-aware-composite-risk-engine)
+  - [Explainable AI (XAI) Forensic Agent](#4-explainable-ai-xai-forensic-agent)
+  - [Privacy-Preserving In-Memory Stream Processing](#5-privacy-preserving-in-memory-stream-processing)
+  - [Enterprise Security and Authentication](#6-enterprise-security-and-authentication)
+- [Repository Structure](#repository-structure)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Testing](#-testing)
-- [Documentation](#-documentation)
+  - [Environment Configuration](#environment-configuration)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
+- [API Reference](#api-reference)
+- [Testing and Verification](#testing-and-verification)
+- [Deployment](#deployment)
+- [Roadmap and Governance](#roadmap-and-governance)
 
 ---
 
-## 📖 Overview
+## Executive Summary
 
-With the rapid advancement of generative AI, malicious actors can easily synthesize realistic audio to impersonate individuals. This project leverages state-of-the-art machine learning models (such as `wav2vec2`) to analyze audio signals in real-time, extracting acoustic features to accurately classify whether a voice is human or AI-generated.
+The proliferation of generative deep learning models and neural text-to-speech (TTS) vocoders has made zero-shot voice cloning accessible to threat actors. These technologies are increasingly weaponized for CEO fraud, financial authorization bypass, social engineering, and unauthorized voice biometrics impersonation.
 
----
-
-## 🏗️ Project Architecture
-
-The repository is modularized into three primary layers to ensure scalability and separation of concerns:
-
-- **`/frontend`** (UI Layer)
-  - Built with **Next.js**, **React**, and **TailwindCSS**.
-  - Provides an intuitive interface for users to upload audio files or stream audio and view real-time risk assessments and alerts.
-- **`/backend`** (API & Audio Processing Layer)
-  - Built with **FastAPI** (and Flask compatibility).
-  - Handles real-time audio streaming, chunking, and risk analysis using libraries like `librosa` and `soundfile`.
-- **`/ml_pipeline`** (Machine Learning Layer)
-  - Built with **PyTorch** and **Hugging Face Transformers**.
-  - Contains scripts for dataset preparation, training, evaluation, and inference using our anti-spoofing models.
+This platform provides an end-to-end detection and mitigation pipeline. By fusing transformer-based foundation models (`wav2vec2`) optimized via ONNX Runtime with physical acoustic telemetry (phase coherence, spectral flux, pitch variance, and signal clipping) and transactional contextual signals, the system evaluates incoming voice interactions with low latency and high discriminative accuracy.
 
 ---
 
-## ✨ Key Features
+## System Architecture
 
-- **Real-Time Analysis**: Stream audio and receive instantaneous spoofing risk scores.
-- **Advanced ML Models**: Utilizes transformer-based acoustic models optimized for deepfake detection.
-- **Scalable API**: High-performance RESTful endpoints powered by FastAPI.
-- **Modern Dashboard**: A responsive web interface for seamless monitoring and alert management.
+The platform follows a decoupled, three-tier microservices architecture:
+
+```
++-------------------------------------------------------------------------+
+|                              Client Layer                               |
+|   Next.js 14 Dashboard • Media Capture • Radial Telemetry • XAI View    |
++-------------------------------------------------------------------------+
+                                     |
+                             REST / HTTPS / WSS
+                                     |
+                                     v
++-------------------------------------------------------------------------+
+|                          Application API Layer                          |
+|   FastAPI • JWT Security • PostgreSQL ORM • Audio Decoder & Streamer   |
++-------------------------------------------------------------------------+
+                     |                               |
+                     v                               v
++------------------------------------+  +---------------------------------+
+|        Acoustic Telemetry          |  |       Neural ONNX Engine        |
+|  - SNR & Clipping Analysis         |  |  - Indic Wav2Vec2 Model         |
+|  - Phase Coherence & Pitch Var     |  |  - English / ASVspoof Model     |
+|  - Spectral Entropy & Energy       |  |  - Vectorized Feature Extract   |
++------------------------------------+  +---------------------------------+
+                     \                               /
+                      \                             /
+                       v                           v
++-------------------------------------------------------------------------+
+|                    Composite Multi-Signal Risk Engine                   |
+|   Calculates Risk Score (0-100) • Generates Policy Enforcement Action   |
++-------------------------------------------------------------------------+
+```
 
 ---
 
-## 🚀 Getting Started
+## Core Capabilities and Features
 
-Please refer to the specific `README.md` files located in each sub-directory (`/frontend`, `/backend`, `/ml_pipeline`) for detailed, component-specific setup instructions. 
+### 1. Dual-Engine Neural Inference
+- **English Foundation Model**: Fine-tuned on ASVspoof benchmarks using `wav2vec2` feature representations to identify synthetic artifacts generated by modern neural vocoders (e.g., HiFi-GAN, WaveGlow, Tacotron).
+- **Indic Regional Model**: Dedicated model architecture tailored to Indian accents, phonetic cadences, and multilingual conversational patterns, overcoming acoustic domain shift commonly found in Western-trained models.
+- **Optimized ONNX Runtime Execution**: Inference graphs compiled to ONNX format with quantized execution support, reducing CPU latency to sub-second response times without requiring dedicated GPU clusters.
+
+### 2. Acoustic Forensic Telemetry
+In addition to neural classifications, the audio processing module extracts physical acoustic telemetry:
+- **Signal-to-Noise Ratio (SNR in dB)**: Percentile-based floor estimation detecting deliberate noise injection used to mask vocoder artifacts.
+- **Digital Clipping Percentage**: Pinpoints abnormal gain amplification and saturation introduced during synthetic voice stitching.
+- **Root Mean Square (RMS) Energy**: Quantifies energy envelope dynamics across active speech frames.
+- **Spectral Centroid & Zero Crossing Rate (ZCR)**: Measures high-frequency tilt and voiceless-to-voiced transition characteristics.
+- **Phase Incoherence & Pitch Variance**: Tracks micro-prosodic tremors and synthetic pitch flatness characteristic of algorithmic generation.
+
+### 3. Context-Aware Composite Risk Engine
+Audio signals are not evaluated in isolation. The risk engine generates a composite score (0 to 100) combining multiple threat vectors:
+- **Synthetic Voice Probability Weight** (up to 55 points): Primary classification score from the deep learning model.
+- **Speaker Similarity Variance** (up to 15 points): Cross-verification against baseline biometric voice prints.
+- **Identity & Contact History** (up to 5 points): Verifies whether the incoming call originates from a recognized contact.
+- **Financial Transaction Exposure** (up to 10 points): Risk escalations based on tiered transactional value thresholds.
+- **Acoustic Anomaly Penalties** (up to 15 points): Penalties triggered by abnormal SNR degradation (<15 dB) or excessive clipping (>1%).
+- **Automated Policy Matrix**:
+  - **LOW (0 - 39)**: Proceed normally.
+  - **MEDIUM (40 - 69)**: Stepped-up multi-factor biometric authentication required.
+  - **HIGH / CRITICAL (70 - 100)**: Immediate transaction freeze, automated alert dispatch, and secondary out-of-band verification required.
+
+### 4. Explainable AI (XAI) Forensic Agent
+- Provides human-readable, auditable diagnostic tags detailing why a sample was flagged (e.g., "Neural Vocoder Artifacts", "Phase Incoherence Jitter", "High-Frequency Spectral Smearing", "Synthetic Pitch Flatness").
+- Delivers operational insights and actionable remediation instructions for compliance and security operations teams.
+
+### 5. Privacy-Preserving In-Memory Stream Processing
+- Real-time chunk extraction (16.0 kHz mono) processed strictly in-memory.
+- In-place buffer zeroing and explicit memory deallocation guarantee that raw audio records are securely discarded post-analysis, ensuring compliance with data privacy mandates.
+
+### 6. Enterprise Security and Authentication
+- Secure user registration and authentication backed by JSON Web Tokens (JWT) and salted bcrypt password hashing.
+- Role-scoped session handling and database persistence using PostgreSQL and SQLAlchemy ORM.
+- Restrictive Cross-Origin Resource Sharing (CORS) enforcement.
+
+---
+
+## Repository Structure
+
+```
+SIH26104-AI-Clone-Detector/
+|-- backend/
+|   |-- api/
+|   |   |-- auth.py               # JWT token issuing and password cryptography
+|   |   |-- schemas.py            # Pydantic validation models
+|   |-- audio/
+|   |   |-- streamer.py           # Audio chunking and streaming processor
+|   |-- db/
+|   |   |-- database.py           # Database connection and session management
+|   |   |-- models.py             # SQLAlchemy database entities
+|   |-- ml/
+|   |   |-- forensic_telemetry.py # Signal processing & telemetry extraction
+|   |   |-- inference.py          # PyTorch inference routines
+|   |   |-- onnx_inference.py     # Dual-engine ONNX runtime loader
+|   |-- risk/
+|   |   |-- risk_engine.py        # Multi-factor scoring logic and policies
+|   |-- main.py                   # FastAPI application entrypoint
+|   `-- requirements.txt          # Backend dependencies
+|-- frontend/
+|   |-- src/
+|   |   |-- app/
+|   |   |   |-- api/forensic-agent/route.ts # Next.js forensic analysis agent
+|   |   |   |-- dashboard/                  # Dashboard views (Indic and English)
+|   |   |   |-- signin/                     # Authentication views
+|   |   |   `-- signup/
+|   |   |-- components/
+|   |   |   |-- DashboardClient.tsx         # Unified dashboard state manager
+|   |   |   |-- MediaInput.tsx              # Audio recorder and file ingestion
+|   |   |   |-- RadialGauge.tsx             # Risk visualization component
+|   |   |   `-- RiskAnalysisPanel.tsx       # Telemetry breakdown and reports
+|   |   `-- lib/                            # API client helpers and utilities
+|   `-- package.json
+|-- ml_pipeline/
+|   |-- data/                     # Dataset preprocessing pipelines
+|   |-- models/                   # Model definition and checkpoint storage
+|   `-- requirements.txt          # Training and model evaluation dependencies
+|-- tests/                        # Comprehensive automated test suites
+|-- Dockerfile                    # Containerization specification
+|-- docker-entrypoint.sh          # Container runtime orchestration
+|-- render.yaml                   # Infrastructure-as-code cloud blueprint
+`-- feature_extractor.py          # Acoustic feature extraction utilities
+```
+
+---
+
+## Technology Stack
+
+- **Machine Learning**: PyTorch, Hugging Face Transformers (`wav2vec2`), ONNX Runtime, NumPy, SciPy
+- **Signal Processing**: Librosa, SoundFile, Spafe (LFCC, MFCC extraction)
+- **Backend Service**: FastAPI, Uvicorn (ASGI), SQLAlchemy, Pydantic, Python-Jose (JWT), Passlib (Bcrypt)
+- **Database**: PostgreSQL
+- **Frontend Application**: Next.js 14 (App Router), React 18, TypeScript, TailwindCSS, Framer Motion, Lucide React
+- **DevOps & Testing**: Docker, Render Blueprint, Pytest, Pytest-Asyncio
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
-- **Python 3.8+**
-- **Node.js 18+** (for Frontend)
-- **pip** and **npm** package managers
+- Python 3.10 or higher
+- Node.js 18.x or higher
+- npm 9.x or higher
+- PostgreSQL instance (local or hosted)
 
-### Installation
+### Environment Configuration
 
-Because the Machine Learning pipeline and the Backend API have distinct dependency footprints, the project utilizes **two separate requirements files**:
+Create a `.env` file inside the `backend/` directory based on `backend/.env.example`:
 
-1. **`backend/requirements.txt`**: API server and audio streaming dependencies (`fastapi`, `uvicorn`, `librosa`, `soundfile`, `numpy`).
-2. **`ml_pipeline/requirements.txt`**: Model training and inference dependencies (`torch`, `torchaudio`, `transformers`).
-
-**Important**: When setting up the Python environment for the first time, you must install **both** sets of dependencies to ensure all imports resolve correctly across the codebase.
-
-```bash
-# Clone the repository
-git clone https://github.com/AnishCoder2006/SIH26104-AI-Clone-Detector.git
-cd SIH26104-AI-Clone-Detector
-
-# Create a virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-
-# Install all backend and ML dependencies
-pip install -r backend/requirements.txt -r ml_pipeline/requirements.txt
+```env
+DATABASE_URL=postgresql://postgres:password@localhost:5432/voiceshield_db
+JWT_SECRET_KEY=your_secure_random_secret_key_here
+ALLOW_ALL_CORS=true
+FRONTEND_URL=http://localhost:3000
 ```
 
-> ⚠️ **Warning**: If you only install one requirements file, cross-module imports will fail. For example, running the audio module without ML dependencies or running the model without `librosa`/`fastapi` will throw `ImportError`.
+### Backend Setup
+
+1. Create and activate a Python virtual environment:
+   ```bash
+   python -m venv venv
+   # On Linux/macOS:
+   source venv/bin/activate
+   # On Windows (Command Prompt):
+   venv\Scripts\activate.bat
+   # On Windows (PowerShell):
+   venv\Scripts\Activate.ps1
+   ```
+
+2. Install both backend and machine learning dependencies:
+   ```bash
+   pip install -r backend/requirements.txt -r ml_pipeline/requirements.txt
+   ```
+
+3. Launch the FastAPI backend server:
+   ```bash
+   cd backend
+   uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+
+The API service will be accessible at `http://localhost:8000`. Interactive OpenAPI documentation is available at `http://localhost:8000/docs`.
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install node dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Configure environment variables (create `.env.local` in `frontend/`):
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:8000
+   ```
+
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+The client application will run at `http://localhost:3000`.
 
 ---
 
-## 🧪 Testing
+## API Reference
 
-We use `pytest` for executing our test suite. Ensure you have installed all dependencies before running the tests.
+### Health and Status
+- `GET /`: Verifies backend operational status.
 
-To run the full test suite from the root directory:
+### Authentication
+- `POST /signup`: Register a new operator account.
+  - Body: `{ "full_name": "string", "email": "user@domain.com", "password": "securepassword" }`
+- `POST /signin`: Authenticate credentials and receive Bearer JWT.
+  - Body: `{ "email": "user@domain.com", "password": "securepassword" }`
+  - Response: `{ "access_token": "token_string", "token_type": "bearer" }`
+
+### Voice Analysis
+- `POST /analyze-audio`: Comprehensive voice verification and risk evaluation.
+  - Authorization: `Bearer <JWT_TOKEN>`
+  - Content-Type: `multipart/form-data`
+  - Parameters:
+    - `file`: Audio binary (`.wav`, `.mp3`, `.ogg`, `.webm`, `.flac`, `.m4a`)
+    - `transaction_value`: Float representing monetary exposure
+    - `known_contact`: Boolean indicating verified caller history
+  - Response Model:
+    ```json
+    {
+      "risk_score": 78.4,
+      "risk_level": "HIGH",
+      "alert": true,
+      "recommendation": "Block transaction & require out-of-band secondary verification",
+      "synthetic_probability": 0.88,
+      "metrics": {
+        "synthetic_voice_probability": 88.0,
+        "snr_db": 11.2,
+        "clipping_percent": 1.4,
+        "rms_energy": 0.084,
+        "spectral_centroid_hz": 2340.5,
+        "zero_crossing_rate": 0.098
+      }
+    }
+    ```
+
+---
+
+## Testing and Verification
+
+The repository contains automated unit and integration tests covering feature extraction, audio streaming, risk calculation, and endpoint contracts.
+
+To execute the test suite:
 
 ```bash
+# From the project root
 PYTHONPATH=. pytest tests/ -v
 ```
 
+To run individual module verifications:
+```bash
+python integration_test.py
+python backend/test_models.py
+python backend/test_indic_chunks.py
+```
+
 ---
 
-## 📚 Documentation
+## Deployment
 
-For deeper insights into the project's roadmap and team coordination, check out our internal documentation:
-- [`phase1_team_division.md`](./phase1_team_division.md)
-- [`phase2_roadmap.md`](./phase2_roadmap.md)
+### Docker Deployment
+
+Build and run the unified container:
+
+```bash
+# Build Docker image
+docker build -t sih26104-clone-detector .
+
+# Run container
+docker run -d -p 8000:8000 --env-file backend/.env sih26104-clone-detector
+```
+
+### Render Blueprint Deployment
+
+The repository includes a declarative `render.yaml` specification configured to deploy:
+1. Managed PostgreSQL database instance (`voiceshield-db`).
+2. FastAPI Python web service running Uvicorn with auto-configured database credentials and environment bindings.
+
+---
+
+## Roadmap and Governance
+
+For details on architecture staging, modular delivery schedules, and technical milestones:
+- Phase 1 Architecture & Functional Division: [`phase1_team_division.md`](./phase1_team_division.md)
+- Phase 2 Advanced Capabilities & Scaling: [`phase2_roadmap.md`](./phase2_roadmap.md)
